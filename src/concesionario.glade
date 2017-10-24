@@ -8,6 +8,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir coche</property>
     <property name="resizable">False</property>
+    <property name="icon">coche.ico</property>
     <child>
       <object class="GtkFixed" id="fixed5">
         <property name="visible">True</property>
@@ -262,12 +263,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_cancelar_add_coche">
-            <property name="label" translatable="yes">Cancelar</property>
+            <property name="label" translatable="yes">_Cancelar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_cancelar_add_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -277,12 +279,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_aceptar_add_coche">
-            <property name="label" translatable="yes">Aceptar</property>
+            <property name="label" translatable="yes">_Aceptar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_aceptar_add_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -298,6 +301,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir revisión</property>
     <property name="resizable">False</property>
+    <property name="icon">herramientas.ico</property>
     <child>
       <object class="GtkVBox" id="vbox2">
         <property name="visible">True</property>
@@ -533,12 +537,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cancelar_add_revision">
-                <property name="label" translatable="yes">Cancelar</property>
+                <property name="label" translatable="yes">_Cancelar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_add_revision_clicked" swapped="no"/>
               </object>
               <packing>
@@ -548,12 +553,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_aceptar_add_revision">
-                <property name="label" translatable="yes">Aceptar</property>
+                <property name="label" translatable="yes">_Aceptar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_add_revision_clicked" swapped="no"/>
               </object>
               <packing>
@@ -577,6 +583,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir venta</property>
     <property name="resizable">False</property>
+    <property name="icon">factura.ico</property>
     <child>
       <object class="GtkVBox" id="vbox5">
         <property name="visible">True</property>
@@ -941,12 +948,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cancelar_add_venta">
-                <property name="label" translatable="yes">Cancelar</property>
+                <property name="label" translatable="yes">_Cancelar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_add_venta_clicked" swapped="no"/>
               </object>
               <packing>
@@ -956,12 +964,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_aceptar_add_venta">
-                <property name="label" translatable="yes">Aceptar</property>
+                <property name="label" translatable="yes">_Aceptar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_add_venta_clicked" swapped="no"/>
               </object>
               <packing>
@@ -1008,19 +1017,21 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkFixed" id="fixed15">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
           <object class="GtkButton" id="btn_nuevo_cliente">
-            <property name="label" translatable="yes">Nuevo Cliente</property>
+            <property name="label" translatable="yes">_Nuevo Cliente</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Añade un nuevo cliente</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_nuevo_cliente_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1072,13 +1083,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_buscar_cliente1">
-            <property name="label" translatable="yes">Buscar</property>
+            <property name="label" translatable="yes">_Buscar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un cliente con una palabra clave</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_buscar_cliente1_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1088,13 +1100,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_seleccionar_cliente1">
-            <property name="label" translatable="yes">Cargar Cliente</property>
+            <property name="label" translatable="yes">_Cargar Cliente</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Carga los datos del cliente seleccionado</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_seleccionar_cliente1_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1152,6 +1165,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkFixed" id="fixed21">
         <property name="visible">True</property>
@@ -1189,13 +1203,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_buscar_cliente2">
-            <property name="label" translatable="yes">Buscar</property>
+            <property name="label" translatable="yes">_Buscar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un cliente con una palabra clave</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_buscar_cliente2_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1205,13 +1220,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_seleccionar_cliente2">
-            <property name="label" translatable="yes">Cargar Cliente</property>
+            <property name="label" translatable="yes">_Cargar Cliente</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Carga los datos del cliente seleccionado</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_seleccionar_cliente2_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1281,6 +1297,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar coche</property>
     <property name="resizable">False</property>
+    <property name="icon">coche.ico</property>
     <child>
       <object class="GtkFixed" id="fixed22">
         <property name="visible">True</property>
@@ -1318,13 +1335,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_buscar_coche">
-            <property name="label" translatable="yes">Buscar</property>
+            <property name="label" translatable="yes">_Buscar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un coche con una palabra clave</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_buscar_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1334,13 +1352,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_seleccionar_coche">
-            <property name="label" translatable="yes">Cargar Coche</property>
+            <property name="label" translatable="yes">_Cargar Coche</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Carga los datos del coche seleccionado</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_seleccionar_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -1409,6 +1428,7 @@
   <object class="GtkMessageDialog" id="message_mod_venta">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="icon">warning.ico</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="message_type">question</property>
@@ -1426,10 +1446,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="btn_mod_cliente">
-                <property name="label" translatable="yes">Cliente</property>
+                <property name="label" translatable="yes">_Cliente</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_mod_cliente_clicked" swapped="no"/>
               </object>
               <packing>
@@ -1440,10 +1461,11 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_mod_coche">
-                <property name="label" translatable="yes">Coche</property>
+                <property name="label" translatable="yes">C_oche</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_mod_coche_clicked" swapped="no"/>
               </object>
               <packing>
@@ -1469,6 +1491,7 @@
   <object class="GtkMessageDialog" id="messagedialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="icon">warning.ico</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <child internal-child="vbox">
@@ -1483,10 +1506,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button7">
-                <property name="label" translatable="yes">Aceptar</property>
+                <property name="label" translatable="yes">_Aceptar</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1496,10 +1520,11 @@
             </child>
             <child>
               <object class="GtkButton" id="button8">
-                <property name="label" translatable="yes">Cancelar</property>
+                <property name="label" translatable="yes">_Cancelar</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1522,11 +1547,12 @@
     </action-widgets>
   </object>
   <object class="GtkWindow" id="mod_cliente">
-    <property name="width_request">344</property>
+    <property name="width_request">328</property>
     <property name="height_request">228</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar cliente</property>
     <property name="resizable">False</property>
+    <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkVBox" id="vbox6">
         <property name="visible">True</property>
@@ -1709,31 +1735,33 @@
             <property name="can_focus">False</property>
             <child>
               <object class="GtkButton" id="btn_cancelar_mod_cliente">
-                <property name="label" translatable="yes">Cancelar</property>
+                <property name="label" translatable="yes">_Cancelar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_mod_cliente_clicked" swapped="no"/>
               </object>
               <packing>
-                <property name="x">236</property>
+                <property name="x">220</property>
                 <property name="y">16</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="btn_aceptar_mod_cliente">
-                <property name="label" translatable="yes">Aceptar</property>
+                <property name="label" translatable="yes">_Aceptar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_mod_cliente_clicked" swapped="no"/>
               </object>
               <packing>
-                <property name="x">128</property>
+                <property name="x">112</property>
                 <property name="y">16</property>
               </packing>
             </child>
@@ -1753,6 +1781,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar coche</property>
     <property name="resizable">False</property>
+    <property name="icon">coche.ico</property>
     <child>
       <object class="GtkFixed" id="fixed6">
         <property name="visible">True</property>
@@ -2016,12 +2045,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_cancelar_mod_coche">
-            <property name="label" translatable="yes">Cancelar</property>
+            <property name="label" translatable="yes">_Cancelar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_cancelar_mod_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -2031,12 +2061,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_aceptar_mod_coche">
-            <property name="label" translatable="yes">Aceptar</property>
+            <property name="label" translatable="yes">_Aceptar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_aceptar_mod_coche_clicked" swapped="no"/>
           </object>
           <packing>
@@ -2052,6 +2083,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar revisión</property>
     <property name="resizable">False</property>
+    <property name="icon">herramientas.ico</property>
     <child>
       <object class="GtkVBox" id="vbox3">
         <property name="visible">True</property>
@@ -2287,12 +2319,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_cancelar_mod_revision">
-                <property name="label" translatable="yes">Cancelar</property>
+                <property name="label" translatable="yes">_Cancelar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_mod_revision_clicked" swapped="no"/>
               </object>
               <packing>
@@ -2302,12 +2335,13 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_aceptar_mod_revision">
-                <property name="label" translatable="yes">Aceptar</property>
+                <property name="label" translatable="yes">_Aceptar</property>
                 <property name="width_request">100</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_mod_revision_clicked" swapped="no"/>
               </object>
               <packing>
@@ -2331,6 +2365,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar venta</property>
     <property name="resizable">False</property>
+    <property name="icon">factura.ico</property>
     <child>
       <object class="GtkFixed" id="fixed23">
         <property name="visible">True</property>
@@ -2467,12 +2502,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_cancelar_add_coche1">
-            <property name="label" translatable="yes">Cancelar</property>
+            <property name="label" translatable="yes">_Cancelar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="x">172</property>
@@ -2481,12 +2517,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_aceptar_add_coche1">
-            <property name="label" translatable="yes">Aceptar</property>
+            <property name="label" translatable="yes">_Aceptar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="x">64</property>
@@ -2508,13 +2545,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_buscar_dni">
-            <property name="label" translatable="yes">Buscar</property>
+            <property name="label" translatable="yes">Buscar cli_ente</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un cliente de la lista</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="x">136</property>
@@ -2523,13 +2561,14 @@
         </child>
         <child>
           <object class="GtkButton" id="btn_buscar_bastidor">
-            <property name="label" translatable="yes">Buscar</property>
+            <property name="label" translatable="yes">Buscar c_oche</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un coche de la lista</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="x">136</property>
@@ -2571,6 +2610,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Concesionario</property>
     <property name="resizable">False</property>
+    <property name="icon">coche.ico</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -2723,13 +2763,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_buscar_coche_main">
-                    <property name="label" translatable="yes">Buscar</property>
+                    <property name="label" translatable="yes">_Buscar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Busque un determinado coche con una palabra clave</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_buscar_coche_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -2757,13 +2798,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_add_venta_main">
-                    <property name="label" translatable="yes">Venta</property>
+                    <property name="label" translatable="yes">_Venta</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Hace una venta nueva del coche seleccionado en la tabla</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_add_venta_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -2773,13 +2815,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_add_revision_main">
-                    <property name="label" translatable="yes">Revisión</property>
+                    <property name="label" translatable="yes">_Revisión</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Hace una revisión nueva del coche seleccionado en la tabla</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_add_revision_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -2789,30 +2832,15 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_mod_coche_main">
-                    <property name="label" translatable="yes">Modificar</property>
+                    <property name="label" translatable="yes">_Modificar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Modifica el coche seleccionado en la tabla</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_mod_coche_main_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="x">598</property>
-                    <property name="y">396</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="btn_del_coche_main">
-                    <property name="label" translatable="yes">Eliminar</property>
-                    <property name="width_request">100</property>
-                    <property name="height_request">24</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Elimina el coche seleccionado en la tabla</property>
-                    <signal name="clicked" handler="on_btn_del_coche_main_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="x">490</property>
@@ -2820,14 +2848,32 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkButton" id="btn_del_coche_main">
+                    <property name="label" translatable="yes">_Eliminar</property>
+                    <property name="width_request">100</property>
+                    <property name="height_request">24</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Elimina el coche seleccionado en la tabla</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="on_btn_del_coche_main_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="x">598</property>
+                    <property name="y">396</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkButton" id="btn_add_coche_main">
-                    <property name="label" translatable="yes">Nuevo</property>
+                    <property name="label" translatable="yes">_Nuevo</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Añade un coche nuevo</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_add_coche_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3179,13 +3225,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_del_revision_main">
-                    <property name="label" translatable="yes">Eliminar</property>
+                    <property name="label" translatable="yes">_Eliminar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Elimina la revisión seleccionada en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_del_revision_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3195,13 +3242,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_mod_revision_main">
-                    <property name="label" translatable="yes">Modificar</property>
+                    <property name="label" translatable="yes">_Modificar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Modifica la revisión seleccionada en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_mod_revision_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3431,13 +3479,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_del_venta_main">
-                    <property name="label" translatable="yes">Eliminar</property>
+                    <property name="label" translatable="yes">_Eliminar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Elimina la venta seleccionada en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_del_venta_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3447,13 +3496,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_mod_venta_main">
-                    <property name="label" translatable="yes">Modificar</property>
+                    <property name="label" translatable="yes">_Modificar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Modifica la venta seleccionada en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_mod_venta_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3657,13 +3707,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_del_clientes_main">
-                    <property name="label" translatable="yes">Eliminar</property>
+                    <property name="label" translatable="yes">_Eliminar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Elimina el cliente seleccionado en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_del_clientes_main_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3673,13 +3724,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_mod_clientes_main">
-                    <property name="label" translatable="yes">Modificar</property>
+                    <property name="label" translatable="yes">_Modificar</property>
                     <property name="width_request">100</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Modifica el cliente seleccionado en la lista</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btn_mod_clientes_main_clicked" swapped="no"/>
                   </object>
                   <packing>
