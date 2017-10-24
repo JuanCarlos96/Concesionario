@@ -3,6 +3,8 @@
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="add_coche">
+    <property name="width_request">280</property>
+    <property name="height_request">312</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir coche</property>
     <property name="resizable">False</property>
@@ -292,8 +294,9 @@
     </child>
   </object>
   <object class="GtkWindow" id="add_revision">
+    <property name="height_request">290</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Modificar revisión</property>
+    <property name="title" translatable="yes">Añadir revisión</property>
     <property name="resizable">False</property>
     <child>
       <object class="GtkVBox" id="vbox2">
@@ -569,6 +572,8 @@
     </child>
   </object>
   <object class="GtkWindow" id="add_venta">
+    <property name="width_request">344</property>
+    <property name="height_request">432</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir venta</property>
     <property name="resizable">False</property>
@@ -998,7 +1003,11 @@
     </columns>
   </object>
   <object class="GtkWindow" id="buscar_cliente_add_venta">
+    <property name="width_request">456</property>
+    <property name="height_request">234</property>
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Seleccionar cliente</property>
+    <property name="resizable">False</property>
     <child>
       <object class="GtkFixed" id="fixed15">
         <property name="visible">True</property>
@@ -1017,37 +1026,6 @@
           <packing>
             <property name="x">8</property>
             <property name="y">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkTreeView" id="treeview5">
-            <property name="width_request">440</property>
-            <property name="height_request">150</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="model">clientes</property>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_dni_cliente1">
-                <property name="title" translatable="yes">DNI</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_apellidos_cliente1">
-                <property name="title" translatable="yes">Apellidos</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_nombre_cliente1">
-                <property name="title" translatable="yes">Nombre</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">8</property>
-            <property name="y">40</property>
           </packing>
         </child>
         <child>
@@ -1124,40 +1102,39 @@
             <property name="y">202</property>
           </packing>
         </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="buscar_cliente_mod_venta">
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkFixed" id="fixed21">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <child>
-          <object class="GtkTreeView" id="treeview6">
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="width_request">440</property>
             <property name="height_request">150</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="model">clientes</property>
-            <property name="headers_clickable">False</property>
-            <property name="search_column">0</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
             <child>
-              <object class="GtkTreeViewColumn" id="col_dni_cliente2">
-                <property name="title" translatable="yes">DNI</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_apellidos_cliente2">
-                <property name="title" translatable="yes">Apellidos</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_nombre_cliente2">
-                <property name="title" translatable="yes">Nombre</property>
-                <property name="expand">True</property>
+              <object class="GtkTreeView" id="treeview5">
+                <property name="width_request">440</property>
+                <property name="height_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">clientes</property>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_dni_cliente1">
+                    <property name="title" translatable="yes">DNI</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_apellidos_cliente1">
+                    <property name="title" translatable="yes">Apellidos</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_nombre_cliente1">
+                    <property name="title" translatable="yes">Nombre</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -1166,6 +1143,19 @@
             <property name="y">40</property>
           </packing>
         </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="buscar_cliente_mod_venta">
+    <property name="width_request">456</property>
+    <property name="height_request">234</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Seleccionar cliente</property>
+    <property name="resizable">False</property>
+    <child>
+      <object class="GtkFixed" id="fixed21">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <child>
           <object class="GtkComboBox" id="combo_cliente2">
             <property name="width_request">100</property>
@@ -1229,6 +1219,49 @@
             <property name="y">202</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow2">
+            <property name="width_request">440</property>
+            <property name="height_request">150</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <child>
+              <object class="GtkTreeView" id="treeview6">
+                <property name="width_request">440</property>
+                <property name="height_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">clientes</property>
+                <property name="headers_clickable">False</property>
+                <property name="search_column">0</property>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_dni_cliente2">
+                    <property name="title" translatable="yes">DNI</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_apellidos_cliente2">
+                    <property name="title" translatable="yes">Apellidos</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_nombre_cliente2">
+                    <property name="title" translatable="yes">Nombre</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">8</property>
+            <property name="y">40</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
@@ -1243,44 +1276,15 @@
     </columns>
   </object>
   <object class="GtkWindow" id="buscar_coche_mod_venta">
+    <property name="width_request">456</property>
+    <property name="height_request">234</property>
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Seleccionar coche</property>
+    <property name="resizable">False</property>
     <child>
       <object class="GtkFixed" id="fixed22">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <child>
-          <object class="GtkTreeView" id="treeview7">
-            <property name="width_request">440</property>
-            <property name="height_request">150</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="model">coches</property>
-            <property name="headers_clickable">False</property>
-            <property name="search_column">0</property>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_bastidor_coche">
-                <property name="title" translatable="yes">Bastidor</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_marca_coche">
-                <property name="title" translatable="yes">Marca</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="col_modelo_coche">
-                <property name="title" translatable="yes">Modelo</property>
-                <property name="expand">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">8</property>
-            <property name="y">40</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkComboBox" id="combo_cochea">
             <property name="width_request">100</property>
@@ -1342,6 +1346,49 @@
           <packing>
             <property name="x">348</property>
             <property name="y">202</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow3">
+            <property name="width_request">440</property>
+            <property name="height_request">150</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <child>
+              <object class="GtkTreeView" id="treeview7">
+                <property name="width_request">440</property>
+                <property name="height_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">coches</property>
+                <property name="headers_clickable">False</property>
+                <property name="search_column">0</property>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_bastidor_coche">
+                    <property name="title" translatable="yes">Bastidor</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_marca_coche">
+                    <property name="title" translatable="yes">Marca</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="col_modelo_coche">
+                    <property name="title" translatable="yes">Modelo</property>
+                    <property name="expand">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">8</property>
+            <property name="y">40</property>
           </packing>
         </child>
       </object>
@@ -1475,200 +1522,179 @@
     </action-widgets>
   </object>
   <object class="GtkWindow" id="mod_cliente">
+    <property name="width_request">344</property>
+    <property name="height_request">228</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Añadir venta</property>
+    <property name="title" translatable="yes">Modificar cliente</property>
     <property name="resizable">False</property>
     <child>
       <object class="GtkVBox" id="vbox6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkFrame" id="frame7">
+          <object class="GtkFixed" id="fixed19">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
             <child>
-              <object class="GtkAlignment" id="alignment7">
+              <object class="GtkLabel" id="label104">
+                <property name="width_request">140</property>
+                <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="left_padding">12</property>
-                <child>
-                  <object class="GtkFixed" id="fixed19">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkLabel" id="label104">
-                        <property name="width_request">140</property>
-                        <property name="height_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">NOMBRE</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="txt_nombre_mod_cliente">
-                        <property name="width_request">140</property>
-                        <property name="height_request">24</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">36</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label105">
-                        <property name="width_request">140</property>
-                        <property name="height_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">DNI</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">68</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="txt_dni_mod_cliente">
-                        <property name="width_request">140</property>
-                        <property name="height_request">24</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="editable">False</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">96</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label106">
-                        <property name="width_request">140</property>
-                        <property name="height_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">APELLIDOS</property>
-                      </object>
-                      <packing>
-                        <property name="x">180</property>
-                        <property name="y">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="txt_apellidos_mod_cliente">
-                        <property name="width_request">140</property>
-                        <property name="height_request">24</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                      </object>
-                      <packing>
-                        <property name="x">180</property>
-                        <property name="y">36</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label107">
-                        <property name="width_request">140</property>
-                        <property name="height_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">TELÉFONO</property>
-                      </object>
-                      <packing>
-                        <property name="x">180</property>
-                        <property name="y">68</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="txt_telefono_mod_cliente">
-                        <property name="width_request">140</property>
-                        <property name="height_request">24</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                      </object>
-                      <packing>
-                        <property name="x">180</property>
-                        <property name="y">96</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label108">
-                        <property name="width_request">140</property>
-                        <property name="height_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">DIRECCIÓN</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">128</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="txt_direccion_mod_cliente">
-                        <property name="width_request">312</property>
-                        <property name="height_request">24</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                      </object>
-                      <packing>
-                        <property name="x">8</property>
-                        <property name="y">156</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">NOMBRE</property>
               </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">8</property>
+              </packing>
             </child>
-            <child type="label">
-              <object class="GtkLabel" id="label109">
+            <child>
+              <object class="GtkEntry" id="txt_nombre_mod_cliente">
+                <property name="width_request">140</property>
+                <property name="height_request">24</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="invisible_char_set">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">36</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label105">
+                <property name="width_request">140</property>
+                <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;DATOS CLIENTE&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">DNI</property>
               </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">68</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_dni_mod_cliente">
+                <property name="width_request">140</property>
+                <property name="height_request">24</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="invisible_char">●</property>
+                <property name="invisible_char_set">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">96</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label106">
+                <property name="width_request">140</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">APELLIDOS</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_apellidos_mod_cliente">
+                <property name="width_request">140</property>
+                <property name="height_request">24</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="invisible_char_set">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">36</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label107">
+                <property name="width_request">140</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">TELÉFONO</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">68</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_telefono_mod_cliente">
+                <property name="width_request">140</property>
+                <property name="height_request">24</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="invisible_char_set">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">96</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label108">
+                <property name="width_request">140</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">DIRECCIÓN</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">128</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_direccion_mod_cliente">
+                <property name="width_request">312</property>
+                <property name="height_request">24</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="invisible_char_set">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">156</property>
+              </packing>
             </child>
           </object>
           <packing>
@@ -1722,6 +1748,8 @@
     </child>
   </object>
   <object class="GtkWindow" id="mod_coche">
+    <property name="width_request">280</property>
+    <property name="height_request">312</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar coche</property>
     <property name="resizable">False</property>
@@ -2020,6 +2048,7 @@
     </child>
   </object>
   <object class="GtkWindow" id="mod_revision">
+    <property name="height_request">290</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar revisión</property>
     <property name="resizable">False</property>
@@ -2297,8 +2326,10 @@
     </child>
   </object>
   <object class="GtkWindow" id="mod_venta">
+    <property name="width_request">280</property>
+    <property name="height_request">312</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Añadir coche</property>
+    <property name="title" translatable="yes">Modificar venta</property>
     <property name="resizable">False</property>
     <child>
       <object class="GtkFixed" id="fixed23">
@@ -2535,7 +2566,8 @@
     </columns>
   </object>
   <object class="GtkWindow" id="main">
-    <property name="width_request">704</property>
+    <property name="width_request">708</property>
+    <property name="height_request">476</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Concesionario</property>
     <property name="resizable">False</property>
@@ -2804,67 +2836,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkTreeView" id="treeview1">
-                    <property name="width_request">688</property>
-                    <property name="height_request">352</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">tabla_coches</property>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_bastidor_main">
-                        <property name="title" translatable="yes">Nº BASTIDOR</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_marca_main">
-                        <property name="title" translatable="yes">MARCA</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_modelo_main">
-                        <property name="title" translatable="yes">MODELO</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_motor_main">
-                        <property name="title" translatable="yes">MOTOR</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_cv_main">
-                        <property name="title" translatable="yes">CV</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_tipo_main">
-                        <property name="title" translatable="yes">TIPO</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_color_main">
-                        <property name="title" translatable="yes">COLOR</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="col_precio_main">
-                        <property name="title" translatable="yes">PRECIO</property>
-                        <property name="expand">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">40</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkComboBox" id="combo_coche">
                     <property name="width_request">100</property>
                     <property name="height_request">20</property>
@@ -2886,6 +2857,77 @@
                   <packing>
                     <property name="x">357</property>
                     <property name="y">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow4">
+                    <property name="width_request">688</property>
+                    <property name="height_request">352</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview1">
+                        <property name="width_request">688</property>
+                        <property name="height_request">352</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">tabla_coches</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_bastidor_main">
+                            <property name="title" translatable="yes">Nº BASTIDOR</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_marca_main">
+                            <property name="title" translatable="yes">MARCA</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_modelo_main">
+                            <property name="title" translatable="yes">MODELO</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_motor_main">
+                            <property name="title" translatable="yes">MOTOR</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_cv_main">
+                            <property name="title" translatable="yes">CV</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_tipo_main">
+                            <property name="title" translatable="yes">TIPO</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_color_main">
+                            <property name="title" translatable="yes">COLOR</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="col_precio_main">
+                            <property name="title" translatable="yes">PRECIO</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">8</property>
+                    <property name="y">40</property>
                   </packing>
                 </child>
               </object>
@@ -2917,19 +2959,6 @@
                   <packing>
                     <property name="x">8</property>
                     <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkTreeView" id="treeview2">
-                    <property name="width_request">100</property>
-                    <property name="height_request">300</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">revisiones</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">36</property>
                   </packing>
                 </child>
                 <child>
@@ -3180,6 +3209,29 @@
                     <property name="y">396</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow5">
+                    <property name="width_request">100</property>
+                    <property name="height_request">300</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview2">
+                        <property name="width_request">100</property>
+                        <property name="height_request">300</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">revisiones</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">8</property>
+                    <property name="y">36</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -3213,20 +3265,6 @@
                   <packing>
                     <property name="x">8</property>
                     <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkTreeView" id="treeview3">
-                    <property name="width_request">100</property>
-                    <property name="height_request">300</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">fechas</property>
-                    <property name="search_column">0</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">36</property>
                   </packing>
                 </child>
                 <child>
@@ -3423,6 +3461,30 @@
                     <property name="y">396</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow6">
+                    <property name="width_request">100</property>
+                    <property name="height_request">300</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview3">
+                        <property name="width_request">100</property>
+                        <property name="height_request">300</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">fechas</property>
+                        <property name="search_column">0</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">8</property>
+                    <property name="y">36</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">2</property>
@@ -3456,20 +3518,6 @@
                   <packing>
                     <property name="x">8</property>
                     <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkTreeView" id="treeview4">
-                    <property name="width_request">100</property>
-                    <property name="height_request">300</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">dni</property>
-                    <property name="search_column">0</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">36</property>
                   </packing>
                 </child>
                 <child>
@@ -3637,6 +3685,30 @@
                   <packing>
                     <property name="x">490</property>
                     <property name="y">396</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow7">
+                    <property name="width_request">100</property>
+                    <property name="height_request">300</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview4">
+                        <property name="width_request">100</property>
+                        <property name="height_request">300</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">dni</property>
+                        <property name="search_column">0</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">8</property>
+                    <property name="y">36</property>
                   </packing>
                 </child>
               </object>
