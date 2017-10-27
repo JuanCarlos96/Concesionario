@@ -2501,7 +2501,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btn_cancelar_add_coche1">
+          <object class="GtkButton" id="btn_cancelar_mod_venta">
             <property name="label" translatable="yes">_Cancelar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
@@ -2509,6 +2509,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
+            <signal name="clicked" handler="on_btn_cancelar_mod_venta_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="x">172</property>
@@ -2516,7 +2517,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btn_aceptar_add_coche1">
+          <object class="GtkButton" id="btn_aceptar_mod_venta">
             <property name="label" translatable="yes">_Aceptar</property>
             <property name="width_request">100</property>
             <property name="height_request">24</property>
@@ -2524,6 +2525,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
+            <signal name="clicked" handler="on_btn_aceptar_mod_venta_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="x">64</property>
@@ -2553,6 +2555,7 @@
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un cliente de la lista</property>
             <property name="use_underline">True</property>
+            <signal name="clicked" handler="on_btn_buscar_dni_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="x">136</property>
@@ -2569,6 +2572,7 @@
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Busca un coche de la lista</property>
             <property name="use_underline">True</property>
+            <signal name="clicked" handler="on_btn_buscar_bastidor_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="x">136</property>
