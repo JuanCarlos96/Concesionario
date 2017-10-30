@@ -56,10 +56,25 @@ class Concesionario:
         "on_btn_mod_clientes_main_clicked" : self.mod_cliente,
         "on_btn_cancelar_mod_cliente_clicked" : self.ocultar_mod_cliente,
         "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd})
-
+        
+        self.inicializalistado('treeview1')
+        self.listacoches('tabla_coches')
+        self.inicializalistado('treeview2')
+        self.listarevisiones('revisiones')
+        self.inicializalistado('treeview3')
+        self.listafechas('fechas')
+        self.inicializalistado('treeview4')
+        self.listadni('dni')
+        self.inicializalistado('treeview7')
+        self.listacoches2('coches')
+        self.inicializalistado('treeview5')
+        self.inicializalistado('treeview6')
+        self.listaclientes('clientes')
+        
         #Toma el nombre de la ventana a mostrar
         self.b.get_object("main").show()
-
+    
+    #FUNCIONES PRINCIPALES
     def buscar_cliente(self,w):
         self.b.get_object("buscar_cliente_add_venta").show()
     
@@ -125,14 +140,77 @@ class Concesionario:
     
     def ocultar_mod_cliente(self,w):
         self.ocultar("mod_cliente")
-        
-    def reiniciar_bbdd(self,w):
-        self.con.crear_esquema("reinicia")
 
 
-    #Funciones auxiliares
+    #FUNCIONES AUXILIARES
     def ocultar(self,ventana):
         self.b.get_object(ventana).hide()
+    
+    def reiniciar_bbdd(self,w):
+        self.con.crear_esquema("reinicia")
+        self.listacoches('tabla_coches')
+        self.listarevisiones('revisiones')
+        self.listafechas('fechas')
+        self.listadni('dni')
+        self.listacoches2('coches')
+        self.listaclientes('clientes')
+    
+    def inicializalistado(self,treeview):
+        celda = gtk.CellRendererText()
+        columnas = self.b.get_object(treeview).get_columns()
+        i = 0
+        for col_i in columnas:
+            col_i.pack_start(celda)
+            col_i.add_attribute(celda,"text",i)
+            i = i+1
+    
+    def listacoches(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT * FROM Coche')
+        for row in result:
+            self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+    
+    def listarevisiones(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT N_Revision FROM Revision')
+        for row in result:
+            self.lista.append([row[0]])
+    
+    def listafechas(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT Fecha FROM Venta')
+        for row in result:
+            self.lista.append([row[0]])
+    
+    def listadni(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT Dni FROM Cliente')
+        for row in result:
+            self.lista.append([row[0]])
+    
+    def listacoches2(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT N_Bastidor,Marca,Modelo FROM Coche')
+        for row in result:
+            self.lista.append([row[0],row[1],row[2]])
+    
+    def listaclientes(self,lista):
+        self.lista = self.b.get_object(lista)
+        self.lista.clear()
+        
+        result = self.db.execute('SELECT Dni,Apellidos,Nombre FROM Cliente')
+        for row in result:
+            self.lista.append([row[0],row[1],row[2]])
 
 
 if __name__ == "__main__":

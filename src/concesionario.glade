@@ -1428,7 +1428,7 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="stock">gtk-refresh</property>
   </object>
   <object class="GtkMessageDialog" id="message_mod_venta">
     <property name="can_focus">False</property>
@@ -2610,7 +2610,7 @@
       <!-- column-name color -->
       <column type="gchararray"/>
       <!-- column-name precio -->
-      <column type="gint"/>
+      <column type="gdouble"/>
     </columns>
   </object>
   <object class="GtkWindow" id="main">
@@ -3005,20 +3005,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkLabel" id="label8">
-                    <property name="width_request">80</property>
-                    <property name="height_request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Nº REVISIÓN</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkLabel" id="label9">
                     <property name="width_request">120</property>
                     <property name="height_request">20</property>
@@ -3283,6 +3269,11 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">revisiones</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                            <property name="title" translatable="yes">Nº REVISIÓN</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -3312,20 +3303,6 @@
               <object class="GtkFixed" id="fixed3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="label25">
-                    <property name="width_request">80</property>
-                    <property name="height_request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">FECHA</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">8</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkLabel" id="label26">
                     <property name="width_request">120</property>
@@ -3538,6 +3515,11 @@
                         <property name="can_focus">True</property>
                         <property name="model">fechas</property>
                         <property name="search_column">0</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn3">
+                            <property name="title" translatable="yes">FECHA</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -3567,20 +3549,6 @@
               <object class="GtkFixed" id="fixed4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="label34">
-                    <property name="width_request">80</property>
-                    <property name="height_request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">DNI</property>
-                  </object>
-                  <packing>
-                    <property name="x">8</property>
-                    <property name="y">8</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkLabel" id="label35">
                     <property name="width_request">120</property>
@@ -3766,6 +3734,11 @@
                         <property name="can_focus">True</property>
                         <property name="model">dni</property>
                         <property name="search_column">0</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                            <property name="title" translatable="yes">DNI</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
