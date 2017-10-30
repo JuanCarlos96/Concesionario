@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #vim: set encoding=utf-8
-
+from basededatos import *
 import sys
 try:
     import pygtk
@@ -20,9 +20,14 @@ class Concesionario:
 
     def __init__(self):
 
-        #Guarda el nombre del fichoro Glade y lo carga
-        #self.gladefile = "Ejemplo1.glade"  
-        #self.wTree = gtk.glade.XML(self.gladefile) 
+        self.con = Conector("concesionario.db")
+        self.db = self.con.dameconexion()
+        self.res = self.db.execute("SELECT * FROM sqlite_master WHERE name='Coche'")
+        if not self.res.fetchall():
+            print("Base de datos vacia. Creando...")
+            self.con.crear_esquema("")
+        
+        print("BBDD Conectada")
 
         self.b = gtk.Builder()
         self.b.add_from_file("concesionario.glade") #Fichero GLADE
@@ -49,7 +54,8 @@ class Concesionario:
         "on_btn_seleccionar_coche_clicked" : self.seleccionar_coche,
         "on_btn_cancelar_mod_venta_clicked" : self.ocultar_mod_venta,
         "on_btn_mod_clientes_main_clicked" : self.mod_cliente,
-        "on_btn_cancelar_mod_cliente_clicked" : self.ocultar_mod_cliente})
+        "on_btn_cancelar_mod_cliente_clicked" : self.ocultar_mod_cliente,
+        "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd})
 
         #Toma el nombre de la ventana a mostrar
         self.b.get_object("main").show()
@@ -119,6 +125,9 @@ class Concesionario:
     
     def ocultar_mod_cliente(self,w):
         self.ocultar("mod_cliente")
+        
+    def reiniciar_bbdd(self,w):
+        self.con.crear_esquema("reinicia")
 
 
     #Funciones auxiliares
