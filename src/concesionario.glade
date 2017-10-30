@@ -1425,6 +1425,11 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
   <object class="GtkMessageDialog" id="message_mod_venta">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -2635,12 +2640,13 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem" id="Reiniciar _BBDD">
-                        <property name="label">gtk-refresh</property>
+                        <property name="label">Reiniciar _BBDD</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Reinicia la Base de Datos</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="image">image1</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_Reiniciar _BBDD_activate" swapped="no"/>
                       </object>
                     </child>
