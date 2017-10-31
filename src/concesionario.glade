@@ -1419,12 +1419,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="fechas">
-    <columns>
-      <!-- column-name fecha -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -2613,6 +2607,14 @@
       <column type="gdouble"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="venta">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray2 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="main">
     <property name="width_request">708</property>
     <property name="height_request">476</property>
@@ -3313,7 +3315,7 @@
                     <property name="label" translatable="yes">FECHA</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">36</property>
                   </packing>
                 </child>
@@ -3326,7 +3328,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">64</property>
                   </packing>
                 </child>
@@ -3340,7 +3342,7 @@
                     <property name="label" translatable="yes">NOMBRE</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">100</property>
                   </packing>
                 </child>
@@ -3353,7 +3355,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">128</property>
                   </packing>
                 </child>
@@ -3367,7 +3369,7 @@
                     <property name="label" translatable="yes">DNI</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">164</property>
                   </packing>
                 </child>
@@ -3380,7 +3382,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">192</property>
                   </packing>
                 </child>
@@ -3394,7 +3396,7 @@
                     <property name="label" translatable="yes">COCHE</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">228</property>
                   </packing>
                 </child>
@@ -3407,7 +3409,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">168</property>
+                    <property name="x">268</property>
                     <property name="y">256</property>
                   </packing>
                 </child>
@@ -3421,7 +3423,7 @@
                     <property name="label" translatable="yes">PRECIO</property>
                   </object>
                   <packing>
-                    <property name="x">320</property>
+                    <property name="x">420</property>
                     <property name="y">228</property>
                   </packing>
                 </child>
@@ -3434,7 +3436,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">320</property>
+                    <property name="x">420</property>
                     <property name="y">256</property>
                   </packing>
                 </child>
@@ -3448,7 +3450,7 @@
                     <property name="label" translatable="yes">APELLIDOS</property>
                   </object>
                   <packing>
-                    <property name="x">320</property>
+                    <property name="x">420</property>
                     <property name="y">100</property>
                   </packing>
                 </child>
@@ -3461,7 +3463,7 @@
                     <property name="xalign">0</property>
                   </object>
                   <packing>
-                    <property name="x">320</property>
+                    <property name="x">420</property>
                     <property name="y">128</property>
                   </packing>
                 </child>
@@ -3501,7 +3503,7 @@
                 </child>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow6">
-                    <property name="width_request">100</property>
+                    <property name="width_request">200</property>
                     <property name="height_request">300</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -3513,11 +3515,18 @@
                         <property name="height_request">300</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="model">fechas</property>
+                        <property name="model">venta</property>
                         <property name="search_column">0</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
-                            <property name="title" translatable="yes">FECHA</property>
+                            <property name="title" translatable="yes">Nº BASTIDOR</property>
+                            <property name="expand">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn4">
+                            <property name="title" translatable="yes">DNI</property>
+                            <property name="expand">True</property>
                           </object>
                         </child>
                       </object>

@@ -55,14 +55,15 @@ class Concesionario:
         "on_btn_cancelar_mod_venta_clicked" : self.ocultar_mod_venta,
         "on_btn_mod_clientes_main_clicked" : self.mod_cliente,
         "on_btn_cancelar_mod_cliente_clicked" : self.ocultar_mod_cliente,
-        "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd})
+        "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd,
+        "on_btn_aceptar_add_coche_clicked" : self.add_coche2})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
         self.inicializalistado('treeview2')
         self.listarevisiones('revisiones')
         self.inicializalistado('treeview3')
-        self.listafechas('fechas')
+        self.listaventas('venta')
         self.inicializalistado('treeview4')
         self.listadni('dni')
         self.inicializalistado('treeview7')
@@ -109,6 +110,31 @@ class Concesionario:
     
     def add_coche(self,w):
         self.b.get_object("add_coche").show()
+    
+    def add_coche2(self,w):
+        bastidor = self.b.get_object("txt_bastidor_add_coche").get_text()
+        marca = self.b.get_object("txt_marca_add_coche").get_text()
+        modelo = self.b.get_object("txt_modelo_add_coche").get_text()
+        tipo = self.b.get_object("txt_tipo_add_coche").get_text()
+        motor = self.b.get_object("txt_motor_add_coche").get_text()
+        cv = int(self.b.get_object("txt_cv_add_coche").get_text())
+        color = self.b.get_object("txt_color_add_coche").get_text()
+        precio = float(self.b.get_object("txt_precio_add_coche").get_text())
+        
+        self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,cv,tipo,color,precio))
+        self.db.commit()
+        
+        self.b.get_object("txt_bastidor_add_coche").set_text("")
+        self.b.get_object("txt_marca_add_coche").set_text("")
+        self.b.get_object("txt_modelo_add_coche").set_text("")
+        self.b.get_object("txt_tipo_add_coche").set_text("")
+        self.b.get_object("txt_motor_add_coche").set_text("")
+        self.b.get_object("txt_cv_add_coche").set_text("")
+        self.b.get_object("txt_color_add_coche").set_text("")
+        self.b.get_object("txt_precio_add_coche").set_text("")
+        
+        self.b.get_object("add_coche").hide()
+        self.listacoches('tabla_coches')
     
     def ocultar_add_coche(self,w):
         self.ocultar("add_coche")
@@ -180,13 +206,13 @@ class Concesionario:
         for row in result:
             self.lista.append([row[0]])
     
-    def listafechas(self,lista):
+    def listaventas(self,lista):
         self.lista = self.b.get_object(lista)
         self.lista.clear()
         
-        result = self.db.execute('SELECT Fecha FROM Venta')
+        result = self.db.execute('SELECT N_Bastidor,Dni FROM Venta')
         for row in result:
-            self.lista.append([row[0]])
+            self.lista.append([row[0],row[1]])
     
     def listadni(self,lista):
         self.lista = self.b.get_object(lista)

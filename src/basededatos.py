@@ -35,7 +35,7 @@ class Conector:
             print("Tabla Revision borrada")
             self.cursor.execute("DROP TABLE Venta");#Borro tabla Venta
             print("Tabla Venta borrada")
-        
+            
         self.cursor.execute(
             """CREATE TABLE `Coche` (
             `N_Bastidor`	TEXT,
@@ -51,6 +51,7 @@ class Conector:
         )
         
         self.cursor.execute("""INSERT INTO Coche VALUES ('258GHYTR54ER3WR56','NISSAN','PRIMERA','GASOLINA',110,'TURISMO','PLATA',1500.50);""")
+        self.db.commit()
         
         self.cursor.execute(
             """CREATE TABLE `Cliente` (
@@ -64,6 +65,7 @@ class Conector:
         )
         
         self.cursor.execute("""INSERT INTO Cliente VALUES ('05983762J','Juan Carlos','Expósito Romero','722256261','Poro 3, Torrecampo, Córdoba');""")
+        self.db.commit()
         
         self.cursor.execute(
             """CREATE TABLE `Revision` (
@@ -78,18 +80,20 @@ class Conector:
         )
         
         self.cursor.execute("""INSERT INTO Revision('Fecha','Frenos','Aceite','Filtro','N_Bastidor') VALUES ('30/10/2017','Si','No','Si','258GHYTR54ER3WR56');""")
+        self.db.commit()
         
         self.cursor.execute(
             """CREATE TABLE `Venta` (
-            `N_Bastidor`	TEXT REFERENCES Coche(N_Bastidor)
-                ON DELETE CASCADE ON UPDATE CASCADE,
-            `Dni`	TEXT REFERENCES Cliente(Dni)
-                ON DELETE CASCADE ON UPDATE CASCADE,
+            `N_Bastidor`	TEXT,
+            `Dni`	TEXT,
             `Fecha`	TEXT,
             `Precio`	REAL,
             PRIMARY KEY(N_Bastidor,Dni)
             );"""
         )
         
+        #self.cursor.execute("PRAGMA foreign_keys = 0N")
+        
         self.cursor.execute("""INSERT INTO `Venta`(`N_Bastidor`,`Dni`,`Fecha`,`Precio`) VALUES ('258GHYTR54ER3WR56','05983762J','30/10/2017',1500.50);""")
+        self.db.commit()
         print("BBDD creada")
