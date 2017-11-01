@@ -157,6 +157,8 @@ class Concesionario:
         #print(bastidor)
         self.db.execute("DELETE FROM Coche WHERE N_Bastidor='"+str(bastidor)+"';")
         self.db.commit()
+        self.listarevisiones('revisiones')
+        self.listaventas('venta')
         self.listacoches('tabla_coches')
         self.listacoches2('coches')
     
