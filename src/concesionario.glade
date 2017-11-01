@@ -2666,6 +2666,7 @@
                         <property name="tooltip_text" translatable="yes">Salir de la aplicación</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on__Salir_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>

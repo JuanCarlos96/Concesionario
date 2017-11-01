@@ -28,6 +28,8 @@ class Concesionario:
             self.con.crear_esquema("")
         
         print("BBDD Conectada")
+        
+        #self.db.execute("DELETE FROM Cliente")
 
         self.b = gtk.Builder()
         self.b.add_from_file("concesionario.glade") #Fichero GLADE
@@ -56,7 +58,9 @@ class Concesionario:
         "on_btn_mod_clientes_main_clicked" : self.mod_cliente,
         "on_btn_cancelar_mod_cliente_clicked" : self.ocultar_mod_cliente,
         "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd,
-        "on_btn_aceptar_add_coche_clicked" : self.add_coche2})
+        "on_btn_aceptar_add_coche_clicked" : self.add_coche2,
+        "on__Salir_activate" : self.on_destroy,
+        "on_btn_del_coche_main_clicked" : self.borrar_coche})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -71,6 +75,8 @@ class Concesionario:
         self.inicializalistado('treeview5')
         self.inicializalistado('treeview6')
         self.listaclientes('clientes')
+        
+        self.b.get_object("main").connect("delete-event", self.on_destroy)
         
         #Toma el nombre de la ventana a mostrar
         self.b.get_object("main").show()
@@ -135,12 +141,24 @@ class Concesionario:
         
         self.b.get_object("add_coche").hide()
         self.listacoches('tabla_coches')
+        self.listacoches2('coches')
     
     def ocultar_add_coche(self,w):
         self.ocultar("add_coche")
     
     def mod_coche(self,w):
         self.b.get_object("mod_coche").show()
+    
+    def borrar_coche(self,w):
+        tree_view = self.b.get_object("treeview1")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        bastidor = treemodel.get_value(treeiter, 0)#El número es la columna de la que va a obtener el dato, 0 es la primera columna
+        #print(bastidor)
+        self.db.execute("DELETE FROM Coche WHERE N_Bastidor='"+str(bastidor)+"';")
+        self.db.commit()
+        self.listacoches('tabla_coches')
+        self.listacoches2('coches')
     
     def ocultar_mod_coche(self,w):
         self.ocultar("mod_coche")
@@ -166,6 +184,14 @@ class Concesionario:
     
     def ocultar_mod_cliente(self,w):
         self.ocultar("mod_cliente")
+    
+    def on_destroy(self, w, *signals):
+        # return True --> no cierra
+        # return False --> cierra
+        print("Cerrando BBDD")
+        self.db.commit()
+        self.db.close()            
+        gtk.main_quit()
 
 
     #FUNCIONES AUXILIARES
@@ -176,7 +202,7 @@ class Concesionario:
         self.con.crear_esquema("reinicia")
         self.listacoches('tabla_coches')
         self.listarevisiones('revisiones')
-        self.listafechas('fechas')
+        self.listaventas('venta')
         self.listadni('dni')
         self.listacoches2('coches')
         self.listaclientes('clientes')
