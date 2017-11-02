@@ -123,9 +123,37 @@ class Concesionario:
         modelo = self.b.get_object("txt_modelo_add_coche").get_text()
         tipo = self.b.get_object("txt_tipo_add_coche").get_text()
         motor = self.b.get_object("txt_motor_add_coche").get_text()
-        cv = int(self.b.get_object("txt_cv_add_coche").get_text())
+        cv = self.b.get_object("txt_cv_add_coche").get_text()
         color = self.b.get_object("txt_color_add_coche").get_text()
-        precio = float(self.b.get_object("txt_precio_add_coche").get_text())
+        precio = self.b.get_object("txt_precio_add_coche").get_text()
+        
+        marca = unicode(marca,"utf-8")
+        modelo = unicode(modelo,"utf-8")
+        tipo = unicode(tipo,"utf-8")
+        motor = unicode(motor,"utf-8")
+        color = unicode(color,"utf-8")
+        
+        dialog = self.b.get_object("messagedialog")
+        
+        error = 0
+        
+        try:
+            value = int(cv)
+        except ValueError as err:
+            dialog.format_secondary_text("CV no es un número entero")
+            self.b.get_object("txt_cv_add_coche").set_text("")
+            dialog.run()
+            dialog.hide()
+            error = 1
+        
+        try:
+            value = float(precio)
+        except ValueError as err:
+            dialog.format_secondary_text("Precio no es un número real")
+            self.b.get_object("txt_precio_add_coche").set_text("")
+            dialog.run()
+            dialog.hide()
+            error = 1
         
         self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,cv,tipo,color,precio))
         self.db.commit()
@@ -155,7 +183,7 @@ class Concesionario:
         (treemodel, treeiter) = tree_sel.get_selected()
         bastidor = treemodel.get_value(treeiter, 0)#El número es la columna de la que va a obtener el dato, 0 es la primera columna
         #print(bastidor)
-        self.db.execute("DELETE FROM Coche WHERE N_Bastidor='"+str(bastidor)+"';")
+        self.db.execute("DELETE FROM Coche WHERE N_Bastidor=?;",(str(bastidor),))
         self.db.commit()
         self.listarevisiones('revisiones')
         self.listaventas('venta')

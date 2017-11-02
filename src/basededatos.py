@@ -29,13 +29,13 @@ class Conector:
     def crear_esquema(self,tipo):
         if tipo=="reinicia":#Aquí entraría si le paso la variable tipo=reinicia
             self.cursor.execute("DROP TABLE Venta");#Borro tabla Venta
-            print("Tabla Coche borrada")
-            self.cursor.execute("DROP TABLE Revision");#Borro tabla Revision
-            print("Tabla Cliente borrada")
-            self.cursor.execute("DROP TABLE Cliente");#Borro tabla Cliente
-            print("Tabla Revision borrada")
-            self.cursor.execute("DROP TABLE Coche");#Borro tabla Coche
             print("Tabla Venta borrada")
+            self.cursor.execute("DROP TABLE Revision");#Borro tabla Revision
+            print("Tabla Revision borrada")
+            self.cursor.execute("DROP TABLE Cliente");#Borro tabla Cliente
+            print("Tabla Cliente borrada")
+            self.cursor.execute("DROP TABLE Coche");#Borro tabla Coche
+            print("Tabla Coche borrada")
             
         self.cursor.execute(
             """CREATE TABLE `Coche` (

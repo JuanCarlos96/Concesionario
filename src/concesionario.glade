@@ -1518,18 +1518,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button8">
-                <property name="label" translatable="yes">_Cancelar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
+              <placeholder/>
             </child>
           </object>
           <packing>
@@ -1542,7 +1531,6 @@
     </child>
     <action-widgets>
       <action-widget response="0">button7</action-widget>
-      <action-widget response="0">button8</action-widget>
     </action-widgets>
   </object>
   <object class="GtkWindow" id="mod_cliente">
