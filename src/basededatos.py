@@ -70,7 +70,7 @@ class Conector:
         
         self.cursor.execute(
             """CREATE TABLE `Revision` (
-            `N_Revision`	INTEGER DEFAULT 1 PRIMARY KEY AUTOINCREMENT,
+            `N_Revision`	INTEGER DEFAULT 1 PRIMARY KEY,
             `Fecha`	TEXT,
             `Frenos`	TEXT,
             `Aceite`	TEXT,
@@ -80,7 +80,7 @@ class Conector:
             );"""
         )
         
-        self.cursor.execute("""INSERT INTO Revision('Fecha','Frenos','Aceite','Filtro','N_Bastidor') VALUES ('30/10/2017','Si','No','Si','258GHYTR54ER3WR56');""")
+        #self.cursor.execute("""INSERT INTO Revision('Fecha','Frenos','Aceite','Filtro','N_Bastidor') VALUES ('30/10/2017','Si','No','Si','258GHYTR54ER3WR56');""")
         self.cursor.commit()
         
         self.cursor.execute(
@@ -95,6 +95,6 @@ class Conector:
             );"""
         )
         
-        self.cursor.execute("""INSERT INTO Venta(`N_Bastidor`,`Dni`,`Fecha`,`Precio`) VALUES ('258GHYTR54ER3WR56','05983762J','30/10/2017',1500.50);""")
+        #self.cursor.execute("""INSERT INTO Venta(`N_Bastidor`,`Dni`,`Fecha`,`Precio`) VALUES ('258GHYTR54ER3WR56','05983762J','30/10/2017',1500.50);""")
         self.cursor.commit()
         print("Tablas creadas")

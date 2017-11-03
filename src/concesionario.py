@@ -2,6 +2,7 @@
 #vim: set encoding=utf-8
 from basededatos import *
 import sys
+import time
 try:
     import pygtk
     pygtk.require("2.0") 
@@ -38,7 +39,7 @@ class Concesionario:
         "on_btn_add_venta_main_clicked" : self.buscar_cliente,
         "on_btn_cancelar_add_venta_clicked" : self.ocultar_add_venta,
         "on_btn_nuevo_cliente_clicked" : self.add_venta,
-        "on_btn_seleccionar_cliente1_clicked" : self.add_venta,
+        "on_btn_seleccionar_cliente1_clicked" : self.seleccionar_cliente2,
         "on_btn_add_revision_main_clicked" : self.add_revision,
         "on_btn_cancelar_add_revision_clicked" : self.ocultar_add_revision,
         "on_btn_add_coche_main_clicked" : self.add_coche,
@@ -92,18 +93,18 @@ class Concesionario:
         self.b.get_object("main").show()
     
     #FUNCIONES PRINCIPALES
-    def buscar_cliente(self,w):
+    def buscar_cliente(self,w):#BOTON DE VENTA EN LA VENTANA PRINCIPAL, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA CREAR UNA VENTA
         self.b.get_object("buscar_cliente_add_venta").show()
     
-    def buscar_cliente2(self,w):
+    def buscar_cliente2(self,w):#BOTON DE BUSCAR DNI EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
         self.b.get_object("buscar_cliente_mod_venta").show()
     
-    def buscar_bastidor(self,w):
+    def buscar_bastidor(self,w):#BOTON DE BUSCAR BASTIDOR EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE COCHE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
         self.b.get_object("buscar_coche_mod_venta").show()
     
-    def seleccionar_cliente(self,w):
+    def seleccionar_cliente(self,w):#BOTON DE CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL MODIFICAR UNA VENTA
         self.ocultar("buscar_cliente_mod_venta")
         self.b.get_object("mod_venta").show()
     
@@ -111,8 +112,14 @@ class Concesionario:
         self.ocultar("buscar_coche_mod_venta")
         self.b.get_object("mod_venta").show()
     
-    def add_venta(self,w):
+    def add_venta(self,w):#BOTON DE NUEVO CLIENTE EN LA SELECCION DEL CLIENTE PARA HACER UNA VENTA NUEVA
         self.ocultar("buscar_cliente_add_venta")
+        
+        self.b.get_object("txt_nombre_add_venta").set_editable(True)
+        self.b.get_object("txt_apellidos_add_venta").set_editable(True)
+        self.b.get_object("txt_dni_add_venta").set_editable(True)
+        self.b.get_object("txt_telefono_add_venta").set_editable(True)
+        self.b.get_object("txt_direccion_add_venta").set_editable(True)
         
         tree_view = self.b.get_object("treeview1")
         tree_sel = tree_view.get_selection()
@@ -127,13 +134,127 @@ class Concesionario:
         self.b.get_object("txt_modelo_add_venta").set_text(str(modelo))
         self.b.get_object("lbl_precio_add_venta").set_text(str(precio))
         
-        self.b.get_object("")
         self.b.get_object("add_venta").show()
     
-    def add_venta2(self,w):
-        print()
+    def seleccionar_cliente2(self,w):#BOTON CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL CREAR UNA VENTA
+        self.ocultar("buscar_cliente_add_venta")
+        
+        #OBTENER DATOS DEL CLIENTE SELECCIONADO EN LA VENTANA DE SELECCION DE CLIENTE
+        tree_view = self.b.get_object("treeview5")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        dni = treemodel.get_value(treeiter,0)
+        
+        result = self.db.execute("SELECT * FROM Cliente WHERE Dni=?",(str(dni),))
+        for row in result:
+            self.b.get_object("txt_nombre_add_venta").set_text(str(row[1]))
+            self.b.get_object("txt_apellidos_add_venta").set_text(str(row[2]))
+            self.b.get_object("txt_dni_add_venta").set_text(str(row[0]))
+            self.b.get_object("txt_telefono_add_venta").set_text(str(row[3]))
+            self.b.get_object("txt_direccion_add_venta").set_text(str(row[4]))
+        
+        self.b.get_object("txt_nombre_add_venta").set_editable(False)
+        self.b.get_object("txt_apellidos_add_venta").set_editable(False)
+        self.b.get_object("txt_dni_add_venta").set_editable(False)
+        self.b.get_object("txt_telefono_add_venta").set_editable(False)
+        self.b.get_object("txt_direccion_add_venta").set_editable(False)
+        
+        #OBTENER DATOS DE LA SELECCCION DE LA TABLA DE COCHES
+        tree_view = self.b.get_object("treeview1")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        bastidor = treemodel.get_value(treeiter, 0)
+        marca = treemodel.get_value(treeiter, 1)
+        modelo = treemodel.get_value(treeiter, 2)
+        precio = treemodel.get_value(treeiter, 7)
+        
+        self.b.get_object("txt_bastidor_add_venta").set_text(str(bastidor))
+        self.b.get_object("txt_marca_add_venta").set_text(str(marca))
+        self.b.get_object("txt_modelo_add_venta").set_text(str(modelo))
+        self.b.get_object("lbl_precio_add_venta").set_text(str(precio))
+        
+        self.b.get_object("add_venta").show()
+    
+    def add_venta2(self,w):#BOTON DE ACEPTAR DE LA VENTANA AÑADIR VENTA
+        dni = self.b.get_object("txt_dni_add_venta").get_text()
+        nombre = self.b.get_object("txt_nombre_add_venta").get_text()
+        apellidos = self.b.get_object("txt_apellidos_add_venta").get_text()
+        telefono = self.b.get_object("txt_telefono_add_venta").get_text()
+        direccion = self.b.get_object("txt_direccion_add_venta").get_text()
+        bastidor = self.b.get_object("txt_bastidor_add_venta").get_text()
+        precio = self.b.get_object("lbl_precio_add_venta").get_text()
+        
+        dni = unicode(dni,"utf-8")
+        nombre = unicode(nombre,"utf-8")
+        apellidos = unicode(apellidos,"utf-8")
+        telefono = unicode(telefono,"utf-8")
+        direccion = unicode(direccion,"utf-8")
+        bastidor = unicode(bastidor,"utf-8")
+        p = float(precio)
+        fecha = time.strftime("%d/%m/%y")
+        
+        error = 0
+        existe = 0
+        
+        if not(dni) or not(nombre) or not(apellidos) or not(telefono) or not(direccion):
+            self.warning.format_secondary_text("Ningún campo puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+            error = 1
+        
+        if error==0:
+            result = self.db.execute("SELECT Dni FROM Cliente")
+            for row in result:
+                if row[0]==dni:#COMPRUEBO SI EL DNI QUE HA SIDO INTRODUCIDO YA EXISTE
+                    existe = 1
+            
+            if existe==0:#EN CASO DE QUE NO EXISTA INSERTARÁ EL NUEVO CLIENTE EN SU TABLA
+                try:
+                    self.db.execute("INSERT INTO Cliente VALUES(?,?,?,?,?)",(dni,nombre,apellidos,telefono,direccion))
+                    self.db.commit()
+                except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                    self.warning.format_secondary_text(str(tipoerror))
+                    self.warning.run()
+                    self.warning.hide()
+                else:
+                    self.info.format_secondary_text("Nuevo cliente introducido correctamente")
+                    self.info.run()
+                    self.info.hide()
+            
+            try:
+                self.db.execute("INSERT INTO Venta VALUES(?,?,?,?)",(bastidor,dni,fecha,p))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Venta introducida correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.b.get_object("txt_nombre_add_venta").set_text("")
+                self.b.get_object("txt_apellidos_add_venta").set_text("")
+                self.b.get_object("txt_dni_add_venta").set_text("")
+                self.b.get_object("txt_telefono_add_venta").set_text("")
+                self.b.get_object("txt_direccion_add_venta").set_text("")
+                self.b.get_object("txt_bastidor_add_venta").set_text("")
+                self.b.get_object("txt_marca_add_venta").set_text("")
+                self.b.get_object("txt_modelo_add_venta").set_text("")
+                self.b.get_object("lbl_precio_add_venta").set_text("")
+                
+                self.ocultar("add_venta")
+                self.listadni('dni')
+                self.listaclientes('clientes')
+                self.listaventas('venta')
+            ############################VOY POR AQUÍ##################################################################################################################################
 
-    def ocultar_add_venta(self,w):
+    def ocultar_add_venta(self,w):#BOTON DE CANCELAR DE LA VENTANA AÑADIR VENTA
+        self.b.get_object("txt_nombre_add_venta").set_text("")
+        self.b.get_object("txt_apellidos_add_venta").set_text("")
+        self.b.get_object("txt_dni_add_venta").set_text("")
+        self.b.get_object("txt_telefono_add_venta").set_text("")
+        self.b.get_object("txt_direccion_add_venta").set_text("")
         self.b.get_object("txt_bastidor_add_venta").set_text("")
         self.b.get_object("txt_marca_add_venta").set_text("")
         self.b.get_object("txt_modelo_add_venta").set_text("")
@@ -146,10 +267,10 @@ class Concesionario:
     def ocultar_add_revision(self,w):
         self.ocultar("add_revision")
     
-    def add_coche(self,w):
+    def add_coche(self,w):#BOTON NUEVO DE LA VENTANA PRINCIPAL
         self.b.get_object("add_coche").show()
     
-    def add_coche2(self,w):
+    def add_coche2(self,w):#BOTON DE ACEPTAR DE LA VENTANA AÑADIR COCHE
         bastidor = self.b.get_object("txt_bastidor_add_coche").get_text()
         marca = self.b.get_object("txt_marca_add_coche").get_text()
         modelo = self.b.get_object("txt_modelo_add_coche").get_text()
@@ -213,7 +334,7 @@ class Concesionario:
                 self.b.get_object("txt_color_add_coche").set_text("")
                 self.b.get_object("txt_precio_add_coche").set_text("")
 
-                self.b.get_object("add_coche").hide()
+                self.ocultar("add_coche")
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
     
