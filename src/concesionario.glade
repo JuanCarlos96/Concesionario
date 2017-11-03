@@ -8,7 +8,9 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir coche</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
+    <property name="gravity">static</property>
     <child>
       <object class="GtkFixed" id="fixed5">
         <property name="visible">True</property>
@@ -301,6 +303,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir revisión</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">herramientas.ico</property>
     <child>
       <object class="GtkVBox" id="vbox2">
@@ -583,6 +586,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir venta</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">factura.ico</property>
     <child>
       <object class="GtkVBox" id="vbox5">
@@ -1017,6 +1021,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkFixed" id="fixed15">
@@ -1165,6 +1170,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkFixed" id="fixed21">
@@ -1297,6 +1303,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar coche</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
       <object class="GtkFixed" id="fixed22">
@@ -1424,9 +1431,56 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
   </object>
+  <object class="GtkMessageDialog" id="info">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="type">popup</property>
+    <property name="window_position">center</property>
+    <property name="type_hint">dialog</property>
+    <property name="skip_taskbar_hint">True</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox6">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area6">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label" translatable="yes">Aceptar</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">button1</action-widget>
+    </action-widgets>
+  </object>
   <object class="GtkMessageDialog" id="message_mod_venta">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="window_position">center</property>
     <property name="icon">warning.ico</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
@@ -1487,58 +1541,13 @@
       <action-widget response="0">btn_mod_coche</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkMessageDialog" id="messagedialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="icon">warning.ico</property>
-    <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="button7">
-                <property name="label" translatable="yes">_Aceptar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">button7</action-widget>
-    </action-widgets>
-  </object>
   <object class="GtkWindow" id="mod_cliente">
     <property name="width_request">328</property>
     <property name="height_request">228</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar cliente</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
       <object class="GtkVBox" id="vbox6">
@@ -1768,6 +1777,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar coche</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
       <object class="GtkFixed" id="fixed6">
@@ -2070,6 +2080,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar revisión</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">herramientas.ico</property>
     <child>
       <object class="GtkVBox" id="vbox3">
@@ -2352,6 +2363,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar venta</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">factura.ico</property>
     <child>
       <object class="GtkFixed" id="fixed23">
@@ -2609,6 +2621,7 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Concesionario</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
       <object class="GtkVBox" id="vbox1">
@@ -2922,6 +2935,8 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">tabla_coches</property>
+                        <signal name="button-press-event" handler="on_BotonIzquierdo_Coche" swapped="no"/>
+                        <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="col_bastidor_main">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
@@ -3771,5 +3786,54 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkMessageDialog" id="warning">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="type">popup</property>
+    <property name="window_position">center</property>
+    <property name="icon">warning.ico</property>
+    <property name="type_hint">dialog</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="message_type">warning</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button7">
+                <property name="label" translatable="yes">_Aceptar</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">button7</action-widget>
+    </action-widgets>
   </object>
 </interface>

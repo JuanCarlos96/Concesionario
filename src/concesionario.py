@@ -60,7 +60,9 @@ class Concesionario:
         "on_Reiniciar _BBDD_activate" : self.reiniciar_bbdd,
         "on_btn_aceptar_add_coche_clicked" : self.add_coche2,
         "on__Salir_activate" : self.on_destroy,
-        "on_btn_del_coche_main_clicked" : self.borrar_coche})
+        "on_btn_del_coche_main_clicked" : self.borrar_coche,
+        "on_BotonIzquierdo_Coche" : self.on_boton_izq_coche,
+        "on_btn_aceptar_add_venta_clicked" : self.add_venta2})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -75,6 +77,14 @@ class Concesionario:
         self.inicializalistado('treeview5')
         self.inicializalistado('treeview6')
         self.listaclientes('clientes')
+        
+        self.warning = self.b.get_object("warning")
+        self.info = self.b.get_object("info")
+        
+        self.b.get_object("btn_add_venta_main").set_sensitive(False)
+        self.b.get_object("btn_add_revision_main").set_sensitive(False)
+        self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+        self.b.get_object("btn_del_coche_main").set_sensitive(False)
         
         self.b.get_object("main").connect("delete-event", self.on_destroy)
         
@@ -103,9 +113,31 @@ class Concesionario:
     
     def add_venta(self,w):
         self.ocultar("buscar_cliente_add_venta")
+        
+        tree_view = self.b.get_object("treeview1")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        bastidor = treemodel.get_value(treeiter, 0)
+        marca = treemodel.get_value(treeiter, 1)
+        modelo = treemodel.get_value(treeiter, 2)
+        precio = treemodel.get_value(treeiter, 7)
+        
+        self.b.get_object("txt_bastidor_add_venta").set_text(str(bastidor))
+        self.b.get_object("txt_marca_add_venta").set_text(str(marca))
+        self.b.get_object("txt_modelo_add_venta").set_text(str(modelo))
+        self.b.get_object("lbl_precio_add_venta").set_text(str(precio))
+        
+        self.b.get_object("")
         self.b.get_object("add_venta").show()
+    
+    def add_venta2(self,w):
+        print()
 
     def ocultar_add_venta(self,w):
+        self.b.get_object("txt_bastidor_add_venta").set_text("")
+        self.b.get_object("txt_marca_add_venta").set_text("")
+        self.b.get_object("txt_modelo_add_venta").set_text("")
+        self.b.get_object("lbl_precio_add_venta").set_text("")
         self.ocultar("add_venta")
 
     def add_revision(self,w):
@@ -133,31 +165,59 @@ class Concesionario:
         motor = unicode(motor,"utf-8")
         color = unicode(color,"utf-8")
         
-        dialog = self.b.get_object("messagedialog")
-        
         error = 0
         
-        try:
-            value = int(cv)
-        except ValueError as err:
-            dialog.format_secondary_text("CV no es un número entero")
-            self.b.get_object("txt_cv_add_coche").set_text("")
-            dialog.run()
-            dialog.hide()
+        if not(bastidor) or not(marca) or not(modelo) or not(tipo) or not(motor) or not(cv) or not(color) or not(precio):
+            self.warning.format_secondary_text("Ningún campo puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
             error = 1
+        else:
+            try:
+                c = int(cv)
+            except ValueError as err:
+                self.warning.format_secondary_text("CV no es un número entero")
+                self.b.get_object("txt_cv_add_coche").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
+
+            try:
+                p = float(precio)
+            except ValueError as err:
+                self.warning.format_secondary_text("Precio no es un número real")
+                self.b.get_object("txt_precio_add_coche").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
         
-        try:
-            value = float(precio)
-        except ValueError as err:
-            dialog.format_secondary_text("Precio no es un número real")
-            self.b.get_object("txt_precio_add_coche").set_text("")
-            dialog.run()
-            dialog.hide()
-            error = 1
-        
-        self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,cv,tipo,color,precio))
-        self.db.commit()
-        
+        if error==0:
+            try:
+                self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,c,tipo,color,p))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Coche introducido correctamente")
+                self.info.run()
+                self.info.hide()
+
+                self.b.get_object("txt_bastidor_add_coche").set_text("")
+                self.b.get_object("txt_marca_add_coche").set_text("")
+                self.b.get_object("txt_modelo_add_coche").set_text("")
+                self.b.get_object("txt_tipo_add_coche").set_text("")
+                self.b.get_object("txt_motor_add_coche").set_text("")
+                self.b.get_object("txt_cv_add_coche").set_text("")
+                self.b.get_object("txt_color_add_coche").set_text("")
+                self.b.get_object("txt_precio_add_coche").set_text("")
+
+                self.b.get_object("add_coche").hide()
+                self.listacoches('tabla_coches')
+                self.listacoches2('coches')
+    
+    def ocultar_add_coche(self,w):
         self.b.get_object("txt_bastidor_add_coche").set_text("")
         self.b.get_object("txt_marca_add_coche").set_text("")
         self.b.get_object("txt_modelo_add_coche").set_text("")
@@ -166,12 +226,6 @@ class Concesionario:
         self.b.get_object("txt_cv_add_coche").set_text("")
         self.b.get_object("txt_color_add_coche").set_text("")
         self.b.get_object("txt_precio_add_coche").set_text("")
-        
-        self.b.get_object("add_coche").hide()
-        self.listacoches('tabla_coches')
-        self.listacoches2('coches')
-    
-    def ocultar_add_coche(self,w):
         self.ocultar("add_coche")
     
     def mod_coche(self,w):
@@ -293,6 +347,14 @@ class Concesionario:
         result = self.db.execute('SELECT Dni,Apellidos,Nombre FROM Cliente')
         for row in result:
             self.lista.append([row[0],row[1],row[2]])
+    
+    def on_boton_izq_coche(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado==1:
+            self.b.get_object("btn_add_venta_main").set_sensitive(True)
+            self.b.get_object("btn_add_revision_main").set_sensitive(True)
+            self.b.get_object("btn_mod_coche_main").set_sensitive(True)
+            self.b.get_object("btn_del_coche_main").set_sensitive(True)
 
 
 if __name__ == "__main__":
