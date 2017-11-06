@@ -63,7 +63,9 @@ class Concesionario:
         "on__Salir_activate" : self.on_destroy,
         "on_btn_del_coche_main_clicked" : self.borrar_coche,
         "on_BotonIzquierdo_Coche" : self.on_boton_izq_coche,
-        "on_btn_aceptar_add_venta_clicked" : self.add_venta2})
+        "on_btn_aceptar_add_venta_clicked" : self.add_venta2,
+        "on_SeleccionCliente" : self.on_boton_izq_cliente,
+        "on_btn_aceptar_add_revision_clicked" : self.add_revision2})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -86,6 +88,7 @@ class Concesionario:
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
         self.b.get_object("btn_del_coche_main").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
         
         self.b.get_object("main").connect("delete-event", self.on_destroy)
         
@@ -121,6 +124,7 @@ class Concesionario:
         self.b.get_object("txt_telefono_add_venta").set_editable(True)
         self.b.get_object("txt_direccion_add_venta").set_editable(True)
         
+        #OBTENER DATOS DE LA SELECCCION DE LA TABLA DE COCHES
         tree_view = self.b.get_object("treeview1")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
@@ -174,6 +178,7 @@ class Concesionario:
         self.b.get_object("lbl_precio_add_venta").set_text(str(precio))
         
         self.b.get_object("add_venta").show()
+        self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
     
     def add_venta2(self,w):#BOTON DE ACEPTAR DE LA VENTANA AÑADIR VENTA
         dni = self.b.get_object("txt_dni_add_venta").get_text()
@@ -191,7 +196,7 @@ class Concesionario:
         direccion = unicode(direccion,"utf-8")
         bastidor = unicode(bastidor,"utf-8")
         p = float(precio)
-        fecha = time.strftime("%d/%m/%y")
+        fecha = time.strftime("%d/%m/%y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/17
         
         error = 0
         existe = 0
@@ -247,7 +252,6 @@ class Concesionario:
                 self.listadni('dni')
                 self.listaclientes('clientes')
                 self.listaventas('venta')
-            ############################VOY POR AQUÍ##################################################################################################################################
 
     def ocultar_add_venta(self,w):#BOTON DE CANCELAR DE LA VENTANA AÑADIR VENTA
         self.b.get_object("txt_nombre_add_venta").set_text("")
@@ -261,8 +265,40 @@ class Concesionario:
         self.b.get_object("lbl_precio_add_venta").set_text("")
         self.ocultar("add_venta")
 
-    def add_revision(self,w):
+    def add_revision(self,w):#BOTÓN REVISIÓN DE LA VENTANA PRINCIPAL, ABRE LA VENTANA PARA AÑADIR UNA NUEVA REVISIÓN
+        #OBTENER DATOS DE LA SELECCCION DE LA TABLA DE COCHES
+        tree_view = self.b.get_object("treeview1")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        bastidor = treemodel.get_value(treeiter, 0)
+        marca = treemodel.get_value(treeiter, 1)
+        modelo = treemodel.get_value(treeiter, 2)
+        
+        fecha = time.strftime("%d/%m/%y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/17
+        
+        result = self.db.execute("SELECT MAX(N_Revision) FROM Revision")
+        for row in result:
+            #print(row[0])
+            #COMPRUEBO SI EXISTE ALGUNA REVISIÓN
+            if row[0]==None:#EN EL CASO DE QUE NO EXISTA LA CONSULTA DEVOLVERÁ NONE Y LE ASIGNO EL VALOR 1
+                nrevision = 1
+            else:#SI EXISTE TOMO EL VALOR MÁS GRANDE QUE HAYA DEL CAMPO N_Revision PARA LUEGO SUMARLE 1
+                nrevision = row[0]
+                nrevision = nrevision+1
+        
+        #print(nrevision)
+        
+        self.b.get_object("lbl_revision_add_revision").set_text(str(nrevision))
+        self.b.get_object("lbl_fecha_add_revision").set_text(str(fecha))
+        self.b.get_object("lbl_marca_add_revision").set_text(str(marca))
+        self.b.get_object("lbl_modelo_add_revision").set_text(str(modelo))
+        self.b.get_object("lbl_bastidor_add_revision").set_text(str(bastidor))
+        
         self.b.get_object("add_revision").show()
+    
+    def add_revision2(self,w):#BOTÓN DE ACEPTAR DE LA VENTANA AÑADIR REVISIÓN
+        
+        ############################VOY POR AQUÍ##################################################################################################################################
 
     def ocultar_add_revision(self,w):
         self.ocultar("add_revision")
@@ -338,7 +374,7 @@ class Concesionario:
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
     
-    def ocultar_add_coche(self,w):
+    def ocultar_add_coche(self,w):#BOTÓN CANCELAR DE LA VENTANA AÑADIR COCHE
         self.b.get_object("txt_bastidor_add_coche").set_text("")
         self.b.get_object("txt_marca_add_coche").set_text("")
         self.b.get_object("txt_modelo_add_coche").set_text("")
@@ -352,7 +388,7 @@ class Concesionario:
     def mod_coche(self,w):
         self.b.get_object("mod_coche").show()
     
-    def borrar_coche(self,w):
+    def borrar_coche(self,w):#BOTÓN ELIMINAR DE LA VENTANA PRINCIPAL, ELIMINA EL COCHE SELECCIONADO EN LA TABLA
         tree_view = self.b.get_object("treeview1")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
@@ -411,6 +447,11 @@ class Concesionario:
         self.listadni('dni')
         self.listacoches2('coches')
         self.listaclientes('clientes')
+        self.b.get_object("btn_add_venta_main").set_sensitive(False)
+        self.b.get_object("btn_add_revision_main").set_sensitive(False)
+        self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+        self.b.get_object("btn_del_coche_main").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
     
     def inicializalistado(self,treeview):
         celda = gtk.CellRendererText()
@@ -476,6 +517,11 @@ class Concesionario:
             self.b.get_object("btn_add_revision_main").set_sensitive(True)
             self.b.get_object("btn_mod_coche_main").set_sensitive(True)
             self.b.get_object("btn_del_coche_main").set_sensitive(True)
+    
+    def on_boton_izq_cliente(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado==1:
+            self.b.get_object("btn_seleccionar_cliente1").set_sensitive(True)
 
 
 if __name__ == "__main__":

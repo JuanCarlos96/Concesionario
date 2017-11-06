@@ -1135,6 +1135,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="model">clientes</property>
+                <signal name="button-press-event" handler="on_SeleccionCliente" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente1">
                     <property name="title" translatable="yes">DNI</property>
