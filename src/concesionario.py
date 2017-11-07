@@ -70,7 +70,9 @@ class Concesionario:
         "on_SeleccionVenta" : self.on_btn_venta,
         "on_btn_aceptar_mod_coche_clicked" : self.mod_coche2,
         "activaLabel" : self.activaLabel,
-        "on_btn_revision" : self.on_btn_revision})
+        "on_btn_revision" : self.on_btn_revision,
+        "on_btn_aceptar_mod_cliente_clicked" : self.mod_cliente2,
+        "on_btn_del_clientes_main_clicked" : self.borrar_cliente})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -112,21 +114,31 @@ class Concesionario:
     def buscar_cliente(self,w):#BOTON DE VENTA EN LA VENTANA PRINCIPAL, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA CREAR UNA VENTA
         self.b.get_object("buscar_cliente_add_venta").show()
     
+    
+    
     def buscar_cliente2(self,w):#BOTON DE BUSCAR DNI EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
         self.b.get_object("buscar_cliente_mod_venta").show()
+    
+    
     
     def buscar_bastidor(self,w):#BOTON DE BUSCAR BASTIDOR EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE COCHE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
         self.b.get_object("buscar_coche_mod_venta").show()
     
+    
+    
     def seleccionar_cliente(self,w):#BOTON DE CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL MODIFICAR UNA VENTA
         self.ocultar("buscar_cliente_mod_venta")
         self.b.get_object("mod_venta").show()
     
+    
+    
     def seleccionar_coche(self,w):
         self.ocultar("buscar_coche_mod_venta")
         self.b.get_object("mod_venta").show()
+    
+    
     
     def add_venta(self,w):#BOTON DE NUEVO CLIENTE EN LA SELECCION DEL CLIENTE PARA HACER UNA VENTA NUEVA
         self.ocultar("buscar_cliente_add_venta")
@@ -152,6 +164,8 @@ class Concesionario:
         self.b.get_object("lbl_precio_add_venta").set_text(str(precio))
         
         self.b.get_object("add_venta").show()
+    
+    
     
     def seleccionar_cliente2(self,w):#BOTON CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL CREAR UNA VENTA
         self.ocultar("buscar_cliente_add_venta")
@@ -192,6 +206,8 @@ class Concesionario:
         
         self.b.get_object("add_venta").show()
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
+    
+    
     
     def add_venta2(self,w):#BOTON DE ACEPTAR DE LA VENTANA AÑADIR VENTA
         dni = self.b.get_object("txt_dni_add_venta").get_text()
@@ -266,6 +282,8 @@ class Concesionario:
                 self.listaclientes('clientes')
                 self.listaventas('venta')
 
+
+
     def ocultar_add_venta(self,w):#BOTON DE CANCELAR DE LA VENTANA AÑADIR VENTA
         self.b.get_object("txt_nombre_add_venta").set_text("")
         self.b.get_object("txt_apellidos_add_venta").set_text("")
@@ -277,6 +295,9 @@ class Concesionario:
         self.b.get_object("txt_modelo_add_venta").set_text("")
         self.b.get_object("lbl_precio_add_venta").set_text("")
         self.ocultar("add_venta")
+
+
+
 
     def add_revision(self,w):#BOTÓN REVISIÓN DE LA VENTANA PRINCIPAL, ABRE LA VENTANA PARA AÑADIR UNA NUEVA REVISIÓN
         #OBTENER DATOS DE LA SELECCCION DE LA TABLA DE COCHES
@@ -308,7 +329,9 @@ class Concesionario:
         self.b.get_object("lbl_bastidor_add_revision").set_text(str(bastidor))
         
         self.b.get_object("add_revision").show()
-    
+
+
+
     def add_revision2(self,w):#BOTÓN DE ACEPTAR DE LA VENTANA AÑADIR REVISIÓN
         frenos = self.b.get_object("chk_frenos_add_revision").get_active()
         aceite = self.b.get_object("chk_aceite_add_revision").get_active()
@@ -363,14 +386,20 @@ class Concesionario:
                 self.b.get_object("chk_filtro_add_revision").set_active(False)
                 self.listarevisiones('revisiones')
 
+
+
     def ocultar_add_revision(self,w):#BOTÓN CANCELAR DE LA VENTANA AÑADIR REVISIÓN
         self.b.get_object("chk_frenos_add_revision").set_active(False)
         self.b.get_object("chk_aceite_add_revision").set_active(False)
         self.b.get_object("chk_filtro_add_revision").set_active(False)
         self.ocultar("add_revision")
     
+    
+    
     def add_coche(self,w):#BOTON NUEVO DE LA VENTANA PRINCIPAL
         self.b.get_object("add_coche").show()
+    
+    
     
     def add_coche2(self,w):#BOTON DE ACEPTAR DE LA VENTANA AÑADIR COCHE
         bastidor = self.b.get_object("txt_bastidor_add_coche").get_text()
@@ -440,6 +469,8 @@ class Concesionario:
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
     
+    
+    
     def ocultar_add_coche(self,w):#BOTÓN CANCELAR DE LA VENTANA AÑADIR COCHE
         self.b.get_object("txt_bastidor_add_coche").set_text("")
         self.b.get_object("txt_marca_add_coche").set_text("")
@@ -450,6 +481,8 @@ class Concesionario:
         self.b.get_object("txt_color_add_coche").set_text("")
         self.b.get_object("txt_precio_add_coche").set_text("")
         self.ocultar("add_coche")
+    
+    
     
     def mod_coche(self,w):#BOTÓN MODIFICAR DE LA VENTANA PRINCIPAL, MODIFICA EL COCHE SELECCIONADO EN LA TABLA
         #LIMPIAR LAS CAJAS DE TEXTO
@@ -488,6 +521,8 @@ class Concesionario:
         #MOSTRAR LA VENTANA
         self.b.get_object("mod_coche").show()
     
+    
+    
     def mod_coche2(self,w):#BOTÓN ACEPTAR DE LA VENTANA MODIFICAR COCHE
         bastidor = self.b.get_object("txt_bastidor_mod_coche").get_text()
         marca = self.b.get_object("txt_marca_mod_coche").get_text()
@@ -507,7 +542,7 @@ class Concesionario:
         
         error = 0
         
-        if not(bastidor) or not(marca) or not(modelo) or not(tipo) or not(motor) or not(cv) or not(color) or not(precio):
+        if not(marca) or not(modelo) or not(tipo) or not(motor) or not(cv) or not(color) or not(precio):
             self.warning.format_secondary_text("Ningún campo puede estar vacío")
             self.warning.run()
             self.warning.hide()
@@ -546,12 +581,16 @@ class Concesionario:
 
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
+                self.listarevisiones('revisiones')
+                self.listaventas('venta')
 
                 self.ocultar("mod_coche")
                 self.b.get_object("btn_add_venta_main").set_sensitive(False)
                 self.b.get_object("btn_add_revision_main").set_sensitive(False)
                 self.b.get_object("btn_mod_coche_main").set_sensitive(False)
                 self.b.get_object("btn_del_coche_main").set_sensitive(False)
+    
+    
     
     def borrar_coche(self,w):#BOTÓN ELIMINAR DE LA VENTANA PRINCIPAL, ELIMINA EL COCHE SELECCIONADO EN LA TABLA
         self.mensajeborrar.format_secondary_text("¿Desea eliminar el coche?")
@@ -580,31 +619,165 @@ class Concesionario:
                 
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
+                self.listarevisiones('revisiones')
+                self.listaventas('venta')
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
+    
+    
     
     def ocultar_mod_coche(self,w):
         self.ocultar("mod_coche")
     
+    
+    
     def mod_revision(self,w):
         self.b.get_object("mod_revision").show()
+    
+    
     
     def ocultar_mod_revision(self,w):
         self.ocultar("mod_revision")
     
+    
+    
     def message_mod_venta(self,w):
         self.b.get_object("message_mod_venta").show()
+    
+    
     
     def mod_venta(self,w):
         self.ocultar("message_mod_venta")
         self.b.get_object("mod_venta").show()
     
+    
+    
     def ocultar_mod_venta(self,w):
         self.ocultar("mod_venta")
     
-    def mod_cliente(self,w):
+    
+    
+    def mod_cliente(self,w):#BOTÓN MODIFICAR CLIENTE DE LA PESTAÑA CLIENTES
+        #LIMPIAR CAJAS
+        self.b.get_object("txt_nombre_mod_cliente").set_text("")
+        self.b.get_object("txt_apellidos_mod_cliente").set_text("")
+        self.b.get_object("txt_dni_mod_cliente").set_text("")
+        self.b.get_object("txt_telefono_mod_cliente").set_text("")
+        self.b.get_object("txt_direccion_mod_cliente").set_text("")
+        
+        #OBTENER DATOS DE LAS ETIQUETAS
+        dni = self.b.get_object("lbl_dni_clientes_main").get_text()
+        nombre = self.b.get_object("lbl_nombre_clientes_main").get_text()
+        apellidos = self.b.get_object("lbl_apellidos_clientes_main").get_text()
+        telefono = self.b.get_object("lbl_telefono_clientes_main").get_text()
+        direccion = self.b.get_object("lbl_direccion_clientes_main").get_text()
+        
+        #RELLENAR CAJAS DE TEXTO CON LOS DATOS
+        self.b.get_object("txt_nombre_mod_cliente").set_text(nombre)
+        self.b.get_object("txt_apellidos_mod_cliente").set_text(apellidos)
+        self.b.get_object("txt_dni_mod_cliente").set_text(dni)
+        self.b.get_object("txt_telefono_mod_cliente").set_text(telefono)
+        self.b.get_object("txt_direccion_mod_cliente").set_text(direccion)
+        
         self.b.get_object("mod_cliente").show()
+    
+    
+    
+    def mod_cliente2(self,w):#BOTÓN ACEPTAR DE LA VENTANA MODIFICAR CLIENTE
+        nombre = self.b.get_object("txt_nombre_mod_cliente").get_text()
+        apellidos = self.b.get_object("txt_apellidos_mod_cliente").get_text()
+        dni = self.b.get_object("txt_dni_mod_cliente").get_text()
+        telefono = self.b.get_object("txt_telefono_mod_cliente").get_text()
+        direccion = self.b.get_object("txt_direccion_mod_cliente").get_text()
+        
+        nombre = unicode(nombre,"utf-8")
+        apellidos = unicode(apellidos,"utf-8")
+        dni = unicode(dni,"utf-8")
+        telefono = unicode(telefono,"utf-8")
+        direccion = unicode(direccion,"utf-8")
+        
+        error = 0
+        
+        if not(nombre) or not(apellidos) or not(telefono) or not(direccion):
+            self.warning.format_secondary_text("Ningún campo puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+            error = 1
+        
+        if error==0:
+            try:
+                self.db.execute("UPDATE Cliente SET Nombre=?, Apellidos=?, Telefono=?, Domicilio=? WHERE Dni=?;",(nombre,apellidos,telefono,direccion,dni))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Cliente modificado correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.listadni('dni')
+                self.listaclientes('clientes')
+                
+                self.ocultar("mod_cliente")
+                self.b.get_object("lbl_dni_clientes_main").set_text("")
+                self.b.get_object("lbl_nombre_clientes_main").set_text("")
+                self.b.get_object("lbl_apellidos_clientes_main").set_text("")
+                self.b.get_object("lbl_telefono_clientes_main").set_text("")
+                self.b.get_object("lbl_direccion_clientes_main").set_text("")
+                self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
+                self.b.get_object("btn_del_clientes_main").set_sensitive(False)
+    
+    
+    
+    def borrar_cliente(self,w):
+        self.mensajeborrar.format_secondary_text("¿Desea eliminar el cliente?")
+        respuesta = self.mensajeborrar.run()
+        #print(respuesta)
+        self.mensajeborrar.hide()
+        
+        if respuesta==-5:
+            seleccion = self.b.get_object("treeview4").get_selection()
+            (modelo, pathlist) = seleccion.get_selected_rows()
+            for path in pathlist :
+                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+                dni = modelo.get_value(tree_iter,0)
+            
+            try:
+                self.db.execute("DELETE FROM Cliente WHERE Dni=?;",(str(dni),))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Cliente eliminado correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.listadni('dni')
+                self.listaclientes('clientes')
+                self.listaventas('venta')
+                
+                self.b.get_object("lbl_dni_clientes_main").set_text("")
+                self.b.get_object("lbl_nombre_clientes_main").set_text("")
+                self.b.get_object("lbl_apellidos_clientes_main").set_text("")
+                self.b.get_object("lbl_telefono_clientes_main").set_text("")
+                self.b.get_object("lbl_direccion_clientes_main").set_text("")
+                self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
+                self.b.get_object("btn_del_clientes_main").set_sensitive(False)
+######################################VOY POR AQUÍ#############################################################################################################################################################################
+    
+    
     
     def ocultar_mod_cliente(self,w):
         self.ocultar("mod_cliente")
+    
+    
     
     def on_destroy(self, w, *signals):
         # return True --> no cierra
@@ -618,6 +791,8 @@ class Concesionario:
     #FUNCIONES AUXILIARES##################################################################################################################
     def ocultar(self,ventana):
         self.b.get_object(ventana).hide()
+    
+    
     
     def reiniciar_bbdd(self,w):
         self.con.crear_esquema("reinicia")
@@ -662,6 +837,8 @@ class Concesionario:
         self.b.get_object("lbl_coche_ventas_main").set_text("")
         self.b.get_object("lbl_precio_ventas_main").set_text("")
     
+    
+    
     def inicializalistado(self,treeview):
         celda = gtk.CellRendererText()
         columnas = self.b.get_object(treeview).get_columns()
@@ -671,6 +848,8 @@ class Concesionario:
             col_i.add_attribute(celda,"text",i)
             i = i+1
     
+    
+    
     def listacoches(self,lista):
         self.lista = self.b.get_object(lista)
         self.lista.clear()
@@ -678,6 +857,8 @@ class Concesionario:
         result = self.db.execute('SELECT * FROM Coche')
         for row in result:
             self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+    
+    
     
     def listarevisiones(self,lista):
         self.lista = self.b.get_object(lista)
@@ -687,6 +868,8 @@ class Concesionario:
         for row in result:
             self.lista.append([row[0]])
     
+    
+    
     def listaventas(self,lista):
         self.lista = self.b.get_object(lista)
         self.lista.clear()
@@ -694,6 +877,8 @@ class Concesionario:
         result = self.db.execute('SELECT N_Bastidor,Dni FROM Venta')
         for row in result:
             self.lista.append([row[0],row[1]])
+    
+    
     
     def listadni(self,lista):
         self.lista = self.b.get_object(lista)
@@ -703,6 +888,8 @@ class Concesionario:
         for row in result:
             self.lista.append([row[0]])
     
+    
+    
     def listacoches2(self,lista):
         self.lista = self.b.get_object(lista)
         self.lista.clear()
@@ -710,6 +897,8 @@ class Concesionario:
         result = self.db.execute('SELECT N_Bastidor,Marca,Modelo FROM Coche')
         for row in result:
             self.lista.append([row[0],row[1],row[2]])
+    
+    
     
     def listaclientes(self,lista):
         self.lista = self.b.get_object(lista)
@@ -719,6 +908,8 @@ class Concesionario:
         for row in result:
             self.lista.append([row[0],row[1],row[2]])
     
+    
+    
     def on_boton_coche(self,treeview,evento):
         botonpulsado = evento.button
         if botonpulsado==1:
@@ -727,10 +918,14 @@ class Concesionario:
             self.b.get_object("btn_mod_coche_main").set_sensitive(True)
             self.b.get_object("btn_del_coche_main").set_sensitive(True)
     
+    
+    
     def on_boton_cliente(self,treeview,evento):
         botonpulsado = evento.button
         if botonpulsado==1:
             self.b.get_object("btn_seleccionar_cliente1").set_sensitive(True)
+    
+    
     
     def on_btn_dni(self,treeview,evento):
         botonpulsado = evento.button
@@ -751,6 +946,9 @@ class Concesionario:
                 self.b.get_object("lbl_direccion_clientes_main").set_text(str(row[4]))
             
             self.b.get_object("btn_mod_clientes_main").set_sensitive(True)
+            self.b.get_object("btn_del_clientes_main").set_sensitive(True)
+    
+    
     
     def on_btn_venta(self,treeview,evento):
         botonpulsado = evento.button
@@ -772,6 +970,9 @@ class Concesionario:
                 self.b.get_object("lbl_precio_ventas_main").set_text(str(row[5]))
             
             self.b.get_object("btn_mod_venta_main").set_sensitive(True)
+            self.b.get_object("btn_del_venta_main").set_sensitive(True)
+    
+    
     
     def on_btn_revision(self,treeview,evento):
         botonpulsado = evento.button
@@ -803,7 +1004,11 @@ class Concesionario:
                     self.b.get_object("lbl_aceite_revision_main").set_text("No")
                 else:
                     self.b.get_object("lbl_aceite_revision_main").set_text("Sí")
-    ##########################VOY POR AQUÍ######################################################################################################################################
+            
+            self.b.get_object("btn_mod_revision_main").set_sensitive(True)
+            self.b.get_object("btn_del_revision_main").set_sensitive(True)
+    
+    
     
     def comboMarcas(self,w):#################MIRAR MÁS TARDE##################################
         model = self.b.get_object("comboMarca")
@@ -816,6 +1021,8 @@ class Concesionario:
         combo.set_model(model=model)
         combo.pack_start(cell)
         combo.set_attributes(cell, text=0)
+    
+    
     
     def activaLabel(self, notebook, page, page_num):
         #BOTONES
