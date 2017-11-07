@@ -1421,6 +1421,12 @@
       </object>
     </child>
   </object>
+  <object class="GtkListStore" id="comboMarca">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkListStore" id="dni">
     <columns>
       <!-- column-name dni -->
@@ -2747,6 +2753,7 @@
           <object class="GtkNotebook" id="notebook1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <signal name="switch-page" handler="activaLabel" swapped="no"/>
             <child>
               <object class="GtkFixed" id="fixed1">
                 <property name="visible">True</property>
@@ -2783,6 +2790,13 @@
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">comboMarca</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="x">96</property>
@@ -3313,6 +3327,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">revisiones</property>
+                        <signal name="button-release-event" handler="on_btn_revision" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                             <property name="title" translatable="yes">Nº REVISIÓN</property>
@@ -3337,6 +3352,7 @@
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Gestiona las distintas revisiones</property>
                 <property name="label" translatable="yes">REVISIONES</property>
+                <signal name="button-release-event" handler="on_btn_revision" swapped="no"/>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -3559,7 +3575,7 @@
                         <property name="can_focus">True</property>
                         <property name="model">venta</property>
                         <property name="search_column">0</property>
-                        <signal name="button-press-event" handler="on_SeleccionVenta" swapped="no"/>
+                        <signal name="button-release-event" handler="on_SeleccionVenta" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
@@ -3786,7 +3802,7 @@
                         <property name="can_focus">True</property>
                         <property name="model">dni</property>
                         <property name="search_column">0</property>
-                        <signal name="button-press-event" handler="on_SeleccionDni" swapped="no"/>
+                        <signal name="button-release-event" handler="on_SeleccionDni" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
                             <property name="title" translatable="yes">DNI</property>
