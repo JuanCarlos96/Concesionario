@@ -72,7 +72,10 @@ class Concesionario:
         "activaLabel" : self.activaLabel,
         "on_btn_revision" : self.on_btn_revision,
         "on_btn_aceptar_mod_cliente_clicked" : self.mod_cliente2,
-        "on_btn_del_clientes_main_clicked" : self.borrar_cliente})
+        "on_btn_del_clientes_main_clicked" : self.borrar_cliente,
+        "on_btn_aceptar_mod_revision_clicked" : self.mod_revision2,
+        "on_btn_del_revision_main_clicked" : self.borrar_revision,
+        "on_btn_del_venta_main_clicked" : self.borrar_venta})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -110,7 +113,7 @@ class Concesionario:
         #Toma el nombre de la ventana a mostrar
         self.b.get_object("main").show()
     
-    #FUNCIONES PRINCIPALES#######################################################################################################################################
+    #FUNCIONES PRINCIPALES######################################################################################
     def buscar_cliente(self,w):#BOTON DE VENTA EN LA VENTANA PRINCIPAL, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA CREAR UNA VENTA
         self.b.get_object("buscar_cliente_add_venta").show()
     
@@ -348,17 +351,17 @@ class Concesionario:
             
             #COMPROBACIÓN DE LOS CHECK BUTTONS MARCADOS
             if frenos==True:
-                fr = "Sí"
+                fr = "Si"
             else:
                 fr = "No"
             
             if aceite==True:
-                ac = "Sí"
+                ac = "Si"
             else:
                 ac = "No"
             
             if filtro==True:
-                fi = "Sí"
+                fi = "Si"
             else:
                 fi = "No"
             
@@ -634,9 +637,195 @@ class Concesionario:
     
     
     
-    def mod_revision(self,w):
+    def mod_revision(self,w):#BOTÓN MODIFICAR DE LA PESTAÑA DE REVISIONES
+        #LIMPIAR VENTANA
+        self.b.get_object("lbl_revision_mod_revision").set_text("")
+        self.b.get_object("lbl_fecha_mod_revision").set_text("")
+        self.b.get_object("lbl_marca_mod_revision").set_text("")
+        self.b.get_object("lbl_modelo_mod_revision").set_text("")
+        self.b.get_object("lbl_bastidor_mod_revision").set_text("")
+        self.b.get_object("chk_frenos_mod_revision").set_active(False)
+        self.b.get_object("chk_aceite_mod_revision").set_active(False)
+        self.b.get_object("chk_filtro_mod_revision").set_active(False)
+        
+        #OBTENER DATOS
+        nrevision = self.b.get_object("lbl_numero_revision_main").get_text()
+        fecha = self.b.get_object("lbl_fecha_revision_main").get_text()
+        bastidor = self.b.get_object("lbl_bastidor_revision_main").get_text()
+        marca = self.b.get_object("lbl_marca_revision_main").get_text()
+        modelo = self.b.get_object("lbl_modelo_revision_main").get_text()
+        frenos = self.b.get_object("lbl_frenos_revision_main").get_text()
+        filtro = self.b.get_object("lbl_filtro_revision_main").get_text()
+        aceite = self.b.get_object("lbl_aceite_revision_main").get_text()
+        
+        #RELLENAR VENTANA CON LOS DATOS
+        self.b.get_object("lbl_revision_mod_revision").set_text(str(nrevision))
+        self.b.get_object("lbl_fecha_mod_revision").set_text(str(fecha))
+        self.b.get_object("lbl_marca_mod_revision").set_text(str(marca))
+        self.b.get_object("lbl_modelo_mod_revision").set_text(str(modelo))
+        self.b.get_object("lbl_bastidor_mod_revision").set_text(str(bastidor))
+        
+        if frenos=="Sí":
+            self.b.get_object("chk_frenos_mod_revision").set_active(True)
+        else:
+            self.b.get_object("chk_frenos_mod_revision").set_active(False)
+        
+        if filtro=="Sí":
+            self.b.get_object("chk_filtro_mod_revision").set_active(True)
+        else:
+            self.b.get_object("chk_filtro_mod_revision").set_active(False)
+        
+        if aceite=="Sí":
+            self.b.get_object("chk_aceite_mod_revision").set_active(True)
+        else:
+            self.b.get_object("chk_aceite_mod_revision").set_active(False)
+        
         self.b.get_object("mod_revision").show()
     
+    
+    
+    def mod_revision2(self,w):#BOTÓN ACEPTAR DE LA VENTANA MODIFICAR REVISIÓN
+        frenos = self.b.get_object("chk_frenos_mod_revision").get_active()
+        aceite = self.b.get_object("chk_aceite_mod_revision").get_active()
+        filtro = self.b.get_object("chk_filtro_mod_revision").get_active()
+        
+        if frenos==False and aceite==False and filtro==False:#COMPRUEBO SI ESTÁN TODAS LAS OPCIONES DESMARCADAS
+            self.warning.format_secondary_text("Debe seleccionar alguna operación")
+            self.warning.run()
+            self.warning.hide()
+        else:#EN CASO CONTRARIO REALIZO LA ACTUALIZACIÓN EN LA TABLA REVISIÓN
+            nrevision = int(self.b.get_object("lbl_revision_mod_revision").get_text())
+            
+            #COMPROBACIÓN DE LOS CHECK BUTTONS MARCADOS
+            if frenos==True:
+                fr = "Sí"
+            else:
+                fr = "No"
+            
+            if aceite==True:
+                ac = "Sí"
+            else:
+                ac = "No"
+            
+            if filtro==True:
+                fi = "Sí"
+            else:
+                fi = "No"
+            
+            fr = unicode(fr,"utf-8")
+            ac = unicode(ac,"utf-8")
+            fi = unicode(fi,"utf-8")
+            
+            try:
+                self.db.execute("UPDATE Revision SET Frenos=?, Aceite=?, Filtro=? WHERE N_Revision=?",(fr,ac,fi,nrevision))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Revisión modificada correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.ocultar("mod_revision")
+                
+                self.b.get_object("lbl_numero_revision_main").set_text("")
+                self.b.get_object("lbl_fecha_revision_main").set_text("")
+                self.b.get_object("lbl_bastidor_revision_main").set_text("")
+                self.b.get_object("lbl_marca_revision_main").set_text("")
+                self.b.get_object("lbl_modelo_revision_main").set_text("")
+                self.b.get_object("lbl_frenos_revision_main").set_text("")
+                self.b.get_object("lbl_filtro_revision_main").set_text("")
+                self.b.get_object("lbl_aceite_revision_main").set_text("")
+                
+                self.b.get_object("btn_mod_revision_main").set_sensitive(False)
+                self.b.get_object("btn_del_revision_main").set_sensitive(False)
+                
+                self.listarevisiones('revisiones')
+
+    
+    
+    def borrar_revision(self,w):
+        self.mensajeborrar.format_secondary_text("¿Desea eliminar la revisión?")
+        respuesta = self.mensajeborrar.run()
+        #print(respuesta)
+        self.mensajeborrar.hide()
+        
+        if respuesta==-5:
+            seleccion = self.b.get_object("treeview2").get_selection()
+            (modelo, pathlist) = seleccion.get_selected_rows()
+            for path in pathlist :
+                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+                nrevision = modelo.get_value(tree_iter,0)
+            
+            try:
+                self.db.execute("DELETE FROM Revision WHERE N_Revision=?;",(int(nrevision),))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Revisión eliminada correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.listarevisiones('revisiones')
+                
+                self.b.get_object("lbl_numero_revision_main").set_text("")
+                self.b.get_object("lbl_fecha_revision_main").set_text("")
+                self.b.get_object("lbl_bastidor_revision_main").set_text("")
+                self.b.get_object("lbl_marca_revision_main").set_text("")
+                self.b.get_object("lbl_modelo_revision_main").set_text("")
+                self.b.get_object("lbl_frenos_revision_main").set_text("")
+                self.b.get_object("lbl_filtro_revision_main").set_text("")
+                self.b.get_object("lbl_aceite_revision_main").set_text("")
+                
+                self.b.get_object("btn_mod_revision_main").set_sensitive(False)
+                self.b.get_object("btn_del_revision_main").set_sensitive(False)
+
+
+
+    def borrar_venta(self,w):
+        self.mensajeborrar.format_secondary_text("¿Desea eliminar la venta?")
+        respuesta = self.mensajeborrar.run()
+        #print(respuesta)
+        self.mensajeborrar.hide()
+        
+        if respuesta==-5:
+            seleccion = self.b.get_object("treeview3").get_selection()
+            (modelo, pathlist) = seleccion.get_selected_rows()
+            for path in pathlist :
+                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+                bastidor = modelo.get_value(tree_iter,0)
+                dni = modelo.get_value(tree_iter,1)
+            
+            try:
+                self.db.execute("DELETE FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Venta eliminada correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.listaventas('venta')
+                
+                self.b.get_object("lbl_fecha_venta_main").set_text("")
+                self.b.get_object("lbl_nombre_ventas_main").set_text("")
+                self.b.get_object("lbl_apellidos_ventas_main").set_text("")
+                self.b.get_object("lbl_dni_ventas_main").set_text("")
+                self.b.get_object("lbl_coche_ventas_main").set_text("")
+                self.b.get_object("lbl_precio_ventas_main").set_text("")
+                
+                self.b.get_object("btn_mod_venta_main").set_sensitive(False)
+                self.b.get_object("btn_del_venta_main").set_sensitive(False)
+######################################VOY POR AQUÍ#############################################################################################################################################################################    
+
     
     
     def ocultar_mod_revision(self,w):
@@ -770,7 +959,6 @@ class Concesionario:
                 self.b.get_object("lbl_direccion_clientes_main").set_text("")
                 self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
                 self.b.get_object("btn_del_clientes_main").set_sensitive(False)
-######################################VOY POR AQUÍ#############################################################################################################################################################################
     
     
     
@@ -788,7 +976,7 @@ class Concesionario:
         gtk.main_quit()
 
 
-    #FUNCIONES AUXILIARES##################################################################################################################
+    #FUNCIONES AUXILIARES########################################################################################
     def ocultar(self,ventana):
         self.b.get_object(ventana).hide()
     
@@ -990,20 +1178,9 @@ class Concesionario:
                 self.b.get_object("lbl_bastidor_revision_main").set_text(str(row[2]))
                 self.b.get_object("lbl_marca_revision_main").set_text(str(row[3]))
                 self.b.get_object("lbl_modelo_revision_main").set_text(str(row[4]))
-                if int(row[5])==0:
-                    self.b.get_object("lbl_frenos_revision_main").set_text("No")
-                else:
-                    self.b.get_object("lbl_frenos_revision_main").set_text("Sí")
-                
-                if int(row[6])==0:
-                    self.b.get_object("lbl_filtro_revision_main").set_text("No")
-                else:
-                    self.b.get_object("lbl_filtro_revision_main").set_text("Sí")
-                    
-                if int(row[7])==0:
-                    self.b.get_object("lbl_aceite_revision_main").set_text("No")
-                else:
-                    self.b.get_object("lbl_aceite_revision_main").set_text("Sí")
+                self.b.get_object("lbl_frenos_revision_main").set_text(str(row[5]))
+                self.b.get_object("lbl_filtro_revision_main").set_text(str(row[6]))
+                self.b.get_object("lbl_aceite_revision_main").set_text(str(row[7]))
             
             self.b.get_object("btn_mod_revision_main").set_sensitive(True)
             self.b.get_object("btn_del_revision_main").set_sensitive(True)
