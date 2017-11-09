@@ -76,7 +76,8 @@ class Concesionario:
         "on_btn_aceptar_mod_revision_clicked" : self.mod_revision2,
         "on_btn_del_revision_main_clicked" : self.borrar_revision,
         "on_btn_del_venta_main_clicked" : self.borrar_venta,
-        "on_treeview6_button_press_event" : self.on_boton_cliente2})
+        "on_treeview6_button_press_event" : self.on_boton_cliente2,
+        "on_btn_aceptar_mod_venta_clicked" : self.mod_venta2})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -145,11 +146,19 @@ class Concesionario:
         
         self.ocultar("buscar_cliente_mod_venta")
         self.b.get_object("mod_venta").show()
-######################################VOY POR AQUÍ#############################################################################################################################################################################
 
     
         
     def seleccionar_coche(self,w):
+        tree_view = self.b.get_object("treeview7")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        bastidor = treemodel.get_value(treeiter,0)
+        
+        result = self.db.execute("SELECT N_Bastidor FROM Coche WHERE N_Bastidor=?",(str(bastidor),))
+        for row in result:
+            self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+        
         self.ocultar("buscar_coche_mod_venta")
         self.b.get_object("mod_venta").show()
     
@@ -873,7 +882,89 @@ class Concesionario:
     
     
     def mod_venta_coche(self,w):
-        print("hola")
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+            bastidor = modelo.get_value(tree_iter, 0)
+            dni = modelo.get_value(tree_iter, 1)
+        
+        result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+        for row in result:
+            self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+            self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
+            self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
+            self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
+        
+        self.b.get_object("btn_buscar_dni").set_sensitive(False)
+        self.b.get_object("btn_buscar_bastidor").set_sensitive(True)
+        
+        self.ocultar("message_mod_venta")
+        self.b.get_object("mod_venta").show()
+    
+    
+    def mod_venta2(self,w):#BOTÓN ACEPTAR DE LA VENTANA MODIFICAR VENTA
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+            bastidor = modelo.get_value(tree_iter, 0)
+            dni = modelo.get_value(tree_iter, 1)
+        
+        nbastidor = self.b.get_object("txt_bastidor_mod_venta").get_text()
+        ndni = self.b.get_object("txt_dni_mod_venta").get_text()
+        fecha = self.b.get_object("txt_fecha_mod_vent").get_text()
+        precio = self.b.get_object("txt_precio_mod_venta").get_text()
+        
+        bastidor = unicode(bastidor,"utf-8")
+        dni = unicode(dni,"utf-8")
+        fecha = unicode(fecha,"utf-8")
+        
+        error = 0
+        
+        if not(fecha) or not(precio):
+            self.warning.format_secondary_text("Ningún campo puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+            error = 1
+        else:
+            try:
+                p = float(precio)
+            except ValueError as err:
+                self.warning.format_secondary_text("Precio no es un número real")
+                self.b.get_object("txt_precio_mod_venta").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
+        
+        if error==0:
+            try:
+                self.db.execute("UPDATE Venta SET N_Bastidor=?, Dni=?, Fecha=?, Precio=? WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni,fecha,p,nbastidor,ndni))
+                self.db.commit()
+            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                self.warning.format_secondary_text(str(tipoerror))
+                self.warning.run()
+                self.warning.hide()
+            else:
+                self.info.format_secondary_text("Venta modificada correctamente")
+                self.info.run()
+                self.info.hide()
+                
+                self.listaventas('venta')
+                
+                self.b.get_object("lbl_fecha_venta_main").set_text("")
+                self.b.get_object("lbl_nombre_ventas_main").set_text("")
+                self.b.get_object("lbl_apellidos_ventas_main").set_text("")
+                self.b.get_object("lbl_dni_ventas_main").set_text("")
+                self.b.get_object("lbl_coche_ventas_main").set_text("")
+                self.b.get_object("lbl_precio_ventas_main").set_text("")
+                
+                self.b.get_object("btn_mod_venta_main").set_sensitive(False)
+                self.b.get_object("btn_del_venta_main").set_sensitive(False)
+                
+                self.ocultar("mod_venta")
+######################################VOY POR AQUÍ#############################################################################################################################################################################
+
     
     
     
@@ -1033,6 +1124,7 @@ class Concesionario:
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
         self.b.get_object("btn_del_coche_main").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("btn_mod_revision_main").set_sensitive(False)
         self.b.get_object("btn_del_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
@@ -1192,7 +1284,7 @@ class Concesionario:
                 bastidor = modelo.get_value(tree_iter, 0)
                 dni = modelo.get_value(tree_iter, 1)
             
-            result = self.db.execute("SELECT v.Fecha,cl.Nombre,cl.Apellidos,cl.Dni,co.Marca || ' ' || co.Modelo AS Coche,co.Precio FROM Venta AS v,Coche AS co,Cliente AS cl WHERE v.N_Bastidor=? AND v.Dni=? AND v.N_Bastidor=co.N_Bastidor AND v.Dni=cl.Dni;",(bastidor,dni))
+            result = self.db.execute("SELECT v.Fecha,cl.Nombre,cl.Apellidos,cl.Dni,co.Marca || ' ' || co.Modelo AS Coche,v.Precio FROM Venta AS v,Coche AS co,Cliente AS cl WHERE v.N_Bastidor=? AND v.Dni=? AND v.N_Bastidor=co.N_Bastidor AND v.Dni=cl.Dni;",(bastidor,dni))
             for row in result:
                 self.b.get_object("lbl_fecha_venta_main").set_text(str(row[0]))
                 self.b.get_object("lbl_nombre_ventas_main").set_text(str(row[1]))
