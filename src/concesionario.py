@@ -49,8 +49,8 @@ class Concesionario:
         "on_btn_mod_revision_main_clicked" : self.mod_revision,
         "on_btn_cancelar_mod_revision_clicked" : self.ocultar_mod_revision,
         "on_btn_mod_venta_main_clicked" : self.message_mod_venta,
-        "on_btn_mod_cliente_clicked" : self.mod_venta,
-        "on_btn_mod_coche_clicked" : self.mod_venta,
+        "on_btn_mod_cliente_clicked" : self.mod_venta_cliente,
+        "on_btn_mod_coche_clicked" : self.mod_venta_coche,
         "on_btn_buscar_dni_clicked" : self.buscar_cliente2,
         "on_btn_buscar_bastidor_clicked" : self.buscar_bastidor,
         "on_btn_seleccionar_cliente2_clicked" : self.seleccionar_cliente,
@@ -75,7 +75,8 @@ class Concesionario:
         "on_btn_del_clientes_main_clicked" : self.borrar_cliente,
         "on_btn_aceptar_mod_revision_clicked" : self.mod_revision2,
         "on_btn_del_revision_main_clicked" : self.borrar_revision,
-        "on_btn_del_venta_main_clicked" : self.borrar_venta})
+        "on_btn_del_venta_main_clicked" : self.borrar_venta,
+        "on_treeview6_button_press_event" : self.on_boton_cliente2})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -101,6 +102,7 @@ class Concesionario:
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
         self.b.get_object("btn_del_coche_main").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("btn_mod_revision_main").set_sensitive(False)
         self.b.get_object("btn_del_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
@@ -132,11 +134,21 @@ class Concesionario:
     
     
     def seleccionar_cliente(self,w):#BOTON DE CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL MODIFICAR UNA VENTA
+        tree_view = self.b.get_object("treeview6")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        dni = treemodel.get_value(treeiter,0)
+        
+        result = self.db.execute("SELECT Dni FROM Cliente WHERE Dni=?",(str(dni),))
+        for row in result:
+            self.b.get_object("txt_dni_mod_venta").set_text(str(row[0]))
+        
         self.ocultar("buscar_cliente_mod_venta")
         self.b.get_object("mod_venta").show()
+######################################VOY POR AQUÍ#############################################################################################################################################################################
+
     
-    
-    
+        
     def seleccionar_coche(self,w):
         self.ocultar("buscar_coche_mod_venta")
         self.b.get_object("mod_venta").show()
@@ -824,7 +836,6 @@ class Concesionario:
                 
                 self.b.get_object("btn_mod_venta_main").set_sensitive(False)
                 self.b.get_object("btn_del_venta_main").set_sensitive(False)
-######################################VOY POR AQUÍ#############################################################################################################################################################################    
 
     
     
@@ -838,13 +849,39 @@ class Concesionario:
     
     
     
-    def mod_venta(self,w):
+    def mod_venta_cliente(self,w):
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+            bastidor = modelo.get_value(tree_iter, 0)
+            dni = modelo.get_value(tree_iter, 1)
+        
+        result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+        for row in result:
+            self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+            self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
+            self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
+            self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
+        
+        self.b.get_object("btn_buscar_dni").set_sensitive(True)
+        self.b.get_object("btn_buscar_bastidor").set_sensitive(False)
+        
         self.ocultar("message_mod_venta")
         self.b.get_object("mod_venta").show()
     
     
     
+    def mod_venta_coche(self,w):
+        print("hola")
+    
+    
+    
     def ocultar_mod_venta(self,w):
+        self.b.get_object("txt_fecha_mod_vent").set_text("")
+        self.b.get_object("txt_dni_mod_venta").set_text("")
+        self.b.get_object("txt_bastidor_mod_venta").set_text("")
+        self.b.get_object("txt_precio_mod_venta").set_text("")
         self.ocultar("mod_venta")
     
     
@@ -1115,6 +1152,13 @@ class Concesionario:
     
     
     
+    def on_boton_cliente2(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado==1:
+            self.b.get_object("btn_seleccionar_cliente2").set_sensitive(True)
+    
+    
+    
     def on_btn_dni(self,treeview,evento):
         botonpulsado = evento.button
         if botonpulsado==1:
@@ -1208,6 +1252,7 @@ class Concesionario:
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
         self.b.get_object("btn_del_coche_main").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("btn_mod_revision_main").set_sensitive(False)
         self.b.get_object("btn_del_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_clientes_main").set_sensitive(False)

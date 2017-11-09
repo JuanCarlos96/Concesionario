@@ -1259,6 +1259,7 @@
                 <property name="model">clientes</property>
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
+                <signal name="button-press-event" handler="on_treeview6_button_press_event" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente2">
                     <property name="title" translatable="yes">DNI</property>
@@ -2460,7 +2461,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="txt_dn_mod_venta">
+          <object class="GtkEntry" id="txt_dni_mod_venta">
             <property name="width_request">120</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
@@ -2493,7 +2494,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="txt_bastido_mod_venta">
+          <object class="GtkEntry" id="txt_bastidor_mod_venta">
             <property name="width_request">120</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
@@ -2526,7 +2527,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="txt_preci_mod_venta">
+          <object class="GtkEntry" id="txt_precio_mod_venta">
             <property name="width_request">120</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
