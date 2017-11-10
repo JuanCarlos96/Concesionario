@@ -77,7 +77,11 @@ class Concesionario:
         "on_btn_del_revision_main_clicked" : self.borrar_revision,
         "on_btn_del_venta_main_clicked" : self.borrar_venta,
         "on_treeview6_button_press_event" : self.on_boton_cliente2,
-        "on_btn_aceptar_mod_venta_clicked" : self.mod_venta2})
+        "on_btn_aceptar_mod_venta_clicked" : self.mod_venta2,
+        "on_combo_coche_changed" : self.combo_coche_changed,
+        "on_btn_buscar_coche_main_clicked" : self.busca_coche_tipo,
+        "on_abre_calendario_clicked" : self.abrir_calendario,
+        "on_seleccionar_fecha_clicked" : self.seleccionar_fecha})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -98,6 +102,7 @@ class Concesionario:
         self.info = self.b.get_object("info")
         self.mensajeborrar = self.b.get_object("mensajeborrar")
         
+        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
@@ -149,15 +154,16 @@ class Concesionario:
 
     
         
-    def seleccionar_coche(self,w):
+    def seleccionar_coche(self,w):#BOTÓN CARGAR COCHE EN LA VENTANA DE SELECCIÓN DE COCHE AL MODIFICAR UNA VENTA
         tree_view = self.b.get_object("treeview7")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
         bastidor = treemodel.get_value(treeiter,0)
         
-        result = self.db.execute("SELECT N_Bastidor FROM Coche WHERE N_Bastidor=?",(str(bastidor),))
+        result = self.db.execute("SELECT N_Bastidor, Precio FROM Coche WHERE N_Bastidor=?",(str(bastidor),))
         for row in result:
             self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+            self.b.get_object("txt_precio_mod_venta").set_text(str(row[1]))
         
         self.ocultar("buscar_coche_mod_venta")
         self.b.get_object("mod_venta").show()
@@ -167,6 +173,8 @@ class Concesionario:
     def add_venta(self,w):#BOTON DE NUEVO CLIENTE EN LA SELECCION DEL CLIENTE PARA HACER UNA VENTA NUEVA
         self.ocultar("buscar_cliente_add_venta")
         
+        fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
+        self.b.get_object("lbl_fecha_add_venta").set_text(fecha)
         self.b.get_object("txt_nombre_add_venta").set_editable(True)
         self.b.get_object("txt_apellidos_add_venta").set_editable(True)
         self.b.get_object("txt_dni_add_venta").set_editable(True)
@@ -194,6 +202,8 @@ class Concesionario:
     def seleccionar_cliente2(self,w):#BOTON CARGAR CLIENTE EN LA VENTANA DE SELECCION DE CLIENTE AL CREAR UNA VENTA
         self.ocultar("buscar_cliente_add_venta")
         
+        fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
+        self.b.get_object("lbl_fecha_add_venta").set_text(fecha)
         #OBTENER DATOS DEL CLIENTE SELECCIONADO EN LA VENTANA DE SELECCION DE CLIENTE
         tree_view = self.b.get_object("treeview5")
         tree_sel = tree_view.get_selection()
@@ -249,7 +259,7 @@ class Concesionario:
         direccion = unicode(direccion,"utf-8")
         bastidor = unicode(bastidor,"utf-8")
         p = float(precio)
-        fecha = time.strftime("%d/%m/%y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/17
+        fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
         
         error = 0
         existe = 0
@@ -332,7 +342,7 @@ class Concesionario:
         marca = treemodel.get_value(treeiter, 1)
         modelo = treemodel.get_value(treeiter, 2)
         
-        fecha = time.strftime("%d/%m/%y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/17
+        fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
         
         result = self.db.execute("SELECT MAX(N_Revision) FROM Revision")
         for row in result:
@@ -767,7 +777,7 @@ class Concesionario:
 
     
     
-    def borrar_revision(self,w):
+    def borrar_revision(self,w):#BOTÓN ELIMINAR DE LA PESTAÑA REVISIONES
         self.mensajeborrar.format_secondary_text("¿Desea eliminar la revisión?")
         respuesta = self.mensajeborrar.run()
         #print(respuesta)
@@ -808,7 +818,7 @@ class Concesionario:
 
 
 
-    def borrar_venta(self,w):
+    def borrar_venta(self,w):#BOTÓN ELIMINAR DE LA PESTAÑA VENTAS
         self.mensajeborrar.format_secondary_text("¿Desea eliminar la venta?")
         respuesta = self.mensajeborrar.run()
         #print(respuesta)
@@ -916,8 +926,8 @@ class Concesionario:
         fecha = self.b.get_object("txt_fecha_mod_vent").get_text()
         precio = self.b.get_object("txt_precio_mod_venta").get_text()
         
-        bastidor = unicode(bastidor,"utf-8")
-        dni = unicode(dni,"utf-8")
+        nbastidor = unicode(nbastidor,"utf-8")
+        ndni = unicode(ndni,"utf-8")
         fecha = unicode(fecha,"utf-8")
         
         error = 0
@@ -939,7 +949,7 @@ class Concesionario:
         
         if error==0:
             try:
-                self.db.execute("UPDATE Venta SET N_Bastidor=?, Dni=?, Fecha=?, Precio=? WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni,fecha,p,nbastidor,ndni))
+                self.db.execute("UPDATE Venta SET N_Bastidor=?, Dni=?, Fecha=?, Precio=? WHERE N_Bastidor=? AND Dni=?;",(nbastidor,ndni,fecha,p,bastidor,dni))
                 self.db.commit()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
@@ -963,8 +973,6 @@ class Concesionario:
                 self.b.get_object("btn_del_venta_main").set_sensitive(False)
                 
                 self.ocultar("mod_venta")
-######################################VOY POR AQUÍ#############################################################################################################################################################################
-
     
     
     
@@ -1051,7 +1059,7 @@ class Concesionario:
     
     
     
-    def borrar_cliente(self,w):
+    def borrar_cliente(self,w):#BOTÓN ELIMINAR CLIENTE DE LA PESTAÑA CLIENTES
         self.mensajeborrar.format_secondary_text("¿Desea eliminar el cliente?")
         respuesta = self.mensajeborrar.run()
         #print(respuesta)
@@ -1095,6 +1103,47 @@ class Concesionario:
     
     
     
+    def combo_coche_changed(self,combo):
+        index = combo.get_active()
+        if index!=-1:
+            self.b.get_object("btn_buscar_coche_main").set_sensitive(True)
+    
+    
+    
+    def busca_coche_tipo(self,w):
+        campo = self.b.get_object("combo_coche").get_active_text()
+        busqueda = self.b.get_object("txt_combo_coche_main").get_text()
+        
+        if not(busqueda):
+            self.warning.format_secondary_text("El campo no puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+        else:
+            self.lista = self.b.get_object("tabla_coches")
+            self.lista.clear()
+            
+            result = self.db.execute("SELECT * FROM Coche WHERE "+campo+" LIKE '%"+busqueda+"%';")
+            for row in result:
+                self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+    
+    
+    
+    def abrir_calendario(self,w):#BOTÓN ABRIR CALENDARIO DE LA VENTANA MODIFICAR VENTA
+        self.b.get_object("calendario").show()
+    
+    
+    
+    def seleccionar_fecha(self,w):#BOTÓN SELECCIONAR FECHA DEL CALENDARIO
+        anio,mes,dia = self.b.get_object("calendar1").get_date()
+        m = int(mes)+1
+        fecha = str(dia)+"/"+str(m)+"/"+str(anio)
+        self.b.get_object("txt_fecha_mod_vent").set_text(fecha)
+        self.b.get_object("calendario").hide()
+######################################VOY POR AQUÍ#############################################################################################################################################################################
+
+    
+    
+    
     def on_destroy(self, w, *signals):
         # return True --> no cierra
         # return False --> cierra
@@ -1118,7 +1167,12 @@ class Concesionario:
         self.listadni('dni')
         self.listacoches2('coches')
         self.listaclientes('clientes')
+        #COMBOBOX
+        self.b.get_object("combo_coche").set_active(-1)
+        #CAJAS DE TEXTO
+        self.b.get_object("txt_combo_coche_main").set_text("")
         #BOTONES
+        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
@@ -1338,7 +1392,12 @@ class Concesionario:
     
     
     def activaLabel(self, notebook, page, page_num):
+        #COMBOBOX
+        self.b.get_object("combo_coche").set_active(-1)
+        #CAJAS DE TEXTO
+        self.b.get_object("txt_combo_coche_main").set_text("")
         #BOTONES
+        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)

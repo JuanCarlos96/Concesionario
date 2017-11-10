@@ -593,6 +593,44 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
+          <object class="GtkFixed" id="fixed14">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label">
+                <property name="width_request">35</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Fecha</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lbl_fecha_add_venta">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="x">51</property>
+                <property name="y">8</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkFrame" id="frame5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -783,7 +821,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -916,7 +954,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -999,7 +1037,90 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="buscatipocoche">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Bastidor</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Marca</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Modelo</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Motor</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">CV</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Tipo</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Color</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Precio</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkWindow" id="calendario">
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <child>
+      <object class="GtkVBox" id="vbox4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkCalendar" id="calendar1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="year">2017</property>
+            <property name="month">10</property>
+            <property name="day">10</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="fixed13">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="seleccionar_fecha">
+                <property name="label" translatable="yes">Seleccionar fecha</property>
+                <property name="width_request">200</property>
+                <property name="height_request">47</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_seleccionar_fecha_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="x">120</property>
+                <property name="y">8</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
@@ -2434,6 +2555,7 @@
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2621,6 +2743,21 @@
           <packing>
             <property name="x">136</property>
             <property name="y">172</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="abre_calendario">
+            <property name="label" translatable="yes">Abrir calendario</property>
+            <property name="width_request">100</property>
+            <property name="height_request">24</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_abre_calendario_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">136</property>
+            <property name="y">36</property>
           </packing>
         </child>
       </object>
@@ -2852,7 +2989,6 @@
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="editable">False</property>
                     <property name="invisible_char">●</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
@@ -2955,6 +3091,14 @@
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">buscatipocoche</property>
+                    <signal name="changed" handler="on_combo_coche_changed" swapped="no"/>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="x">382</property>
