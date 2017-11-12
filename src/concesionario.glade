@@ -2,6 +2,50 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="AcercaDe">
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <child>
+      <object class="GtkFixed" id="fixed24">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel" id="label8">
+            <property name="width_request">200</property>
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="yalign">0</property>
+            <property name="label" translatable="yes">Concesionario 1.0
+Juan Carlos Expósito Romero
+Dessarrollo de Interfaces 2DAM</property>
+          </object>
+          <packing>
+            <property name="x">48</property>
+            <property name="y">48</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btnAcercaDe">
+            <property name="label" translatable="yes">Aceptar</property>
+            <property name="width_request">100</property>
+            <property name="height_request">24</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_btnAcercaDe_activate" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">68</property>
+            <property name="y">141</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkWindow" id="add_coche">
     <property name="width_request">280</property>
     <property name="height_request">312</property>
@@ -1077,8 +1121,10 @@
   </object>
   <object class="GtkWindow" id="calendario">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Calendario</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
+    <property name="icon">coche.ico</property>
     <child>
       <object class="GtkVBox" id="vbox4">
         <property name="visible">True</property>
@@ -1105,16 +1151,12 @@
               <object class="GtkButton" id="seleccionar_fecha">
                 <property name="label" translatable="yes">Seleccionar fecha</property>
                 <property name="width_request">200</property>
-                <property name="height_request">47</property>
+                <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="on_seleccionar_fecha_clicked" swapped="no"/>
               </object>
-              <packing>
-                <property name="x">120</property>
-                <property name="y">8</property>
-              </packing>
             </child>
           </object>
           <packing>
@@ -1135,6 +1177,33 @@
       <!-- column-name nombre -->
       <column type="gchararray"/>
     </columns>
+  </object>
+  <object class="GtkListStore" id="coches">
+    <columns>
+      <!-- column-name bastidor -->
+      <column type="gchararray"/>
+      <!-- column-name marca -->
+      <column type="gchararray"/>
+      <!-- column-name modelo -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="comboCliente">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">DNI</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Apellidos</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Nombre</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="buscar_cliente_add_venta">
     <property name="width_request">456</property>
@@ -1183,6 +1252,14 @@
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="model">comboCliente</property>
+            <signal name="changed" handler="on_combo_cliente1_changed" swapped="no"/>
+            <child>
+              <object class="GtkCellRendererText" id="cellrenderertext1"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
           </object>
           <packing>
             <property name="x">132</property>
@@ -1195,7 +1272,6 @@
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -1257,6 +1333,7 @@
                 <property name="can_focus">True</property>
                 <property name="model">clientes</property>
                 <signal name="button-press-event" handler="on_SeleccionCliente" swapped="no"/>
+                <signal name="row-activated" handler="on_treeview5_row_activated" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente1">
                     <property name="title" translatable="yes">DNI</property>
@@ -1304,6 +1381,14 @@
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="model">comboCliente</property>
+            <signal name="changed" handler="on_combo_cliente2_changed" swapped="no"/>
+            <child>
+              <object class="GtkCellRendererText" id="cellrenderertext3"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
           </object>
           <packing>
             <property name="x">8</property>
@@ -1381,6 +1466,7 @@
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
                 <signal name="button-press-event" handler="on_treeview6_button_press_event" swapped="no"/>
+                <signal name="row-activated" handler="on_treeview6_row_activated" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente2">
                     <property name="title" translatable="yes">DNI</property>
@@ -1410,15 +1496,22 @@
       </object>
     </child>
   </object>
-  <object class="GtkListStore" id="coches">
+  <object class="GtkListStore" id="comboCoche2">
     <columns>
-      <!-- column-name bastidor -->
-      <column type="gchararray"/>
-      <!-- column-name marca -->
-      <column type="gchararray"/>
-      <!-- column-name modelo -->
+      <!-- column-name gchararray1 -->
       <column type="gchararray"/>
     </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Bastidor</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Marca</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Modelo</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="buscar_coche_mod_venta">
     <property name="width_request">456</property>
@@ -1433,11 +1526,19 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkComboBox" id="combo_cochea">
+          <object class="GtkComboBox" id="combo_coche2">
             <property name="width_request">100</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="model">comboCoche2</property>
+            <signal name="changed" handler="on_combo_coche2_changed" swapped="no"/>
+            <child>
+              <object class="GtkCellRendererText" id="cellrenderertext4"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
           </object>
           <packing>
             <property name="x">8</property>
@@ -1450,7 +1551,6 @@
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -1514,6 +1614,8 @@
                 <property name="model">coches</property>
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
+                <signal name="button-press-event" handler="on_treeview7_button_press_event" swapped="no"/>
+                <signal name="row-activated" handler="on_treeview7_row_activated" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_bastidor_coche">
                     <property name="title" translatable="yes">Bastidor</property>
@@ -2871,9 +2973,10 @@
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Ayuda sobre Concesionario</property>
+                        <property name="tooltip_text" translatable="yes">Acerca de Concesionario</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_Acerca_de_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -2919,25 +3022,6 @@
                   </object>
                   <packing>
                     <property name="x">48</property>
-                    <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="combo_marca">
-                    <property name="width_request">100</property>
-                    <property name="height_request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="model">comboMarca</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="x">96</property>
                     <property name="y">8</property>
                   </packing>
                 </child>
@@ -3120,7 +3204,7 @@
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow4">
                     <property name="width_request">688</property>
-                    <property name="height_request">352</property>
+                    <property name="height_request">312</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hscrollbar_policy">automatic</property>
@@ -3184,6 +3268,35 @@
                         </child>
                       </object>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="x">8</property>
+                    <property name="y">80</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="combo_marca">
+                    <property name="width_request">100</property>
+                    <property name="height_request">20</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="x">96</property>
+                    <property name="y">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btnReiniciarBusqueda">
+                    <property name="label" translatable="yes">Reiniciar Búsqueda</property>
+                    <property name="width_request">120</property>
+                    <property name="height_request">24</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Limpia los filtros de búsqueda
+y vuelve a listar todos los coches</property>
+                    <signal name="clicked" handler="on_btnReiniciarBusqueda_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="x">8</property>
@@ -3472,7 +3585,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">revisiones</property>
+                        <signal name="button-press-event" handler="on_treeview2_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_btn_revision" swapped="no"/>
+                        <signal name="row-activated" handler="on_treeview2_row_activated" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                             <property name="title" translatable="yes">Nº REVISIÓN</property>
@@ -3720,7 +3835,9 @@
                         <property name="can_focus">True</property>
                         <property name="model">venta</property>
                         <property name="search_column">0</property>
+                        <signal name="button-press-event" handler="on_treeview3_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_SeleccionVenta" swapped="no"/>
+                        <signal name="row-activated" handler="on_treeview3_row_activated" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
@@ -3947,7 +4064,9 @@
                         <property name="can_focus">True</property>
                         <property name="model">dni</property>
                         <property name="search_column">0</property>
+                        <signal name="button-press-event" handler="on_treeview4_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_SeleccionDni" swapped="no"/>
+                        <signal name="row-activated" handler="on_treeview4_row_activated" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
                             <property name="title" translatable="yes">DNI</property>

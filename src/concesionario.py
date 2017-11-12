@@ -81,7 +81,27 @@ class Concesionario:
         "on_combo_coche_changed" : self.combo_coche_changed,
         "on_btn_buscar_coche_main_clicked" : self.busca_coche_tipo,
         "on_abre_calendario_clicked" : self.abrir_calendario,
-        "on_seleccionar_fecha_clicked" : self.seleccionar_fecha})
+        "on_seleccionar_fecha_clicked" : self.seleccionar_fecha,
+        "on_treeview6_row_activated" : self.on_treeview6_row_activated,
+        "on_treeview5_row_activated" : self.on_treeview5_row_activated,
+        "on_treeview7_row_activated" : self.on_treeview7_row_activated,
+        "on_treeview1_row_activated" : self.on_treeview1_row_activated,
+        "on_treeview2_row_activated" : self.on_treeview2_row_activated,
+        "on_treeview3_row_activated" : self.on_treeview3_row_activated,
+        "on_treeview4_row_activated" : self.on_treeview4_row_activated,
+        "on_treeview4_button_press_event" : self.on_treeview4_button_press_event,
+        "on_treeview2_button_press_event" : self.on_treeview2_button_press_event,
+        "on_treeview3_button_press_event" : self.on_treeview3_button_press_event,
+        "on_combo_cliente1_changed" : self.on_combo_cliente1_changed,
+        "on_btn_buscar_cliente1_clicked" : self.on_btn_buscar_cliente1_clicked,
+        "on_combo_cliente2_changed" : self.on_combo_cliente2_changed,
+        "on_btn_buscar_cliente2_clicked" : self.on_btn_buscar_cliente2_clicked,
+        "on_btn_buscar_coche_clicked" : self.on_btn_buscar_coche_clicked,
+        "on_combo_coche2_changed" : self.on_combo_coche2_changed,
+        "on_treeview7_button_press_event" : self.on_treeview7_button_press_event,
+        "on_Acerca_de_activate" : self.on_Acerca_de_activate,
+        "on_btnAcercaDe_activate" : self.on_btnAcercaDe_activate,
+        "on_btnReiniciarBusqueda_clicked" : self.on_btnReiniciarBusqueda_clicked})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -103,6 +123,9 @@ class Concesionario:
         self.mensajeborrar = self.b.get_object("mensajeborrar")
         
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
+        self.b.get_object("btn_buscar_coche").set_sensitive(False)
+        self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
@@ -123,18 +146,30 @@ class Concesionario:
     
     #FUNCIONES PRINCIPALES######################################################################################
     def buscar_cliente(self,w):#BOTON DE VENTA EN LA VENTANA PRINCIPAL, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA CREAR UNA VENTA
+        self.b.get_object("combo_cliente1").set_active(-1)
+        self.b.get_object("txt_combo_cliente1").set_text("")
+        self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
         self.b.get_object("buscar_cliente_add_venta").show()
     
     
     
     def buscar_cliente2(self,w):#BOTON DE BUSCAR DNI EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
+        self.b.get_object("combo_cliente2").set_active(-1)
+        self.b.get_object("txt_combo_cliente2").set_text("")
+        self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("buscar_cliente_mod_venta").show()
     
     
     
     def buscar_bastidor(self,w):#BOTON DE BUSCAR BASTIDOR EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE COCHE PARA MODIFICAR UNA VENTA
         self.ocultar("mod_venta")
+        self.b.get_object("combo_coche2").set_active(-1)
+        self.b.get_object("txt_combo_coche").set_text("")
+        self.b.get_object("btn_buscar_coche").set_sensitive(False)
+        self.b.get_object("btn_seleccionar_coche").set_sensitive(False)
         self.b.get_object("buscar_coche_mod_venta").show()
     
     
@@ -252,11 +287,11 @@ class Concesionario:
         bastidor = self.b.get_object("txt_bastidor_add_venta").get_text()
         precio = self.b.get_object("lbl_precio_add_venta").get_text()
         
-        dni = unicode(dni,"utf-8")
-        nombre = unicode(nombre,"utf-8")
-        apellidos = unicode(apellidos,"utf-8")
+        dni = unicode(dni.upper(),"utf-8")
+        nombre = unicode(nombre.capitalize(),"utf-8")
+        apellidos = unicode(apellidos.capitalize(),"utf-8")
         telefono = unicode(telefono,"utf-8")
-        direccion = unicode(direccion,"utf-8")
+        direccion = unicode(direccion.capitalize(),"utf-8")
         bastidor = unicode(bastidor,"utf-8")
         p = float(precio)
         fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
@@ -269,7 +304,52 @@ class Concesionario:
             self.warning.run()
             self.warning.hide()
             error = 1
-        
+        else:
+            if len(dni)!=9:#COMPROBACIÓN DEL FORMATO DEL DNI
+                self.warning.format_secondary_text("DNI no tiene el formato correcto")
+                self.b.get_object("txt_dni_add_venta").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
+            else:
+                numerosdni = dni[0]+dni[1]+dni[2]+dni[3]+dni[4]+dni[5]+dni[6]+dni[7]
+                letradni = dni[8]
+                try:
+                    num = int(numerosdni)
+                except ValueError as err:
+                    self.warning.format_secondary_text("DNI no tiene el formato correcto")
+                    self.b.get_object("txt_dni_add_venta").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
+                
+                if error==0:
+                    try:
+                        letra = int(letradni)
+                        self.warning.format_secondary_text("DNI no tiene el formato correcto")
+                        self.b.get_object("txt_dni_add_venta").set_text("")
+                        self.warning.run()
+                        self.warning.hide()
+                        error = 1
+                    except ValueError as err:
+                        a = 0
+            
+            if len(telefono)!=9:#COMPROBACIÓN DEL FORMATO DEL TELÉFONO
+                self.warning.format_secondary_text("Teléfono no tiene el formato correcto")
+                self.b.get_object("txt_telefono_add_venta").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
+            else:
+                try:
+                    tel = int(telefono)
+                except ValueError as err:
+                    self.warning.format_secondary_text("Teléfono no tiene el formato correcto")
+                    self.b.get_object("txt_telefono_add_venta").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
+
         if error==0:
             result = self.db.execute("SELECT Dni FROM Cliente")
             for row in result:
@@ -288,10 +368,17 @@ class Concesionario:
                     self.info.format_secondary_text("Nuevo cliente introducido correctamente")
                     self.info.run()
                     self.info.hide()
+                    
+                    self.listadni('dni')
+                    self.listaclientes('clientes')
             
             try:
                 self.db.execute("INSERT INTO Venta VALUES(?,?,?,?)",(bastidor,dni,fecha,p))
                 self.db.commit()
+            except (sqlite3.IntegrityError):
+                self.warning.format_secondary_text("Ya existe una venta con estos datos")
+                self.warning.run()
+                self.warning.hide()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
                 self.warning.run()
@@ -312,8 +399,6 @@ class Concesionario:
                 self.b.get_object("lbl_precio_add_venta").set_text("")
                 
                 self.ocultar("add_venta")
-                self.listadni('dni')
-                self.listaclientes('clientes')
                 self.listaventas('venta')
 
 
@@ -382,17 +467,17 @@ class Concesionario:
             
             #COMPROBACIÓN DE LOS CHECK BUTTONS MARCADOS
             if frenos==True:
-                fr = "Si"
+                fr = "Sí"
             else:
                 fr = "No"
             
             if aceite==True:
-                ac = "Si"
+                ac = "Sí"
             else:
                 ac = "No"
             
             if filtro==True:
-                fi = "Si"
+                fi = "Sí"
             else:
                 fi = "No"
             
@@ -403,7 +488,7 @@ class Concesionario:
             bastidor = unicode(bastidor,"utf-8")
             
             try:
-                self.db.execute("INSERT INTO Revision VALUES(?,?,?,?,?,?)",(nrevision,fecha,frenos,aceite,filtro,bastidor))
+                self.db.execute("INSERT INTO Revision VALUES(?,?,?,?,?,?)",(nrevision,fecha,fr,ac,fi,bastidor))
                 self.db.commit()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
@@ -445,11 +530,12 @@ class Concesionario:
         color = self.b.get_object("txt_color_add_coche").get_text()
         precio = self.b.get_object("txt_precio_add_coche").get_text()
         
-        marca = unicode(marca,"utf-8")
-        modelo = unicode(modelo,"utf-8")
-        tipo = unicode(tipo,"utf-8")
-        motor = unicode(motor,"utf-8")
-        color = unicode(color,"utf-8")
+        bastidor = unicode(bastidor.upper(),"utf-8")
+        marca = unicode(marca.upper(),"utf-8")
+        modelo = unicode(modelo.upper(),"utf-8")
+        tipo = unicode(tipo.upper(),"utf-8")
+        motor = unicode(motor.upper(),"utf-8")
+        color = unicode(color.upper(),"utf-8")
         
         error = 0
         
@@ -459,28 +545,48 @@ class Concesionario:
             self.warning.hide()
             error = 1
         else:
-            try:
-                c = int(cv)
-            except ValueError as err:
-                self.warning.format_secondary_text("CV no es un número entero")
-                self.b.get_object("txt_cv_add_coche").set_text("")
+            if len(bastidor)!=17:
+                self.warning.format_secondary_text("El número de bastidor no tiene el formato correcto")
+                self.b.get_object("txt_bastidor_add_coche").set_text("")
                 self.warning.run()
                 self.warning.hide()
                 error = 1
+            else:
+                try:
+                    b = int(bastidor[0]+bastidor[1]+bastidor[2])
+                except ValueError as err:
+                    self.warning.format_secondary_text("El número de bastidor no tiene el formato correcto")
+                    self.b.get_object("txt_bastidor_add_coche").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
+                
+                try:
+                    c = int(cv)
+                except ValueError as err:
+                    self.warning.format_secondary_text("CV no es un número entero")
+                    self.b.get_object("txt_cv_add_coche").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
 
-            try:
-                p = float(precio)
-            except ValueError as err:
-                self.warning.format_secondary_text("Precio no es un número real")
-                self.b.get_object("txt_precio_add_coche").set_text("")
-                self.warning.run()
-                self.warning.hide()
-                error = 1
+                try:
+                    p = float(precio)
+                except ValueError as err:
+                    self.warning.format_secondary_text("Precio no es un número real")
+                    self.b.get_object("txt_precio_add_coche").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
         
         if error==0:
             try:
                 self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,c,tipo,color,p))
                 self.db.commit()
+            except (sqlite3.IntegrityError):
+                self.warning.format_secondary_text("Ya existe un coche con ese bastidor")
+                self.warning.run()
+                self.warning.hide()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
                 self.warning.run()
@@ -502,6 +608,11 @@ class Concesionario:
                 self.ocultar("add_coche")
                 self.listacoches('tabla_coches')
                 self.listacoches2('coches')
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
     
     
     
@@ -680,36 +791,34 @@ class Concesionario:
         self.b.get_object("chk_filtro_mod_revision").set_active(False)
         
         #OBTENER DATOS
-        nrevision = self.b.get_object("lbl_numero_revision_main").get_text()
-        fecha = self.b.get_object("lbl_fecha_revision_main").get_text()
-        bastidor = self.b.get_object("lbl_bastidor_revision_main").get_text()
-        marca = self.b.get_object("lbl_marca_revision_main").get_text()
-        modelo = self.b.get_object("lbl_modelo_revision_main").get_text()
-        frenos = self.b.get_object("lbl_frenos_revision_main").get_text()
-        filtro = self.b.get_object("lbl_filtro_revision_main").get_text()
-        aceite = self.b.get_object("lbl_aceite_revision_main").get_text()
+        tree_view = self.b.get_object("treeview2")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        nrevision = treemodel.get_value(treeiter, 0)
         
-        #RELLENAR VENTANA CON LOS DATOS
         self.b.get_object("lbl_revision_mod_revision").set_text(str(nrevision))
-        self.b.get_object("lbl_fecha_mod_revision").set_text(str(fecha))
-        self.b.get_object("lbl_marca_mod_revision").set_text(str(marca))
-        self.b.get_object("lbl_modelo_mod_revision").set_text(str(modelo))
-        self.b.get_object("lbl_bastidor_mod_revision").set_text(str(bastidor))
         
-        if frenos=="Sí":
-            self.b.get_object("chk_frenos_mod_revision").set_active(True)
-        else:
-            self.b.get_object("chk_frenos_mod_revision").set_active(False)
-        
-        if filtro=="Sí":
-            self.b.get_object("chk_filtro_mod_revision").set_active(True)
-        else:
-            self.b.get_object("chk_filtro_mod_revision").set_active(False)
-        
-        if aceite=="Sí":
-            self.b.get_object("chk_aceite_mod_revision").set_active(True)
-        else:
-            self.b.get_object("chk_aceite_mod_revision").set_active(False)
+        result = self.db.execute("SELECT r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
+        for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
+            self.b.get_object("lbl_fecha_mod_revision").set_text(row[0])
+            self.b.get_object("lbl_marca_mod_revision").set_text(row[1])
+            self.b.get_object("lbl_modelo_mod_revision").set_text(row[2])
+            self.b.get_object("lbl_bastidor_mod_revision").set_text(row[3])
+
+            if row[4]=="Sí":
+                self.b.get_object("chk_frenos_mod_revision").set_active(True)
+            else:
+                self.b.get_object("chk_frenos_mod_revision").set_active(False)
+
+            if row[5]=="Sí":
+                self.b.get_object("chk_filtro_mod_revision").set_active(True)
+            else:
+                self.b.get_object("chk_filtro_mod_revision").set_active(False)
+
+            if row[6]=="Sí":
+                self.b.get_object("chk_aceite_mod_revision").set_active(True)
+            else:
+                self.b.get_object("chk_aceite_mod_revision").set_active(False)
         
         self.b.get_object("mod_revision").show()
     
@@ -951,6 +1060,10 @@ class Concesionario:
             try:
                 self.db.execute("UPDATE Venta SET N_Bastidor=?, Dni=?, Fecha=?, Precio=? WHERE N_Bastidor=? AND Dni=?;",(nbastidor,ndni,fecha,p,bastidor,dni))
                 self.db.commit()
+            except (sqlite3.IntegrityError):
+                self.warning.format_secondary_text("Ya existe una venta con estos datos")
+                self.warning.run()
+                self.warning.hide()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
                 self.warning.run()
@@ -993,19 +1106,20 @@ class Concesionario:
         self.b.get_object("txt_telefono_mod_cliente").set_text("")
         self.b.get_object("txt_direccion_mod_cliente").set_text("")
         
-        #OBTENER DATOS DE LAS ETIQUETAS
-        dni = self.b.get_object("lbl_dni_clientes_main").get_text()
-        nombre = self.b.get_object("lbl_nombre_clientes_main").get_text()
-        apellidos = self.b.get_object("lbl_apellidos_clientes_main").get_text()
-        telefono = self.b.get_object("lbl_telefono_clientes_main").get_text()
-        direccion = self.b.get_object("lbl_direccion_clientes_main").get_text()
+        #OBTENER DATOS DEL CLIENTE SELECCIONADO
+        tree_view = self.b.get_object("treeview4")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        dni = treemodel.get_value(treeiter, 0)
         
-        #RELLENAR CAJAS DE TEXTO CON LOS DATOS
-        self.b.get_object("txt_nombre_mod_cliente").set_text(nombre)
-        self.b.get_object("txt_apellidos_mod_cliente").set_text(apellidos)
         self.b.get_object("txt_dni_mod_cliente").set_text(dni)
-        self.b.get_object("txt_telefono_mod_cliente").set_text(telefono)
-        self.b.get_object("txt_direccion_mod_cliente").set_text(direccion)
+        
+        result = self.db.execute("SELECT Nombre,Apellidos,Telefono,Domicilio FROM Cliente WHERE Dni=?;",(dni,))
+        for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
+            self.b.get_object("txt_nombre_mod_cliente").set_text(row[0])
+            self.b.get_object("txt_apellidos_mod_cliente").set_text(row[1])
+            self.b.get_object("txt_telefono_mod_cliente").set_text(row[2])
+            self.b.get_object("txt_direccion_mod_cliente").set_text(row[3])
         
         self.b.get_object("mod_cliente").show()
     
@@ -1018,11 +1132,11 @@ class Concesionario:
         telefono = self.b.get_object("txt_telefono_mod_cliente").get_text()
         direccion = self.b.get_object("txt_direccion_mod_cliente").get_text()
         
-        nombre = unicode(nombre,"utf-8")
-        apellidos = unicode(apellidos,"utf-8")
+        nombre = unicode(nombre.capitalize(),"utf-8")
+        apellidos = unicode(apellidos.capitalize(),"utf-8")
         dni = unicode(dni,"utf-8")
         telefono = unicode(telefono,"utf-8")
-        direccion = unicode(direccion,"utf-8")
+        direccion = unicode(direccion.capitalize(),"utf-8")
         
         error = 0
         
@@ -1031,6 +1145,22 @@ class Concesionario:
             self.warning.run()
             self.warning.hide()
             error = 1
+        else:
+            if len(telefono)!=9:#COMPROBACIÓN DEL FORMATO DEL TELÉFONO
+                self.warning.format_secondary_text("Teléfono no tiene el formato correcto")
+                self.b.get_object("txt_telefono_mod_cliente").set_text("")
+                self.warning.run()
+                self.warning.hide()
+                error = 1
+            else:
+                try:
+                    tel = int(telefono)
+                except ValueError as err:
+                    self.warning.format_secondary_text("Teléfono no tiene el formato correcto")
+                    self.b.get_object("txt_telefono_mod_cliente").set_text("")
+                    self.warning.run()
+                    self.warning.hide()
+                    error = 1
         
         if error==0:
             try:
@@ -1114,6 +1244,9 @@ class Concesionario:
         campo = self.b.get_object("combo_coche").get_active_text()
         busqueda = self.b.get_object("txt_combo_coche_main").get_text()
         
+        if campo=="Bastidor":
+            campo = "N_Bastidor"
+        
         if not(busqueda):
             self.warning.format_secondary_text("El campo no puede estar vacío")
             self.warning.run()
@@ -1128,6 +1261,84 @@ class Concesionario:
     
     
     
+    def on_combo_cliente1_changed(self,combo):
+        index = combo.get_active()
+        if index!=-1:
+            self.b.get_object("btn_buscar_cliente1").set_sensitive(True)
+    
+    
+    
+    def on_btn_buscar_cliente1_clicked(self,w):
+        campo = self.b.get_object("combo_cliente1").get_active_text()
+        busqueda = self.b.get_object("txt_combo_cliente1").get_text()
+        
+        if not(busqueda):
+            self.warning.format_secondary_text("El campo no puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+        else:
+            self.lista = self.b.get_object("clientes")
+            self.lista.clear()
+            
+            result = self.db.execute("SELECT Dni, Apellidos, Nombre FROM Cliente WHERE "+campo+" LIKE '%"+busqueda+"%';")
+            for row in result:
+                self.lista.append([row[0],row[1],row[2]])
+    
+    
+    
+    def on_combo_cliente2_changed(self,combo):
+        index = combo.get_active()
+        if index!=-1:
+            self.b.get_object("btn_buscar_cliente2").set_sensitive(True)
+    
+    
+    
+    def on_btn_buscar_cliente2_clicked(self,w):
+        campo = self.b.get_object("combo_cliente2").get_active_text()
+        busqueda = self.b.get_object("txt_combo_cliente2").get_text()
+        
+        if not(busqueda):
+            self.warning.format_secondary_text("El campo no puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+        else:
+            self.lista = self.b.get_object("clientes")
+            self.lista.clear()
+            
+            result = self.db.execute("SELECT Dni, Apellidos, Nombre FROM Cliente WHERE "+campo+" LIKE '%"+busqueda+"%';")
+            for row in result:
+                self.lista.append([row[0],row[1],row[2]])
+    
+    
+    
+    def on_combo_coche2_changed(self,combo):
+        index = combo.get_active()
+        if index!=-1:
+            self.b.get_object("btn_buscar_coche").set_sensitive(True)
+    
+    
+    
+    def on_btn_buscar_coche_clicked(self,w):
+        campo = self.b.get_object("combo_coche2").get_active_text()
+        busqueda = self.b.get_object("txt_combo_coche").get_text()
+        
+        if campo=="Bastidor":
+            campo = "N_Bastidor"
+        
+        if not(busqueda):
+            self.warning.format_secondary_text("El campo no puede estar vacío")
+            self.warning.run()
+            self.warning.hide()
+        else:
+            self.lista = self.b.get_object("coches")
+            self.lista.clear()
+            
+            result = self.db.execute("SELECT N_Bastidor, Marca, Modelo FROM Coche WHERE "+campo+" LIKE '%"+busqueda+"%';")
+            for row in result:
+                self.lista.append([row[0],row[1],row[2]])
+    
+    
+    
     def abrir_calendario(self,w):#BOTÓN ABRIR CALENDARIO DE LA VENTANA MODIFICAR VENTA
         self.b.get_object("calendario").show()
     
@@ -1138,9 +1349,60 @@ class Concesionario:
         m = int(mes)+1
         fecha = str(dia)+"/"+str(m)+"/"+str(anio)
         self.b.get_object("txt_fecha_mod_vent").set_text(fecha)
-        self.b.get_object("calendario").hide()
-######################################VOY POR AQUÍ#############################################################################################################################################################################
+        self.ocultar("calendario")
+    
+    
+    
+    def on_treeview6_row_activated(self,treeview,path,view_column):
+        self.seleccionar_cliente("buscar_cliente_mod_venta")
+    
+    
+    
+    def on_treeview5_row_activated(self,treeview,path,view_column):
+        self.seleccionar_cliente2("buscar_cliente_add_venta")
+    
+    
+    
+    def on_treeview7_row_activated(self,treeview,path,view_column):
+        self.seleccionar_coche("buscar_coche_mod_venta")
+    
+    
+    
+    def on_treeview1_row_activated(self,treeview,path,view_column):
+        self.mod_coche("main")
+    
+    
+    
+    def on_treeview2_row_activated(self,treeview,path,view_column):
+        self.mod_revision("main")
+    
+    
+    
+    def on_treeview3_row_activated(self,treeview,path,view_column):
+        self.message_mod_venta("main")
+    
+    
+    
+    def on_treeview4_row_activated(self,treeview,path,view_column):
+        self.mod_cliente("main")
 
+    
+    
+    def on_Acerca_de_activate(self,w):
+        self.b.get_object("AcercaDe").show()
+    
+    
+    
+    def on_btnAcercaDe_activate(self,w):
+        self.ocultar("AcercaDe")
+    
+    
+    
+    def on_btnReiniciarBusqueda_clicked(self,w):
+        self.b.get_object("combo_coche").set_active(-1)
+        self.b.get_object("txt_combo_coche_main").set_text("")
+        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
+        self.listacoches('tabla_coches')
     
     
     
@@ -1172,7 +1434,10 @@ class Concesionario:
         #CAJAS DE TEXTO
         self.b.get_object("txt_combo_coche_main").set_text("")
         #BOTONES
+        self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
+        self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
+        self.b.get_object("btn_buscar_coche").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
@@ -1283,11 +1548,30 @@ class Concesionario:
     
     def on_boton_coche(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
+        if botonpulsado==1:#BOTÓN IZQUIERDO
             self.b.get_object("btn_add_venta_main").set_sensitive(True)
             self.b.get_object("btn_add_revision_main").set_sensitive(True)
             self.b.get_object("btn_mod_coche_main").set_sensitive(True)
             self.b.get_object("btn_del_coche_main").set_sensitive(True)
+        
+        if botonpulsado == 3: #Botón derecho
+            self.menu = gtk.Menu()#Se crea el menú
+            #Primer item
+            menu_item1 = gtk.ImageMenuItem(gtk.STOCK_NEW)
+            self.menu.append(menu_item1)
+            menu_item1.connect("activate", self.add_coche)
+            #Segundo item
+            menu_item2 = gtk.ImageMenuItem(gtk.STOCK_EDIT)
+            self.menu.append(menu_item2)
+            menu_item2.connect("activate", self.mod_coche)
+            #Tercer item
+            menu_item3 = gtk.ImageMenuItem(gtk.STOCK_DELETE)
+            self.menu.append(menu_item3)
+            menu_item3.connect("activate", self.borrar_coche)
+            self.menu.popup(None,None,None,evento.button,evento.time)
+            menu_item1.show()
+            menu_item2.show()
+            menu_item3.show()
     
     
     
@@ -1296,6 +1580,66 @@ class Concesionario:
         if botonpulsado==1:
             self.b.get_object("btn_seleccionar_cliente1").set_sensitive(True)
     
+    
+    
+    def on_treeview7_button_press_event(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado==1:
+            self.b.get_object("btn_seleccionar_coche").set_sensitive(True)
+    
+    
+    
+    def on_treeview4_button_press_event(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado == 3: #Botón derecho
+            self.menu = gtk.Menu()#Se crea el menú
+            #Primer item
+            menu_item1 = gtk.ImageMenuItem(gtk.STOCK_EDIT)
+            self.menu.append(menu_item1)
+            menu_item1.connect("activate", self.mod_cliente)
+            #Segundo item
+            menu_item2 = gtk.ImageMenuItem(gtk.STOCK_DELETE)
+            self.menu.append(menu_item2)
+            menu_item2.connect("activate", self.borrar_cliente)
+            self.menu.popup(None,None,None,evento.button,evento.time)
+            menu_item1.show()
+            menu_item2.show()
+    
+    
+    
+    def on_treeview2_button_press_event(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado == 3: #Botón derecho
+            self.menu = gtk.Menu()#Se crea el menú
+            #Primer item
+            menu_item1 = gtk.ImageMenuItem(gtk.STOCK_EDIT)
+            self.menu.append(menu_item1)
+            menu_item1.connect("activate", self.mod_revision)
+            #Segundo item
+            menu_item2 = gtk.ImageMenuItem(gtk.STOCK_DELETE)
+            self.menu.append(menu_item2)
+            menu_item2.connect("activate", self.borrar_revision)
+            self.menu.popup(None,None,None,evento.button,evento.time)
+            menu_item1.show()
+            menu_item2.show()
+    
+    
+    
+    def on_treeview3_button_press_event(self,treeview,evento):
+        botonpulsado = evento.button
+        if botonpulsado == 3: #Botón derecho
+            self.menu = gtk.Menu()#Se crea el menú
+            #Primer item
+            menu_item1 = gtk.ImageMenuItem(gtk.STOCK_EDIT)
+            self.menu.append(menu_item1)
+            menu_item1.connect("activate", self.message_mod_venta)
+            #Segundo item
+            menu_item2 = gtk.ImageMenuItem(gtk.STOCK_DELETE)
+            self.menu.append(menu_item2)
+            menu_item2.connect("activate", self.borrar_venta)
+            self.menu.popup(None,None,None,evento.button,evento.time)
+            menu_item1.show()
+            menu_item2.show()
     
     
     def on_boton_cliente2(self,treeview,evento):
@@ -1378,26 +1722,12 @@ class Concesionario:
     
     
     def comboMarcas(self,w):#################MIRAR MÁS TARDE##################################
-        model = self.b.get_object("comboMarca")
-        result = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
-        for row in result:
-            model.append(str(row[0]))
-        
-        cell = self.b.get_object("cellrenderertext1")
-        combo = self.b.get_object("combo_marca")
-        combo.set_model(model=model)
-        combo.pack_start(cell)
-        combo.set_attributes(cell, text=0)
+        self.b.get_object("combo_marca").append_text("hola")
     
     
     
     def activaLabel(self, notebook, page, page_num):
-        #COMBOBOX
-        self.b.get_object("combo_coche").set_active(-1)
-        #CAJAS DE TEXTO
-        self.b.get_object("txt_combo_coche_main").set_text("")
         #BOTONES
-        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
         self.b.get_object("btn_add_revision_main").set_sensitive(False)
         self.b.get_object("btn_mod_coche_main").set_sensitive(False)
