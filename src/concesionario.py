@@ -180,6 +180,7 @@ class Concesionario:
         self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
         self.b.get_object("buscar_cliente_add_venta").show()
+        self.listaclientes('clientes')
     
     
     
@@ -189,6 +190,7 @@ class Concesionario:
         self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("buscar_cliente_mod_venta").show()
+        self.listaclientes('clientes')
     
     
     
@@ -198,6 +200,7 @@ class Concesionario:
         self.b.get_object("btn_buscar_coche").set_sensitive(False)
         self.b.get_object("btn_seleccionar_coche").set_sensitive(False)
         self.b.get_object("buscar_coche_mod_venta").show()
+        self.listacoches2('coches')
     
     
     
