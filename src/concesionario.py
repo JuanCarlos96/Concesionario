@@ -101,7 +101,13 @@ class Concesionario:
         "on_treeview7_button_press_event" : self.on_treeview7_button_press_event,
         "on_Acerca_de_activate" : self.on_Acerca_de_activate,
         "on_btnAcercaDe_activate" : self.on_btnAcercaDe_activate,
-        "on_btnReiniciarBusqueda_clicked" : self.on_btnReiniciarBusqueda_clicked})
+        "on_btnReiniciarBusqueda_clicked" : self.on_btnReiniciarBusqueda_clicked,
+        "on_combo_motor_changed" : self.on_combo_motor_changed,
+        "on_combo_marca_changed" : self.on_combo_marca_changed,
+        "on_treeview1_key_press_event" : self.on_treeview1_key_press_event,
+        "on_treeview2_key_press_event" : self.on_treeview2_key_press_event,
+        "on_treeview3_key_press_event" : self.on_treeview3_key_press_event,
+        "on_treeview4_key_press_event" : self.on_treeview4_key_press_event})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -140,6 +146,29 @@ class Concesionario:
         self.b.get_object("btn_del_venta_main").set_sensitive(False)
         
         self.b.get_object("main").connect("delete-event", self.on_destroy)
+        self.b.get_object("add_coche").connect("delete-event",self.on_destroy2)
+        self.b.get_object("add_revision").connect("delete-event",self.on_destroy2)
+        self.b.get_object("add_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("calendario").connect("delete-event",self.on_destroy2)
+        self.b.get_object("buscar_cliente_add_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("buscar_cliente_mod_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("buscar_coche_mod_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("message_mod_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("mod_cliente").connect("delete-event",self.on_destroy2)
+        self.b.get_object("mod_coche").connect("delete-event",self.on_destroy2)
+        self.b.get_object("mod_revision").connect("delete-event",self.on_destroy2)
+        self.b.get_object("mod_venta").connect("delete-event",self.on_destroy2)
+        
+        #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
+        self.b.get_object("combo_marca").get_model().clear()
+        marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
+        for marca in marcas:
+            self.b.get_object("combo_marca").append_text(marca[0])
+
+        self.b.get_object("combo_motor").get_model().clear()
+        motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
+        for motor in motores:
+            self.b.get_object("combo_motor").append_text(motor[0])
         
         #Toma el nombre de la ventana a mostrar
         self.b.get_object("main").show()
@@ -155,7 +184,6 @@ class Concesionario:
     
     
     def buscar_cliente2(self,w):#BOTON DE BUSCAR DNI EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA MODIFICAR UNA VENTA
-        self.ocultar("mod_venta")
         self.b.get_object("combo_cliente2").set_active(-1)
         self.b.get_object("txt_combo_cliente2").set_text("")
         self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
@@ -165,7 +193,6 @@ class Concesionario:
     
     
     def buscar_bastidor(self,w):#BOTON DE BUSCAR BASTIDOR EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE COCHE PARA MODIFICAR UNA VENTA
-        self.ocultar("mod_venta")
         self.b.get_object("combo_coche2").set_active(-1)
         self.b.get_object("txt_combo_coche").set_text("")
         self.b.get_object("btn_buscar_coche").set_sensitive(False)
@@ -604,6 +631,17 @@ class Concesionario:
                 self.b.get_object("txt_cv_add_coche").set_text("")
                 self.b.get_object("txt_color_add_coche").set_text("")
                 self.b.get_object("txt_precio_add_coche").set_text("")
+                
+                #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
+                self.b.get_object("combo_marca").get_model().clear()
+                marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
+                for marca in marcas:
+                    self.b.get_object("combo_marca").append_text(marca[0])
+                
+                self.b.get_object("combo_motor").get_model().clear()
+                motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
+                for motor in motores:
+                    self.b.get_object("combo_motor").append_text(motor[0])
 
                 self.ocultar("add_coche")
                 self.listacoches('tabla_coches')
@@ -728,6 +766,17 @@ class Concesionario:
                 self.listacoches2('coches')
                 self.listarevisiones('revisiones')
                 self.listaventas('venta')
+                
+                #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
+                self.b.get_object("combo_marca").get_model().clear()
+                marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
+                for marca in marcas:
+                    self.b.get_object("combo_marca").append_text(marca[0])
+                
+                self.b.get_object("combo_motor").get_model().clear()
+                motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
+                for motor in motores:
+                    self.b.get_object("combo_motor").append_text(motor[0])
 
                 self.ocultar("mod_coche")
                 self.b.get_object("btn_add_venta_main").set_sensitive(False)
@@ -766,6 +815,17 @@ class Concesionario:
                 self.listacoches2('coches')
                 self.listarevisiones('revisiones')
                 self.listaventas('venta')
+                
+                #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
+                self.b.get_object("combo_marca").get_model().clear()
+                marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
+                for marca in marcas:
+                    self.b.get_object("combo_marca").append_text(marca[0])
+                
+                self.b.get_object("combo_motor").get_model().clear()
+                motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
+                for motor in motores:
+                    self.b.get_object("combo_motor").append_text(motor[0])
                 
                 self.b.get_object("btn_add_venta_main").set_sensitive(False)
                 self.b.get_object("btn_add_revision_main").set_sensitive(False)
@@ -1318,6 +1378,60 @@ class Concesionario:
     
     
     
+    def on_combo_motor_changed(self,combo):
+        motorseleccionado = self.b.get_object("combo_motor").get_active()
+        
+        if motorseleccionado!=-1:
+            motor = self.b.get_object("combo_motor").get_active_text()
+            motor = unicode(motor,"utf-8")
+            marcaseleccionada = self.b.get_object("combo_marca").get_active()
+
+            if marcaseleccionada==-1:
+                self.lista = self.b.get_object("tabla_coches")
+                self.lista.clear()
+
+                result = self.db.execute("SELECT * FROM Coche WHERE Motor=?;",(motor,))
+                for row in result:
+                    self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+            else:
+                marca = self.b.get_object("combo_marca").get_active_text()
+                marca = unicode(marca,"utf-8")
+                self.lista = self.b.get_object("tabla_coches")
+                self.lista.clear()
+
+                result = self.db.execute("SELECT * FROM Coche WHERE Motor=? AND Marca=?;",(motor,marca))
+                for row in result:
+                    self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+    
+    
+    
+    def on_combo_marca_changed(self,combo):
+        marcaseleccionada = self.b.get_object("combo_marca").get_active()
+        
+        if marcaseleccionada!=-1:
+            marca = self.b.get_object("combo_marca").get_active_text()
+            marca = unicode(marca,"utf-8")
+            motorseleccionado = self.b.get_object("combo_motor").get_active()
+
+            if motorseleccionado==-1:
+                self.lista = self.b.get_object("tabla_coches")
+                self.lista.clear()
+
+                result = self.db.execute("SELECT * FROM Coche WHERE Marca=?;",(marca,))
+                for row in result:
+                    self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+            else:
+                motor = self.b.get_object("combo_motor").get_active_text()
+                motor = unicode(motor,"utf-8")
+                self.lista = self.b.get_object("tabla_coches")
+                self.lista.clear()
+
+                result = self.db.execute("SELECT * FROM Coche WHERE Marca=? AND Motor=?;",(marca,motor))
+                for row in result:
+                    self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+    
+    
+    
     def on_btn_buscar_coche_clicked(self,w):
         campo = self.b.get_object("combo_coche2").get_active_text()
         busqueda = self.b.get_object("txt_combo_coche").get_text()
@@ -1400,9 +1514,40 @@ class Concesionario:
     
     def on_btnReiniciarBusqueda_clicked(self,w):
         self.b.get_object("combo_coche").set_active(-1)
+        self.b.get_object("combo_motor").set_active(-1)
+        self.b.get_object("combo_marca").set_active(-1)
         self.b.get_object("txt_combo_coche_main").set_text("")
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.listacoches('tabla_coches')
+    
+    
+    
+    def on_treeview1_key_press_event(self,treeview,evento):
+        #print(evento.keyval)
+        tecla = evento.keyval
+        if tecla==65535:
+            self.borrar_coche("main")
+    
+    
+    
+    def on_treeview2_key_press_event(self,treeview,evento):
+        tecla = evento.keyval
+        if tecla==65535:
+            self.borrar_revision("main")
+    
+    
+    
+    def on_treeview3_key_press_event(self,treeview,evento):
+        tecla = evento.keyval
+        if tecla==65535:
+            self.borrar_venta("main")
+    
+    
+    
+    def on_treeview4_key_press_event(self,treeview,evento):
+        tecla = evento.keyval
+        if tecla==65535:
+            self.borrar_cliente("main")
     
     
     
@@ -1413,6 +1558,13 @@ class Concesionario:
         self.db.commit()
         self.db.close()            
         gtk.main_quit()
+    
+    
+    
+    def on_destroy2(self,w,*signals):
+        w.hide()
+        return True
+
 
 
     #FUNCIONES AUXILIARES########################################################################################
@@ -1718,11 +1870,6 @@ class Concesionario:
             
             self.b.get_object("btn_mod_revision_main").set_sensitive(True)
             self.b.get_object("btn_del_revision_main").set_sensitive(True)
-    
-    
-    
-    def comboMarcas(self,w):#################MIRAR MÁS TARDE##################################
-        self.b.get_object("combo_marca").append_text("hola")
     
     
     

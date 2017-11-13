@@ -1651,6 +1651,12 @@ Dessarrollo de Interfaces 2DAM</property>
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="comboMotor">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkListStore" id="dni">
     <columns>
       <!-- column-name dni -->
@@ -3044,6 +3050,14 @@ Dessarrollo de Interfaces 2DAM</property>
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">comboMotor</property>
+                    <signal name="changed" handler="on_combo_motor_changed" swapped="no"/>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext5"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="x">252</property>
@@ -3218,6 +3232,7 @@ Dessarrollo de Interfaces 2DAM</property>
                         <property name="model">tabla_coches</property>
                         <signal name="button-press-event" handler="on_BotonIzquierdo_Coche" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
+                        <signal name="key-press-event" handler="on_treeview1_key_press_event" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="col_bastidor_main">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
@@ -3275,18 +3290,6 @@ Dessarrollo de Interfaces 2DAM</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxText" id="combo_marca">
-                    <property name="width_request">100</property>
-                    <property name="height_request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="x">96</property>
-                    <property name="y">8</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkButton" id="btnReiniciarBusqueda">
                     <property name="label" translatable="yes">Reiniciar Búsqueda</property>
                     <property name="width_request">120</property>
@@ -3301,6 +3304,26 @@ y vuelve a listar todos los coches</property>
                   <packing>
                     <property name="x">8</property>
                     <property name="y">40</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="combo_marca">
+                    <property name="width_request">100</property>
+                    <property name="height_request">20</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="model">comboMarca</property>
+                    <signal name="changed" handler="on_combo_marca_changed" swapped="no"/>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext6"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">96</property>
+                    <property name="y">8</property>
                   </packing>
                 </child>
               </object>
@@ -3588,6 +3611,7 @@ y vuelve a listar todos los coches</property>
                         <signal name="button-press-event" handler="on_treeview2_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_btn_revision" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview2_row_activated" swapped="no"/>
+                        <signal name="key-press-event" handler="on_treeview2_key_press_event" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                             <property name="title" translatable="yes">Nº REVISIÓN</property>
@@ -3838,6 +3862,7 @@ y vuelve a listar todos los coches</property>
                         <signal name="button-press-event" handler="on_treeview3_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_SeleccionVenta" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview3_row_activated" swapped="no"/>
+                        <signal name="key-press-event" handler="on_treeview3_key_press_event" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
@@ -4067,6 +4092,7 @@ y vuelve a listar todos los coches</property>
                         <signal name="button-press-event" handler="on_treeview4_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_SeleccionDni" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview4_row_activated" swapped="no"/>
+                        <signal name="key-press-event" handler="on_treeview4_key_press_event" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
                             <property name="title" translatable="yes">DNI</property>
