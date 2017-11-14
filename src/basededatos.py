@@ -10,7 +10,7 @@ import sys
 try:
     import sqlite3
 except:
-    print("No existe SQLITE3")  
+    print("No existe SQLITE3")
     sys.exit(1)
 
 class Conector:
@@ -47,6 +47,7 @@ class Conector:
             `Tipo`	TEXT,
             `Color`	TEXT,
             `Precio`	REAL,
+            `Img`       BLOB
             PRIMARY KEY(N_Bastidor)
             );"""
         )

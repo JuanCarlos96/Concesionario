@@ -107,7 +107,8 @@ class Concesionario:
         "on_treeview1_key_press_event" : self.on_treeview1_key_press_event,
         "on_treeview2_key_press_event" : self.on_treeview2_key_press_event,
         "on_treeview3_key_press_event" : self.on_treeview3_key_press_event,
-        "on_treeview4_key_press_event" : self.on_treeview4_key_press_event})
+        "on_treeview4_key_press_event" : self.on_treeview4_key_press_event,
+        "on_btn_sel_imagen_clicked" : self.on_btn_sel_imagen_clicked})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -1554,6 +1555,39 @@ class Concesionario:
     
     
     
+    def limpia_imagen(self):
+            #Elimino si hubiera una imagen anterior
+            hijo=self.b.get_object("hbox1").get_children()#Toma los hijos, aunque solo ha de haber uno
+            if hijo: #Para que no de error en el caso de no tener hijo (imagen)
+                self.b.get_object("hbox1").remove(hijo[0])#Elimina el enlace
+    
+    
+    
+    def on_btn_sel_imagen_clicked(self,w):
+        selfichero=self.b.get_object("filechooserdialog1")
+        selfichero.set_action(0)#Escojo la opción de CARGAR del filechooserdialog
+        respuesta=selfichero.run() #Se quedará parado hasta que pulse algún botón
+        selfichero.hide()    
+
+        if respuesta == 1:
+            fichero=selfichero.get_filename()
+            fichero=unicode(fichero,'utf8')
+
+            self.limpia_imagen()
+
+            image = gtk.Image()
+            #Se crea un image con un tamaño determinado
+            image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(fichero,180,150))
+            self.b.get_object("hbox1").pack_start(image)
+            self.window.show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
+
+            with open(fichero, 'rb') as f: #abre como binario y de lectura
+                self.blob = f.read()#guardo el fichero en el atributo de clase
+                print(type(self.blob))
+                f.close()
+    
+    
+    
     def on_destroy(self, w, *signals):
         # return True --> no cierra
         # return False --> cierra
@@ -1645,7 +1679,7 @@ class Concesionario:
         self.lista = self.b.get_object(lista)
         self.lista.clear()
         
-        result = self.db.execute('SELECT * FROM Coche')
+        result = self.db.execute('SELECT N_Bastidor,Marca,Modelo,Motor,CV,Tipo,Color,Precio FROM Coche')
         for row in result:
             self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
     
