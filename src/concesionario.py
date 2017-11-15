@@ -23,7 +23,7 @@ class Concesionario:
 
         self.con = Conector("concesionario.db")
         self.db = self.con.dameconexion()
-        self.res = self.db.execute("SELECT * FROM sqlite_master WHERE name='Coche'")
+        self.res = self.db.execute("SELECT * FROM sqlite_master WHERE name='Venta'")
         if not self.res.fetchall():
             print("Base de datos vacia. Creando...")
             self.con.crear_esquema("")
@@ -108,7 +108,8 @@ class Concesionario:
         "on_treeview2_key_press_event" : self.on_treeview2_key_press_event,
         "on_treeview3_key_press_event" : self.on_treeview3_key_press_event,
         "on_treeview4_key_press_event" : self.on_treeview4_key_press_event,
-        "on_btn_sel_imagen_clicked" : self.on_btn_sel_imagen_clicked})
+        "on_btn_sel_imagen_clicked" : self.on_btn_sel_imagen_clicked,
+        "on_btn_sel_imagen1_clicked" : self.on_btn_sel_imagen1_clicked})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -123,7 +124,8 @@ class Concesionario:
         self.inicializalistado('treeview5')
         self.inicializalistado('treeview6')
         self.listaclientes('clientes')
-        #self.comboMarcas
+        
+        self.blob = None
         
         self.warning = self.b.get_object("warning")
         self.info = self.b.get_object("info")
@@ -159,6 +161,7 @@ class Concesionario:
         self.b.get_object("mod_coche").connect("delete-event",self.on_destroy2)
         self.b.get_object("mod_revision").connect("delete-event",self.on_destroy2)
         self.b.get_object("mod_venta").connect("delete-event",self.on_destroy2)
+        self.b.get_object("filechooserdialog1").connect("delete-event",self.on_destroy2)
         
         #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
         self.b.get_object("combo_marca").get_model().clear()
@@ -570,6 +573,15 @@ class Concesionario:
         
         error = 0
         
+        if self.blob:
+            imagen_blob=sqlite3.Binary(self.blob)
+        
+        if not(self.blob):
+            self.warning.format_secondary_text("No has escogido ninguna imagen")
+            self.warning.run()
+            self.warning.hide()
+            error=1
+        
         if not(bastidor) or not(marca) or not(modelo) or not(tipo) or not(motor) or not(cv) or not(color) or not(precio):
             self.warning.format_secondary_text("Ningún campo puede estar vacío")
             self.warning.run()
@@ -612,7 +624,7 @@ class Concesionario:
         
         if error==0:
             try:
-                self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio') VALUES(?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,c,tipo,color,p))
+                self.db.execute("INSERT INTO Coche('N_Bastidor','Marca','Modelo','Motor','CV','Tipo','Color','Precio','Img') VALUES(?,?,?,?,?,?,?,?,?)",(bastidor,marca,modelo,motor,c,tipo,color,p,imagen_blob))
                 self.db.commit()
             except (sqlite3.IntegrityError):
                 self.warning.format_secondary_text("Ya existe un coche con ese bastidor")
@@ -667,6 +679,7 @@ class Concesionario:
         self.b.get_object("txt_cv_add_coche").set_text("")
         self.b.get_object("txt_color_add_coche").set_text("")
         self.b.get_object("txt_precio_add_coche").set_text("")
+        self.limpia_imagen_nuevo_coche()
         self.ocultar("add_coche")
     
     
@@ -729,6 +742,15 @@ class Concesionario:
         
         error = 0
         
+        if self.blob:
+            imagen_blob=sqlite3.Binary(self.blob)
+        
+        if not(self.blob):
+            self.warning.format_secondary_text("No has escogido ninguna imagen")
+            self.warning.run()
+            self.warning.hide()
+            error=1
+        
         if not(marca) or not(modelo) or not(tipo) or not(motor) or not(cv) or not(color) or not(precio):
             self.warning.format_secondary_text("Ningún campo puede estar vacío")
             self.warning.run()
@@ -755,7 +777,7 @@ class Concesionario:
         
         if error==0:
             try:
-                self.db.execute("UPDATE Coche SET Marca=?, Modelo=?, Motor=?, CV=?, Tipo=?, Color=?, Precio=? WHERE N_Bastidor=?;",(marca,modelo,motor,c,tipo,color,p,bastidor))
+                self.db.execute("UPDATE Coche SET Marca=?, Modelo=?, Motor=?, CV=?, Tipo=?, Color=?, Precio=?, Img=? WHERE N_Bastidor=?;",(marca,modelo,motor,c,tipo,color,p,imagen_blob,bastidor))
                 self.db.commit()
             except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
                 self.warning.format_secondary_text(str(tipoerror))
@@ -1555,11 +1577,18 @@ class Concesionario:
     
     
     
-    def limpia_imagen(self):
+    def limpia_imagen_nuevo_coche(self):
             #Elimino si hubiera una imagen anterior
             hijo=self.b.get_object("hbox1").get_children()#Toma los hijos, aunque solo ha de haber uno
             if hijo: #Para que no de error en el caso de no tener hijo (imagen)
                 self.b.get_object("hbox1").remove(hijo[0])#Elimina el enlace
+    
+    
+    
+    def limpia_imagen_revision(self):
+        hijo=self.b.get_object("hbox2").get_children()#Toma los hijos, aunque solo ha de haber uno
+        if hijo: #Para que no de error en el caso de no tener hijo (imagen)
+            self.b.get_object("hbox2").remove(hijo[0])#Elimina el enlace
     
     
     
@@ -1573,18 +1602,84 @@ class Concesionario:
             fichero=selfichero.get_filename()
             fichero=unicode(fichero,'utf8')
 
-            self.limpia_imagen()
+            self.limpia_imagen_nuevo_coche()
 
             image = gtk.Image()
             #Se crea un image con un tamaño determinado
-            image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(fichero,180,150))
+            image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(fichero,190,190))
             self.b.get_object("hbox1").pack_start(image)
-            self.window.show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
+            self.b.get_object("add_coche").show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
 
             with open(fichero, 'rb') as f: #abre como binario y de lectura
                 self.blob = f.read()#guardo el fichero en el atributo de clase
-                print(type(self.blob))
+                #print(type(self.blob))
                 f.close()
+    
+    
+    
+    def on_btn_sel_imagen1_clicked(self,w):
+        selfichero=self.b.get_object("filechooserdialog1")
+        selfichero.set_action(0)#Escojo la opción de CARGAR del filechooserdialog
+        respuesta=selfichero.run() #Se quedará parado hasta que pulse algún botón
+        selfichero.hide()    
+
+        if respuesta == 1:
+            fichero=selfichero.get_filename()
+            fichero=unicode(fichero,'utf8')
+
+            self.limpia_imagen_nuevo_coche()
+
+            image = gtk.Image()
+            #Se crea un image con un tamaño determinado
+            image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(fichero,190,190))
+            self.b.get_object("hbox3").pack_start(image)
+            self.b.get_object("add_coche").show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
+
+            with open(fichero, 'rb') as f: #abre como binario y de lectura
+                self.blob = f.read()#guardo el fichero en el atributo de clase
+                #print(type(self.blob))
+                f.close()
+    
+    
+    
+    def carga_imagen_bbdd(self,BLOB):
+        #Esta funcion limpia donde está la imagen y la muestra
+        self.limpia_imagen_revision()
+
+        #Hay que usar una clase cargador para que lea el BLOB y lo convierta en un pixbuf
+        #que se pueda cargar normalmente
+        loader = gtk.gdk.PixbufLoader("jpeg")
+        loader.set_size(190, 150)#Para que se adapte al tamaño del frame donde está contenida la imagen   
+        loader.write(BLOB)
+        loader.close()
+        pixbuf = loader.get_pixbuf()
+
+        #Saca la imagen            
+        image = gtk.Image()
+#            print(row[5]) #Esto sacaría todo el texto
+        image.set_from_pixbuf(pixbuf)
+        self.b.get_object("hbox2").pack_start(image)
+        self.b.get_object("main").show_all() #si no no lo muestra
+    
+    
+    def carga_imagen_mod_coche(self,BLOB):
+        #Esta funcion limpia donde está la imagen y la muestra
+        self.limpia_imagen_revision()
+
+        #Hay que usar una clase cargador para que lea el BLOB y lo convierta en un pixbuf
+        #que se pueda cargar normalmente
+        loader = gtk.gdk.PixbufLoader("jpeg")
+        loader.set_size(190, 150)#Para que se adapte al tamaño del frame donde está contenida la imagen   
+        loader.write(BLOB)
+        loader.close()
+        pixbuf = loader.get_pixbuf()
+
+        #Saca la imagen            
+        image = gtk.Image()
+#            print(row[5]) #Esto sacaría todo el texto
+        image.set_from_pixbuf(pixbuf)
+        self.b.get_object("hbox3").pack_start(image)
+        self.b.get_object("main").show_all() #si no no lo muestra
     
     
     
@@ -1894,7 +1989,7 @@ class Concesionario:
                 tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
                 nrevision = modelo.get_value(tree_iter, 0)
             
-            result = self.db.execute("SELECT r.N_Revision,r.Fecha,r.N_Bastidor,c.Marca,c.Modelo,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
+            result = self.db.execute("SELECT r.N_Revision,r.Fecha,r.N_Bastidor,c.Marca,c.Modelo,r.Frenos,r.Filtro,r.Aceite,c.Img FROM Revision AS r, Coche AS c WHERE N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
             for row in result:
                 self.b.get_object("lbl_numero_revision_main").set_text(str(row[0]))
                 self.b.get_object("lbl_fecha_revision_main").set_text(str(row[1]))
@@ -1904,6 +1999,7 @@ class Concesionario:
                 self.b.get_object("lbl_frenos_revision_main").set_text(str(row[5]))
                 self.b.get_object("lbl_filtro_revision_main").set_text(str(row[6]))
                 self.b.get_object("lbl_aceite_revision_main").set_text(str(row[7]))
+                self.carga_imagen_bbdd(row[8])
             
             self.b.get_object("btn_mod_revision_main").set_sensitive(True)
             self.b.get_object("btn_del_revision_main").set_sensitive(True)
@@ -1933,6 +2029,7 @@ class Concesionario:
         self.b.get_object("lbl_frenos_revision_main").set_text("")
         self.b.get_object("lbl_filtro_revision_main").set_text("")
         self.b.get_object("lbl_aceite_revision_main").set_text("")
+        self.limpia_imagen_revision()
         #ETIQUETAS DE LA PESTAÑA CLIENTES
         self.b.get_object("lbl_dni_clientes_main").set_text("")
         self.b.get_object("lbl_nombre_clientes_main").set_text("")
