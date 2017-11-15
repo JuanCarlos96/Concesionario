@@ -127,6 +127,13 @@ class Concesionario:
         
         self.blob = None
         
+        #FILTRO DEL FILECHOOSER
+        selfichero=self.b.get_object("filechooserdialog1")
+        filtro=self.b.get_object("filefilter1")
+        filtro.set_name("Imágenes JPG")
+        filtro.add_pattern("*.jpg")
+        selfichero.add_filter(filtro)
+        
         self.warning = self.b.get_object("warning")
         self.info = self.b.get_object("info")
         self.mensajeborrar = self.b.get_object("mensajeborrar")
@@ -179,6 +186,16 @@ class Concesionario:
     
     #FUNCIONES PRINCIPALES######################################################################################
     def buscar_cliente(self,w):#BOTON DE VENTA EN LA VENTANA PRINCIPAL, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA CREAR UNA VENTA
+        self.b.get_object("txt_nombre_add_venta").set_text("")
+        self.b.get_object("txt_apellidos_add_venta").set_text("")
+        self.b.get_object("txt_dni_add_venta").set_text("")
+        self.b.get_object("txt_telefono_add_venta").set_text("")
+        self.b.get_object("txt_direccion_add_venta").set_text("")
+        self.b.get_object("txt_bastidor_add_venta").set_text("")
+        self.b.get_object("txt_marca_add_venta").set_text("")
+        self.b.get_object("txt_modelo_add_venta").set_text("")
+        self.b.get_object("lbl_precio_add_venta").set_text("")
+        
         self.b.get_object("combo_cliente1").set_active(-1)
         self.b.get_object("txt_combo_cliente1").set_text("")
         self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
@@ -438,15 +455,6 @@ class Concesionario:
 
 
     def ocultar_add_venta(self,w):#BOTON DE CANCELAR DE LA VENTANA AÑADIR VENTA
-        self.b.get_object("txt_nombre_add_venta").set_text("")
-        self.b.get_object("txt_apellidos_add_venta").set_text("")
-        self.b.get_object("txt_dni_add_venta").set_text("")
-        self.b.get_object("txt_telefono_add_venta").set_text("")
-        self.b.get_object("txt_direccion_add_venta").set_text("")
-        self.b.get_object("txt_bastidor_add_venta").set_text("")
-        self.b.get_object("txt_marca_add_venta").set_text("")
-        self.b.get_object("txt_modelo_add_venta").set_text("")
-        self.b.get_object("lbl_precio_add_venta").set_text("")
         self.ocultar("add_venta")
 
 
@@ -480,6 +488,10 @@ class Concesionario:
         self.b.get_object("lbl_marca_add_revision").set_text(str(marca))
         self.b.get_object("lbl_modelo_add_revision").set_text(str(modelo))
         self.b.get_object("lbl_bastidor_add_revision").set_text(str(bastidor))
+        
+        self.b.get_object("chk_frenos_add_revision").set_active(False)
+        self.b.get_object("chk_aceite_add_revision").set_active(False)
+        self.b.get_object("chk_filtro_add_revision").set_active(False)
         
         self.b.get_object("add_revision").show()
 
@@ -542,14 +554,20 @@ class Concesionario:
 
 
     def ocultar_add_revision(self,w):#BOTÓN CANCELAR DE LA VENTANA AÑADIR REVISIÓN
-        self.b.get_object("chk_frenos_add_revision").set_active(False)
-        self.b.get_object("chk_aceite_add_revision").set_active(False)
-        self.b.get_object("chk_filtro_add_revision").set_active(False)
         self.ocultar("add_revision")
     
     
     
     def add_coche(self,w):#BOTON NUEVO DE LA VENTANA PRINCIPAL
+        self.b.get_object("txt_bastidor_add_coche").set_text("")
+        self.b.get_object("txt_marca_add_coche").set_text("")
+        self.b.get_object("txt_modelo_add_coche").set_text("")
+        self.b.get_object("txt_tipo_add_coche").set_text("")
+        self.b.get_object("txt_motor_add_coche").set_text("")
+        self.b.get_object("txt_cv_add_coche").set_text("")
+        self.b.get_object("txt_color_add_coche").set_text("")
+        self.b.get_object("txt_precio_add_coche").set_text("")
+        self.limpia_imagen_nuevo_coche()
         self.b.get_object("add_coche").show()
     
     
@@ -671,15 +689,6 @@ class Concesionario:
     
     
     def ocultar_add_coche(self,w):#BOTÓN CANCELAR DE LA VENTANA AÑADIR COCHE
-        self.b.get_object("txt_bastidor_add_coche").set_text("")
-        self.b.get_object("txt_marca_add_coche").set_text("")
-        self.b.get_object("txt_modelo_add_coche").set_text("")
-        self.b.get_object("txt_tipo_add_coche").set_text("")
-        self.b.get_object("txt_motor_add_coche").set_text("")
-        self.b.get_object("txt_cv_add_coche").set_text("")
-        self.b.get_object("txt_color_add_coche").set_text("")
-        self.b.get_object("txt_precio_add_coche").set_text("")
-        self.limpia_imagen_nuevo_coche()
         self.ocultar("add_coche")
     
     
@@ -717,6 +726,11 @@ class Concesionario:
         self.b.get_object("txt_cv_mod_coche").set_text(str(cv))
         self.b.get_object("txt_color_mod_coche").set_text(str(color))
         self.b.get_object("txt_precio_mod_coche").set_text(str(precio))
+        
+        result = self.db.execute("SELECT Img FROM Coche WHERE N_Bastidor=?;",(bastidor,))
+        for row in result:
+            self.carga_imagen_mod_coche(row[0])
+            self.blob = row[0]
         
         #MOSTRAR LA VENTANA
         self.b.get_object("mod_coche").show()
@@ -872,6 +886,7 @@ class Concesionario:
         self.b.get_object("lbl_marca_mod_revision").set_text("")
         self.b.get_object("lbl_modelo_mod_revision").set_text("")
         self.b.get_object("lbl_bastidor_mod_revision").set_text("")
+        self.limpia_imagen_revision()
         self.b.get_object("chk_frenos_mod_revision").set_active(False)
         self.b.get_object("chk_aceite_mod_revision").set_active(False)
         self.b.get_object("chk_filtro_mod_revision").set_active(False)
@@ -1007,7 +1022,7 @@ class Concesionario:
                 self.b.get_object("lbl_frenos_revision_main").set_text("")
                 self.b.get_object("lbl_filtro_revision_main").set_text("")
                 self.b.get_object("lbl_aceite_revision_main").set_text("")
-                
+                self.limpia_imagen_revision()
                 self.b.get_object("btn_mod_revision_main").set_sensitive(False)
                 self.b.get_object("btn_del_revision_main").set_sensitive(False)
 
@@ -1592,6 +1607,13 @@ class Concesionario:
     
     
     
+    def limpia_imagen_mod_coche(self):
+        hijo=self.b.get_object("hbox3").get_children()#Toma los hijos, aunque solo ha de haber uno
+        if hijo: #Para que no de error en el caso de no tener hijo (imagen)
+            self.b.get_object("hbox3").remove(hijo[0])#Elimina el enlace
+    
+    
+    
     def on_btn_sel_imagen_clicked(self,w):
         selfichero=self.b.get_object("filechooserdialog1")
         selfichero.set_action(0)#Escojo la opción de CARGAR del filechooserdialog
@@ -1627,13 +1649,13 @@ class Concesionario:
             fichero=selfichero.get_filename()
             fichero=unicode(fichero,'utf8')
 
-            self.limpia_imagen_nuevo_coche()
+            self.limpia_imagen_mod_coche()
 
             image = gtk.Image()
             #Se crea un image con un tamaño determinado
             image.set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(fichero,190,190))
             self.b.get_object("hbox3").pack_start(image)
-            self.b.get_object("add_coche").show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
+            self.b.get_object("mod_coche").show_all() #Ha de repintar la pantalla con el nuevo elemento creado por código (la imagen) 
 
             with open(fichero, 'rb') as f: #abre como binario y de lectura
                 self.blob = f.read()#guardo el fichero en el atributo de clase
@@ -1664,7 +1686,7 @@ class Concesionario:
     
     def carga_imagen_mod_coche(self,BLOB):
         #Esta funcion limpia donde está la imagen y la muestra
-        self.limpia_imagen_revision()
+        self.limpia_imagen_mod_coche()
 
         #Hay que usar una clase cargador para que lea el BLOB y lo convierta en un pixbuf
         #que se pueda cargar normalmente
@@ -1679,7 +1701,7 @@ class Concesionario:
 #            print(row[5]) #Esto sacaría todo el texto
         image.set_from_pixbuf(pixbuf)
         self.b.get_object("hbox3").pack_start(image)
-        self.b.get_object("main").show_all() #si no no lo muestra
+        self.b.get_object("mod_coche").show_all() #si no no lo muestra
     
     
     

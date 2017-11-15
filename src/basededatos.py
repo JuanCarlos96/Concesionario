@@ -52,7 +52,6 @@ class Conector:
             );"""
         )
         
-        #self.cursor.execute("""INSERT INTO Coche VALUES ('258GHYTR54ER3WR56','NISSAN','PRIMERA','GASOLINA',110,'TURISMO','PLATA',1500.50);""")
         self.cursor.commit()
         
         self.cursor.execute(
@@ -66,7 +65,6 @@ class Conector:
             );"""
         )
         
-        #self.cursor.execute("""INSERT INTO Cliente VALUES ('05983762J','Juan Carlos','Expósito Romero','722256261','Poro 3, Torrecampo, Córdoba');""")
         self.cursor.commit()
         
         self.cursor.execute(
@@ -81,7 +79,6 @@ class Conector:
             );"""
         )
         
-        #self.cursor.execute("""INSERT INTO Revision('Fecha','Frenos','Aceite','Filtro','N_Bastidor') VALUES ('30/10/2017','Si','No','Si','258GHYTR54ER3WR56');""")
         self.cursor.commit()
         
         self.cursor.execute(
@@ -96,6 +93,5 @@ class Conector:
             );"""
         )
         
-        #self.cursor.execute("""INSERT INTO Venta(`N_Bastidor`,`Dni`,`Fecha`,`Precio`) VALUES ('258GHYTR54ER3WR56','05983762J','30/10/2017',1500.50);""")
         self.cursor.commit()
         print("Tablas creadas")

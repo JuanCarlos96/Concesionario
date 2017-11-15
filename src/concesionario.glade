@@ -1738,6 +1738,7 @@ Dessarrollo de Interfaces 2DAM</property>
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkFileFilter" id="filefilter1"/>
   <object class="GtkFileChooserDialog" id="filechooserdialog1">
     <property name="width_request">500</property>
     <property name="height_request">400</property>
@@ -1749,6 +1750,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <property name="type_hint">dialog</property>
+    <property name="filter">filefilter1</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox10">
         <property name="width_request">500</property>
