@@ -339,10 +339,10 @@ class Concesionario:
         precio = self.b.get_object("lbl_precio_add_venta").get_text()
         
         dni = unicode(dni.upper(),"utf-8")
-        nombre = unicode(nombre.capitalize(),"utf-8")
-        apellidos = unicode(apellidos.capitalize(),"utf-8")
+        nombre = unicode(nombre,"utf-8")
+        apellidos = unicode(apellidos,"utf-8")
         telefono = unicode(telefono,"utf-8")
-        direccion = unicode(direccion.capitalize(),"utf-8")
+        direccion = unicode(direccion,"utf-8")
         bastidor = unicode(bastidor,"utf-8")
         p = float(precio)
         fecha = time.strftime("%d/%m/%Y")#OBTENER LA FECHA DEL SISTEMA CON EL FORMATO 31/12/2017
@@ -568,6 +568,7 @@ class Concesionario:
         self.b.get_object("txt_color_add_coche").set_text("")
         self.b.get_object("txt_precio_add_coche").set_text("")
         self.limpia_imagen_nuevo_coche()
+        self.blob = None
         self.b.get_object("add_coche").show()
     
     
@@ -1233,11 +1234,11 @@ class Concesionario:
         telefono = self.b.get_object("txt_telefono_mod_cliente").get_text()
         direccion = self.b.get_object("txt_direccion_mod_cliente").get_text()
         
-        nombre = unicode(nombre.capitalize(),"utf-8")
-        apellidos = unicode(apellidos.capitalize(),"utf-8")
+        nombre = unicode(nombre,"utf-8")
+        apellidos = unicode(apellidos,"utf-8")
         dni = unicode(dni,"utf-8")
         telefono = unicode(telefono,"utf-8")
-        direccion = unicode(direccion.capitalize(),"utf-8")
+        direccion = unicode(direccion,"utf-8")
         
         error = 0
         
@@ -1671,7 +1672,7 @@ class Concesionario:
         #Hay que usar una clase cargador para que lea el BLOB y lo convierta en un pixbuf
         #que se pueda cargar normalmente
         loader = gtk.gdk.PixbufLoader("jpeg")
-        loader.set_size(190, 150)#Para que se adapte al tamaño del frame donde está contenida la imagen   
+        loader.set_size(220, 150)#Para que se adapte al tamaño del frame donde está contenida la imagen   
         loader.write(BLOB)
         loader.close()
         pixbuf = loader.get_pixbuf()
