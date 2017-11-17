@@ -6,6 +6,7 @@
     <property name="can_focus">False</property>
     <property name="type">popup</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <child>
       <object class="GtkFixed" id="fixed24">
@@ -52,6 +53,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir coche</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <property name="gravity">static</property>
@@ -423,6 +425,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir revisión</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">herramientas.ico</property>
     <child>
@@ -706,6 +709,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Añadir venta</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">factura.ico</property>
     <child>
@@ -1199,6 +1203,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Calendario</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
@@ -1287,6 +1292,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
@@ -1445,6 +1451,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar cliente</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
@@ -1594,6 +1601,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Seleccionar coche</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
@@ -1747,6 +1755,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="title" translatable="yes">Seleccionar imagen</property>
     <property name="role">GtkFileChooserDialog</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <property name="type_hint">dialog</property>
@@ -1817,6 +1826,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="type">popup</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
@@ -1865,6 +1875,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="border_width">5</property>
     <property name="type">popup</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
@@ -1899,6 +1910,7 @@ Dessarrollo de Interfaces 2DAM</property>
   <object class="GtkMessageDialog" id="message_mod_venta">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">warning.ico</property>
     <property name="type_hint">dialog</property>
@@ -1966,6 +1978,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar cliente</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">cliente.ico</property>
     <child>
@@ -2196,6 +2209,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar coche</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">coche.ico</property>
     <child>
@@ -2575,6 +2589,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar revisión</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">herramientas.ico</property>
     <child>
@@ -2858,6 +2873,7 @@ Dessarrollo de Interfaces 2DAM</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modificar venta</property>
     <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">factura.ico</property>
     <child>
@@ -4395,6 +4411,7 @@ y vuelve a listar todos los coches</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="type">popup</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="icon">warning.ico</property>
     <property name="type_hint">dialog</property>
