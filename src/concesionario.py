@@ -109,7 +109,8 @@ class Concesionario:
         "on_treeview3_key_press_event" : self.on_treeview3_key_press_event,
         "on_treeview4_key_press_event" : self.on_treeview4_key_press_event,
         "on_btn_sel_imagen_clicked" : self.on_btn_sel_imagen_clicked,
-        "on_btn_sel_imagen1_clicked" : self.on_btn_sel_imagen1_clicked})
+        "on_btn_sel_imagen1_clicked" : self.on_btn_sel_imagen1_clicked,
+        "on_treeview1_button_release_event" : self.on_treeview1_button_release_event})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -709,32 +710,33 @@ class Concesionario:
         tree_view = self.b.get_object("treeview1")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
-        bastidor = treemodel.get_value(treeiter, 0)
-        marca = treemodel.get_value(treeiter, 1)
-        modelo = treemodel.get_value(treeiter, 2)
-        motor = treemodel.get_value(treeiter, 3)
-        cv = treemodel.get_value(treeiter, 4)
-        tipo = treemodel.get_value(treeiter, 5)
-        color = treemodel.get_value(treeiter, 6)
-        precio = treemodel.get_value(treeiter, 7)
+        if treeiter!=None:
+            bastidor = treemodel.get_value(treeiter, 0)
+            marca = treemodel.get_value(treeiter, 1)
+            modelo = treemodel.get_value(treeiter, 2)
+            motor = treemodel.get_value(treeiter, 3)
+            cv = treemodel.get_value(treeiter, 4)
+            tipo = treemodel.get_value(treeiter, 5)
+            color = treemodel.get_value(treeiter, 6)
+            precio = treemodel.get_value(treeiter, 7)
         
-        #RELLENAR LAS CAJAS DE TEXTO CON LOS DATOS DE COCHE
-        self.b.get_object("txt_bastidor_mod_coche").set_text(str(bastidor))
-        self.b.get_object("txt_marca_mod_coche").set_text(str(marca))
-        self.b.get_object("txt_modelo_mod_coche").set_text(str(modelo))
-        self.b.get_object("txt_tipo_mod_coche").set_text(str(tipo))
-        self.b.get_object("txt_motor_mod_coche").set_text(str(motor))
-        self.b.get_object("txt_cv_mod_coche").set_text(str(cv))
-        self.b.get_object("txt_color_mod_coche").set_text(str(color))
-        self.b.get_object("txt_precio_mod_coche").set_text(str(precio))
+            #RELLENAR LAS CAJAS DE TEXTO CON LOS DATOS DE COCHE
+            self.b.get_object("txt_bastidor_mod_coche").set_text(str(bastidor))
+            self.b.get_object("txt_marca_mod_coche").set_text(str(marca))
+            self.b.get_object("txt_modelo_mod_coche").set_text(str(modelo))
+            self.b.get_object("txt_tipo_mod_coche").set_text(str(tipo))
+            self.b.get_object("txt_motor_mod_coche").set_text(str(motor))
+            self.b.get_object("txt_cv_mod_coche").set_text(str(cv))
+            self.b.get_object("txt_color_mod_coche").set_text(str(color))
+            self.b.get_object("txt_precio_mod_coche").set_text(str(precio))
+
+            result = self.db.execute("SELECT Img FROM Coche WHERE N_Bastidor=?;",(bastidor,))
+            for row in result:
+                self.carga_imagen_mod_coche(row[0])
+                self.blob = row[0]
         
-        result = self.db.execute("SELECT Img FROM Coche WHERE N_Bastidor=?;",(bastidor,))
-        for row in result:
-            self.carga_imagen_mod_coche(row[0])
-            self.blob = row[0]
-        
-        #MOSTRAR LA VENTANA
-        self.b.get_object("mod_coche").show()
+            #MOSTRAR LA VENTANA
+            self.b.get_object("mod_coche").show()
     
     
     
@@ -828,50 +830,53 @@ class Concesionario:
     
     
     def borrar_coche(self,w):#BOTÓN ELIMINAR DE LA VENTANA PRINCIPAL, ELIMINA EL COCHE SELECCIONADO EN LA TABLA
-        self.mensajeborrar.format_secondary_text("¿Desea eliminar el coche?")
-        respuesta = self.mensajeborrar.run()
-        #print(respuesta)
-        self.mensajeborrar.hide()
+        tree_view = self.b.get_object("treeview1")
+        tree_sel = tree_view.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
         
-        if respuesta==-5:
-            tree_view = self.b.get_object("treeview1")
-            tree_sel = tree_view.get_selection()
-            (treemodel, treeiter) = tree_sel.get_selected()
-            bastidor = treemodel.get_value(treeiter, 0)#El número es la columna de la que va a obtener el dato, 0 es la primera columna
-            #print(bastidor)
-            
-            try:
-                self.db.execute("DELETE FROM Coche WHERE N_Bastidor=?;",(str(bastidor),))
-                self.db.commit()
-            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
-                self.warning.format_secondary_text(str(tipoerror))
-                self.warning.run()
-                self.warning.hide()
-            else:
-                self.info.format_secondary_text("Coche eliminado correctamente")
-                self.info.run()
-                self.info.hide()
-                
-                self.listacoches('tabla_coches')
-                self.listacoches2('coches')
-                self.listarevisiones('revisiones')
-                self.listaventas('venta')
-                
-                #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
-                self.b.get_object("combo_marca").get_model().clear()
-                marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
-                for marca in marcas:
-                    self.b.get_object("combo_marca").append_text(marca[0])
-                
-                self.b.get_object("combo_motor").get_model().clear()
-                motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
-                for motor in motores:
-                    self.b.get_object("combo_motor").append_text(motor[0])
-                
-                self.b.get_object("btn_add_venta_main").set_sensitive(False)
-                self.b.get_object("btn_add_revision_main").set_sensitive(False)
-                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
-                self.b.get_object("btn_del_coche_main").set_sensitive(False)
+        if treeiter!=None:
+            self.mensajeborrar.format_secondary_text("¿Desea eliminar el coche?")
+            respuesta = self.mensajeborrar.run()
+            #print(respuesta)
+            self.mensajeborrar.hide()
+
+            if respuesta==-5:
+
+                bastidor = treemodel.get_value(treeiter, 0)#El número es la columna de la que va a obtener el dato, 0 es la primera columna
+                #print(bastidor)
+
+                try:
+                    self.db.execute("DELETE FROM Coche WHERE N_Bastidor=?;",(str(bastidor),))
+                    self.db.commit()
+                except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                    self.warning.format_secondary_text(str(tipoerror))
+                    self.warning.run()
+                    self.warning.hide()
+                else:
+                    self.info.format_secondary_text("Coche eliminado correctamente")
+                    self.info.run()
+                    self.info.hide()
+
+                    self.listacoches('tabla_coches')
+                    self.listacoches2('coches')
+                    self.listarevisiones('revisiones')
+                    self.listaventas('venta')
+
+                    #RELLENAR LOS COMBOBOX DE LOS FILTROS: MARCA Y MOTOR
+                    self.b.get_object("combo_marca").get_model().clear()
+                    marcas = self.db.execute("SELECT DISTINCT Marca FROM Coche;")
+                    for marca in marcas:
+                        self.b.get_object("combo_marca").append_text(marca[0])
+
+                    self.b.get_object("combo_motor").get_model().clear()
+                    motores = self.db.execute("SELECT DISTINCT Motor FROM Coche;")
+                    for motor in motores:
+                        self.b.get_object("combo_motor").append_text(motor[0])
+
+                    self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                    self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                    self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                    self.b.get_object("btn_del_coche_main").set_sensitive(False)
     
     
     
@@ -893,36 +898,39 @@ class Concesionario:
         self.b.get_object("chk_filtro_mod_revision").set_active(False)
         
         #OBTENER DATOS
+        treeiter = None
+        
         tree_view = self.b.get_object("treeview2")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
-        nrevision = treemodel.get_value(treeiter, 0)
-        
-        self.b.get_object("lbl_revision_mod_revision").set_text(str(nrevision))
-        
-        result = self.db.execute("SELECT r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
-        for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
-            self.b.get_object("lbl_fecha_mod_revision").set_text(row[0])
-            self.b.get_object("lbl_marca_mod_revision").set_text(row[1])
-            self.b.get_object("lbl_modelo_mod_revision").set_text(row[2])
-            self.b.get_object("lbl_bastidor_mod_revision").set_text(row[3])
+        if treeiter!=None:
+            nrevision = treemodel.get_value(treeiter, 0)
 
-            if row[4]=="Sí":
-                self.b.get_object("chk_frenos_mod_revision").set_active(True)
-            else:
-                self.b.get_object("chk_frenos_mod_revision").set_active(False)
+            self.b.get_object("lbl_revision_mod_revision").set_text(str(nrevision))
 
-            if row[5]=="Sí":
-                self.b.get_object("chk_filtro_mod_revision").set_active(True)
-            else:
-                self.b.get_object("chk_filtro_mod_revision").set_active(False)
+            result = self.db.execute("SELECT r.Fecha,c.Marca,c.Modelo,r.N_Bastidor,r.Frenos,r.Filtro,r.Aceite FROM Revision AS r, Coche AS c WHERE r.N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
+            for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
+                self.b.get_object("lbl_fecha_mod_revision").set_text(row[0])
+                self.b.get_object("lbl_marca_mod_revision").set_text(row[1])
+                self.b.get_object("lbl_modelo_mod_revision").set_text(row[2])
+                self.b.get_object("lbl_bastidor_mod_revision").set_text(row[3])
 
-            if row[6]=="Sí":
-                self.b.get_object("chk_aceite_mod_revision").set_active(True)
-            else:
-                self.b.get_object("chk_aceite_mod_revision").set_active(False)
-        
-        self.b.get_object("mod_revision").show()
+                if row[4]=="Sí":
+                    self.b.get_object("chk_frenos_mod_revision").set_active(True)
+                else:
+                    self.b.get_object("chk_frenos_mod_revision").set_active(False)
+
+                if row[5]=="Sí":
+                    self.b.get_object("chk_filtro_mod_revision").set_active(True)
+                else:
+                    self.b.get_object("chk_filtro_mod_revision").set_active(False)
+
+                if row[6]=="Sí":
+                    self.b.get_object("chk_aceite_mod_revision").set_active(True)
+                else:
+                    self.b.get_object("chk_aceite_mod_revision").set_active(False)
+
+            self.b.get_object("mod_revision").show()
     
     
     
@@ -989,83 +997,91 @@ class Concesionario:
     
     
     def borrar_revision(self,w):#BOTÓN ELIMINAR DE LA PESTAÑA REVISIONES
-        self.mensajeborrar.format_secondary_text("¿Desea eliminar la revisión?")
-        respuesta = self.mensajeborrar.run()
-        #print(respuesta)
-        self.mensajeborrar.hide()
+        tree_iter = None
         
-        if respuesta==-5:
-            seleccion = self.b.get_object("treeview2").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        seleccion = self.b.get_object("treeview2").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path)
+        
+        if tree_iter!=None:
+            self.mensajeborrar.format_secondary_text("¿Desea eliminar la revisión?")
+            respuesta = self.mensajeborrar.run()
+            #print(respuesta)
+            self.mensajeborrar.hide()
+
+            if respuesta==-5:
                 nrevision = modelo.get_value(tree_iter,0)
-            
-            try:
-                self.db.execute("DELETE FROM Revision WHERE N_Revision=?;",(int(nrevision),))
-                self.db.commit()
-            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
-                self.warning.format_secondary_text(str(tipoerror))
-                self.warning.run()
-                self.warning.hide()
-            else:
-                self.info.format_secondary_text("Revisión eliminada correctamente")
-                self.info.run()
-                self.info.hide()
-                
-                self.listarevisiones('revisiones')
-                
-                self.b.get_object("lbl_numero_revision_main").set_text("")
-                self.b.get_object("lbl_fecha_revision_main").set_text("")
-                self.b.get_object("lbl_bastidor_revision_main").set_text("")
-                self.b.get_object("lbl_marca_revision_main").set_text("")
-                self.b.get_object("lbl_modelo_revision_main").set_text("")
-                self.b.get_object("lbl_frenos_revision_main").set_text("")
-                self.b.get_object("lbl_filtro_revision_main").set_text("")
-                self.b.get_object("lbl_aceite_revision_main").set_text("")
-                self.limpia_imagen_revision()
-                self.b.get_object("btn_mod_revision_main").set_sensitive(False)
-                self.b.get_object("btn_del_revision_main").set_sensitive(False)
+
+                try:
+                    self.db.execute("DELETE FROM Revision WHERE N_Revision=?;",(int(nrevision),))
+                    self.db.commit()
+                except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                    self.warning.format_secondary_text(str(tipoerror))
+                    self.warning.run()
+                    self.warning.hide()
+                else:
+                    self.info.format_secondary_text("Revisión eliminada correctamente")
+                    self.info.run()
+                    self.info.hide()
+
+                    self.listarevisiones('revisiones')
+
+                    self.b.get_object("lbl_numero_revision_main").set_text("")
+                    self.b.get_object("lbl_fecha_revision_main").set_text("")
+                    self.b.get_object("lbl_bastidor_revision_main").set_text("")
+                    self.b.get_object("lbl_marca_revision_main").set_text("")
+                    self.b.get_object("lbl_modelo_revision_main").set_text("")
+                    self.b.get_object("lbl_frenos_revision_main").set_text("")
+                    self.b.get_object("lbl_filtro_revision_main").set_text("")
+                    self.b.get_object("lbl_aceite_revision_main").set_text("")
+                    self.limpia_imagen_revision()
+                    self.b.get_object("btn_mod_revision_main").set_sensitive(False)
+                    self.b.get_object("btn_del_revision_main").set_sensitive(False)
 
 
 
     def borrar_venta(self,w):#BOTÓN ELIMINAR DE LA PESTAÑA VENTAS
-        self.mensajeborrar.format_secondary_text("¿Desea eliminar la venta?")
-        respuesta = self.mensajeborrar.run()
-        #print(respuesta)
-        self.mensajeborrar.hide()
+        tree_iter = None
         
-        if respuesta==-5:
-            seleccion = self.b.get_object("treeview3").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if tree_iter!=None:
+            self.mensajeborrar.format_secondary_text("¿Desea eliminar la venta?")
+            respuesta = self.mensajeborrar.run()
+            #print(respuesta)
+            self.mensajeborrar.hide()
+
+            if respuesta==-5:
                 bastidor = modelo.get_value(tree_iter,0)
                 dni = modelo.get_value(tree_iter,1)
-            
-            try:
-                self.db.execute("DELETE FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
-                self.db.commit()
-            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
-                self.warning.format_secondary_text(str(tipoerror))
-                self.warning.run()
-                self.warning.hide()
-            else:
-                self.info.format_secondary_text("Venta eliminada correctamente")
-                self.info.run()
-                self.info.hide()
-                
-                self.listaventas('venta')
-                
-                self.b.get_object("lbl_fecha_venta_main").set_text("")
-                self.b.get_object("lbl_nombre_ventas_main").set_text("")
-                self.b.get_object("lbl_apellidos_ventas_main").set_text("")
-                self.b.get_object("lbl_dni_ventas_main").set_text("")
-                self.b.get_object("lbl_coche_ventas_main").set_text("")
-                self.b.get_object("lbl_precio_ventas_main").set_text("")
-                
-                self.b.get_object("btn_mod_venta_main").set_sensitive(False)
-                self.b.get_object("btn_del_venta_main").set_sensitive(False)
+
+                try:
+                    self.db.execute("DELETE FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+                    self.db.commit()
+                except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                    self.warning.format_secondary_text(str(tipoerror))
+                    self.warning.run()
+                    self.warning.hide()
+                else:
+                    self.info.format_secondary_text("Venta eliminada correctamente")
+                    self.info.run()
+                    self.info.hide()
+
+                    self.listaventas('venta')
+
+                    self.b.get_object("lbl_fecha_venta_main").set_text("")
+                    self.b.get_object("lbl_nombre_ventas_main").set_text("")
+                    self.b.get_object("lbl_apellidos_ventas_main").set_text("")
+                    self.b.get_object("lbl_dni_ventas_main").set_text("")
+                    self.b.get_object("lbl_coche_ventas_main").set_text("")
+                    self.b.get_object("lbl_precio_ventas_main").set_text("")
+
+                    self.b.get_object("btn_mod_venta_main").set_sensitive(False)
+                    self.b.get_object("btn_del_venta_main").set_sensitive(False)
 
     
     
@@ -1075,7 +1091,15 @@ class Concesionario:
     
     
     def message_mod_venta(self,w):
-        self.b.get_object("message_mod_venta").show()
+        tree_iter = None
+        
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if tree_iter!=None:
+            self.b.get_object("message_mod_venta").show()
     
     
     
@@ -1084,21 +1108,23 @@ class Concesionario:
         (modelo, pathlist) = seleccion.get_selected_rows()
         for path in pathlist :
             tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+            
+        if tree_iter!=None:
             bastidor = modelo.get_value(tree_iter, 0)
             dni = modelo.get_value(tree_iter, 1)
         
-        result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
-        for row in result:
-            self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
-            self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
-            self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
-            self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
-        
-        self.b.get_object("btn_buscar_dni").set_sensitive(True)
-        self.b.get_object("btn_buscar_bastidor").set_sensitive(False)
-        
-        self.ocultar("message_mod_venta")
-        self.b.get_object("mod_venta").show()
+            result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+            for row in result:
+                self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+                self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
+                self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
+                self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
+
+            self.b.get_object("btn_buscar_dni").set_sensitive(True)
+            self.b.get_object("btn_buscar_bastidor").set_sensitive(False)
+
+            self.ocultar("message_mod_venta")
+            self.b.get_object("mod_venta").show()
     
     
     
@@ -1107,21 +1133,23 @@ class Concesionario:
         (modelo, pathlist) = seleccion.get_selected_rows()
         for path in pathlist :
             tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+            
+        if tree_iter!=None:
             bastidor = modelo.get_value(tree_iter, 0)
             dni = modelo.get_value(tree_iter, 1)
         
-        result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
-        for row in result:
-            self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
-            self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
-            self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
-            self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
-        
-        self.b.get_object("btn_buscar_dni").set_sensitive(False)
-        self.b.get_object("btn_buscar_bastidor").set_sensitive(True)
-        
-        self.ocultar("message_mod_venta")
-        self.b.get_object("mod_venta").show()
+            result = self.db.execute("SELECT * FROM Venta WHERE N_Bastidor=? AND Dni=?;",(bastidor,dni))
+            for row in result:
+                self.b.get_object("txt_bastidor_mod_venta").set_text(str(row[0]))
+                self.b.get_object("txt_dni_mod_venta").set_text(str(row[1]))
+                self.b.get_object("txt_fecha_mod_vent").set_text(str(row[2]))
+                self.b.get_object("txt_precio_mod_venta").set_text(str(row[3]))
+
+            self.b.get_object("btn_buscar_dni").set_sensitive(False)
+            self.b.get_object("btn_buscar_bastidor").set_sensitive(True)
+
+            self.ocultar("message_mod_venta")
+            self.b.get_object("mod_venta").show()
     
     
     def mod_venta2(self,w):#BOTÓN ACEPTAR DE LA VENTANA MODIFICAR VENTA
@@ -1209,21 +1237,24 @@ class Concesionario:
         self.b.get_object("txt_direccion_mod_cliente").set_text("")
         
         #OBTENER DATOS DEL CLIENTE SELECCIONADO
+        treeiter = None
+        
         tree_view = self.b.get_object("treeview4")
         tree_sel = tree_view.get_selection()
         (treemodel, treeiter) = tree_sel.get_selected()
-        dni = treemodel.get_value(treeiter, 0)
-        
-        self.b.get_object("txt_dni_mod_cliente").set_text(dni)
-        
-        result = self.db.execute("SELECT Nombre,Apellidos,Telefono,Domicilio FROM Cliente WHERE Dni=?;",(dni,))
-        for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
-            self.b.get_object("txt_nombre_mod_cliente").set_text(row[0])
-            self.b.get_object("txt_apellidos_mod_cliente").set_text(row[1])
-            self.b.get_object("txt_telefono_mod_cliente").set_text(row[2])
-            self.b.get_object("txt_direccion_mod_cliente").set_text(row[3])
-        
-        self.b.get_object("mod_cliente").show()
+        if treeiter!=None:
+            dni = treemodel.get_value(treeiter, 0)
+
+            self.b.get_object("txt_dni_mod_cliente").set_text(dni)
+
+            result = self.db.execute("SELECT Nombre,Apellidos,Telefono,Domicilio FROM Cliente WHERE Dni=?;",(dni,))
+            for row in result:#RELLENAR CAJAS DE TEXTO CON LOS DATOS
+                self.b.get_object("txt_nombre_mod_cliente").set_text(row[0])
+                self.b.get_object("txt_apellidos_mod_cliente").set_text(row[1])
+                self.b.get_object("txt_telefono_mod_cliente").set_text(row[2])
+                self.b.get_object("txt_direccion_mod_cliente").set_text(row[3])
+
+            self.b.get_object("mod_cliente").show()
     
     
     
@@ -1292,41 +1323,45 @@ class Concesionario:
     
     
     def borrar_cliente(self,w):#BOTÓN ELIMINAR CLIENTE DE LA PESTAÑA CLIENTES
-        self.mensajeborrar.format_secondary_text("¿Desea eliminar el cliente?")
-        respuesta = self.mensajeborrar.run()
-        #print(respuesta)
-        self.mensajeborrar.hide()
+        tree_iter = None
         
-        if respuesta==-5:
-            seleccion = self.b.get_object("treeview4").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        seleccion = self.b.get_object("treeview4").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if tree_iter!=None:
+            self.mensajeborrar.format_secondary_text("¿Desea eliminar el cliente?")
+            respuesta = self.mensajeborrar.run()
+            #print(respuesta)
+            self.mensajeborrar.hide()
+
+            if respuesta==-5:
                 dni = modelo.get_value(tree_iter,0)
-            
-            try:
-                self.db.execute("DELETE FROM Cliente WHERE Dni=?;",(str(dni),))
-                self.db.commit()
-            except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
-                self.warning.format_secondary_text(str(tipoerror))
-                self.warning.run()
-                self.warning.hide()
-            else:
-                self.info.format_secondary_text("Cliente eliminado correctamente")
-                self.info.run()
-                self.info.hide()
-                
-                self.listadni('dni')
-                self.listaclientes('clientes')
-                self.listaventas('venta')
-                
-                self.b.get_object("lbl_dni_clientes_main").set_text("")
-                self.b.get_object("lbl_nombre_clientes_main").set_text("")
-                self.b.get_object("lbl_apellidos_clientes_main").set_text("")
-                self.b.get_object("lbl_telefono_clientes_main").set_text("")
-                self.b.get_object("lbl_direccion_clientes_main").set_text("")
-                self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
-                self.b.get_object("btn_del_clientes_main").set_sensitive(False)
+
+                try:
+                    self.db.execute("DELETE FROM Cliente WHERE Dni=?;",(str(dni),))
+                    self.db.commit()
+                except (sqlite3.ProgrammingError, ValueError, TypeError)as tipoerror:
+                    self.warning.format_secondary_text(str(tipoerror))
+                    self.warning.run()
+                    self.warning.hide()
+                else:
+                    self.info.format_secondary_text("Cliente eliminado correctamente")
+                    self.info.run()
+                    self.info.hide()
+
+                    self.listadni('dni')
+                    self.listaclientes('clientes')
+                    self.listaventas('venta')
+
+                    self.b.get_object("lbl_dni_clientes_main").set_text("")
+                    self.b.get_object("lbl_nombre_clientes_main").set_text("")
+                    self.b.get_object("lbl_apellidos_clientes_main").set_text("")
+                    self.b.get_object("lbl_telefono_clientes_main").set_text("")
+                    self.b.get_object("lbl_direccion_clientes_main").set_text("")
+                    self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
+                    self.b.get_object("btn_del_clientes_main").set_sensitive(False)
     
     
     
@@ -1360,6 +1395,11 @@ class Concesionario:
             result = self.db.execute("SELECT * FROM Coche WHERE "+campo+" LIKE '%"+busqueda+"%';")
             for row in result:
                 self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+            
+            self.b.get_object("btn_add_venta_main").set_sensitive(False)
+            self.b.get_object("btn_add_revision_main").set_sensitive(False)
+            self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+            self.b.get_object("btn_del_coche_main").set_sensitive(False)
     
     
     
@@ -1385,6 +1425,8 @@ class Concesionario:
             result = self.db.execute("SELECT Dni, Apellidos, Nombre FROM Cliente WHERE "+campo+" LIKE '%"+busqueda+"%';")
             for row in result:
                 self.lista.append([row[0],row[1],row[2]])
+            
+            self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
     
     
     
@@ -1410,6 +1452,8 @@ class Concesionario:
             result = self.db.execute("SELECT Dni, Apellidos, Nombre FROM Cliente WHERE "+campo+" LIKE '%"+busqueda+"%';")
             for row in result:
                 self.lista.append([row[0],row[1],row[2]])
+            
+            self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
     
     
     
@@ -1435,6 +1479,11 @@ class Concesionario:
                 result = self.db.execute("SELECT * FROM Coche WHERE Motor=?;",(motor,))
                 for row in result:
                     self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
             else:
                 marca = self.b.get_object("combo_marca").get_active_text()
                 marca = unicode(marca,"utf-8")
@@ -1444,6 +1493,11 @@ class Concesionario:
                 result = self.db.execute("SELECT * FROM Coche WHERE Motor=? AND Marca=?;",(motor,marca))
                 for row in result:
                     self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
     
     
     
@@ -1462,6 +1516,11 @@ class Concesionario:
                 result = self.db.execute("SELECT * FROM Coche WHERE Marca=?;",(marca,))
                 for row in result:
                     self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
             else:
                 motor = self.b.get_object("combo_motor").get_active_text()
                 motor = unicode(motor,"utf-8")
@@ -1471,6 +1530,11 @@ class Concesionario:
                 result = self.db.execute("SELECT * FROM Coche WHERE Marca=? AND Motor=?;",(marca,motor))
                 for row in result:
                     self.lista.append([row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]])
+                
+                self.b.get_object("btn_add_venta_main").set_sensitive(False)
+                self.b.get_object("btn_add_revision_main").set_sensitive(False)
+                self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+                self.b.get_object("btn_del_coche_main").set_sensitive(False)
     
     
     
@@ -1492,6 +1556,8 @@ class Concesionario:
             result = self.db.execute("SELECT N_Bastidor, Marca, Modelo FROM Coche WHERE "+campo+" LIKE '%"+busqueda+"%';")
             for row in result:
                 self.lista.append([row[0],row[1],row[2]])
+            
+            self.b.get_object("btn_seleccionar_coche").set_sensitive(False)
     
     
     
@@ -1853,13 +1919,23 @@ class Concesionario:
     
     
     
-    def on_boton_coche(self,treeview,evento):
+    def on_treeview1_button_release_event(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:#BOTÓN IZQUIERDO
+        treeiter = None
+        
+        tree_sel = treeview.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        
+        if botonpulsado==1 and treeiter!=None:#BOTÓN IZQUIERDO
             self.b.get_object("btn_add_venta_main").set_sensitive(True)
             self.b.get_object("btn_add_revision_main").set_sensitive(True)
             self.b.get_object("btn_mod_coche_main").set_sensitive(True)
             self.b.get_object("btn_del_coche_main").set_sensitive(True)
+    
+    
+    
+    def on_boton_coche(self,treeview,evento):
+        botonpulsado = evento.button
         
         if botonpulsado == 3: #Botón derecho
             self.menu = gtk.Menu()#Se crea el menú
@@ -1884,14 +1960,24 @@ class Concesionario:
     
     def on_boton_cliente(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
+        treeiter = None
+        
+        tree_sel = treeview.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        
+        if botonpulsado==1 and treeiter!=None:
             self.b.get_object("btn_seleccionar_cliente1").set_sensitive(True)
     
     
     
     def on_treeview7_button_press_event(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
+        treeiter = None
+        
+        tree_sel = treeview.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        
+        if botonpulsado==1 and treeiter!=None:
             self.b.get_object("btn_seleccionar_coche").set_sensitive(True)
     
     
@@ -1951,20 +2037,28 @@ class Concesionario:
     
     def on_boton_cliente2(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
+        treeiter = None
+        
+        tree_sel = treeview.get_selection()
+        (treemodel, treeiter) = tree_sel.get_selected()
+        
+        if botonpulsado==1 and treeiter!=None:
             self.b.get_object("btn_seleccionar_cliente2").set_sensitive(True)
     
     
     
     def on_btn_dni(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
-            seleccion = self.b.get_object("treeview4").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
-                dni = modelo.get_value(tree_iter,0)
-                #print(dni)
+        tree_iter = None
+        
+        seleccion = self.b.get_object("treeview4").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if botonpulsado==1 and tree_iter!=None:
+            dni = modelo.get_value(tree_iter,0)
+            #print(dni)
             
             result = self.db.execute("SELECT * FROM Cliente WHERE Dni=?;",(dni,))
             for row in result:
@@ -1981,13 +2075,16 @@ class Concesionario:
     
     def on_btn_venta(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
-            seleccion = self.b.get_object("treeview3").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
-                bastidor = modelo.get_value(tree_iter, 0)
-                dni = modelo.get_value(tree_iter, 1)
+        tree_iter = None
+        
+        seleccion = self.b.get_object("treeview3").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if botonpulsado==1 and tree_iter!=None:
+            bastidor = modelo.get_value(tree_iter, 0)
+            dni = modelo.get_value(tree_iter, 1)
             
             result = self.db.execute("SELECT v.Fecha,cl.Nombre,cl.Apellidos,cl.Dni,co.Marca || ' ' || co.Modelo AS Coche,v.Precio FROM Venta AS v,Coche AS co,Cliente AS cl WHERE v.N_Bastidor=? AND v.Dni=? AND v.N_Bastidor=co.N_Bastidor AND v.Dni=cl.Dni;",(bastidor,dni))
             for row in result:
@@ -2005,12 +2102,15 @@ class Concesionario:
     
     def on_btn_revision(self,treeview,evento):
         botonpulsado = evento.button
-        if botonpulsado==1:
-            seleccion = self.b.get_object("treeview2").get_selection()
-            (modelo, pathlist) = seleccion.get_selected_rows()
-            for path in pathlist :
-                tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
-                nrevision = modelo.get_value(tree_iter, 0)
+        tree_iter = None
+        
+        seleccion = self.b.get_object("treeview2").get_selection()
+        (modelo, pathlist) = seleccion.get_selected_rows()
+        for path in pathlist :
+            tree_iter = modelo.get_iter(path) #se coge el puntero a la fila
+        
+        if botonpulsado==1 and tree_iter!=None:
+            nrevision = modelo.get_value(tree_iter, 0)
             
             result = self.db.execute("SELECT r.N_Revision,r.Fecha,r.N_Bastidor,c.Marca,c.Modelo,r.Frenos,r.Filtro,r.Aceite,c.Img FROM Revision AS r, Coche AS c WHERE N_Revision=? AND r.N_Bastidor=c.N_Bastidor;",(nrevision,))
             for row in result:

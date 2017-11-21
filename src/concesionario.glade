@@ -81,6 +81,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">17 caracteres, los 3 primeros
+deben ser números</property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -317,6 +319,7 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Salir sin guardar el coche</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_cancelar_add_coche_clicked" swapped="no"/>
           </object>
@@ -333,6 +336,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Guardar el coche con los
+datos introducidos</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_aceptar_add_coche_clicked" swapped="no"/>
           </object>
@@ -363,6 +368,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Seleccionar una imagen guardada
+en el equipo</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_sel_imagen_clicked" swapped="no"/>
           </object>
@@ -669,6 +676,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Salir sin guardar la revisión</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_add_revision_clicked" swapped="no"/>
               </object>
@@ -685,6 +693,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Guarda la revisión con los
+datos introducidos</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_add_revision_clicked" swapped="no"/>
               </object>
@@ -1120,6 +1130,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Salir sin guardar la venta</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_add_venta_clicked" swapped="no"/>
               </object>
@@ -1136,6 +1147,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Guardar la venta con los
+datos introducidos</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_add_venta_clicked" swapped="no"/>
               </object>
@@ -1201,6 +1214,7 @@ Dessarrollo de Interfaces 2DAM</property>
   </object>
   <object class="GtkWindow" id="calendario">
     <property name="can_focus">False</property>
+    <property name="tooltip_text" translatable="yes">Seleccionar la fecha de la venta</property>
     <property name="title" translatable="yes">Calendario</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
@@ -1414,8 +1428,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="model">clientes</property>
-                <signal name="button-press-event" handler="on_SeleccionCliente" swapped="no"/>
                 <signal name="row-activated" handler="on_treeview5_row_activated" swapped="no"/>
+                <signal name="button-release-event" handler="on_SeleccionCliente" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente1">
                     <property name="title" translatable="yes">DNI</property>
@@ -1547,8 +1561,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="model">clientes</property>
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
-                <signal name="button-press-event" handler="on_treeview6_button_press_event" swapped="no"/>
                 <signal name="row-activated" handler="on_treeview6_row_activated" swapped="no"/>
+                <signal name="button-release-event" handler="on_treeview6_button_press_event" swapped="no"/>
                 <child>
                   <object class="GtkTreeViewColumn" id="col_dni_cliente2">
                     <property name="title" translatable="yes">DNI</property>
@@ -1778,6 +1792,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Cargar la imagen seleccionada</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -1792,6 +1807,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Salir sin seleccionar imagen</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -1934,6 +1950,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Modificar solamente el cliente
+de la venta</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_mod_cliente_clicked" swapped="no"/>
               </object>
@@ -1949,6 +1967,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Modificar solamente el coche
+de la venta</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_mod_coche_clicked" swapped="no"/>
               </object>
@@ -2169,6 +2189,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Salir sin modificar el cliente</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_mod_cliente_clicked" swapped="no"/>
               </object>
@@ -2185,6 +2206,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Modificar el cliente con los
+datos introducidos</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_mod_cliente_clicked" swapped="no"/>
               </object>
@@ -2481,6 +2504,7 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Salir si modificar el coche</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_cancelar_mod_coche_clicked" swapped="no"/>
           </object>
@@ -2497,6 +2521,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Modificar el coche con los
+datos introducidos</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_aceptar_mod_coche_clicked" swapped="no"/>
           </object>
@@ -2527,6 +2553,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Seleccionar una imagen guardada
+en el equipo</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_sel_imagen1_clicked" swapped="no"/>
           </object>
@@ -2833,6 +2861,7 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Salir sin modificar la revisión</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_cancelar_mod_revision_clicked" swapped="no"/>
               </object>
@@ -2849,6 +2878,8 @@ Dessarrollo de Interfaces 2DAM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Modifica la revisión con los
+datos introducidos</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_btn_aceptar_mod_revision_clicked" swapped="no"/>
               </object>
@@ -3019,6 +3050,7 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Salir sin modificar la venta</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_cancelar_mod_venta_clicked" swapped="no"/>
           </object>
@@ -3035,6 +3067,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Modificar la venta con los
+datos insertados</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_btn_aceptar_mod_venta_clicked" swapped="no"/>
           </object>
@@ -3098,6 +3132,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Abrir el calendario para seleccionar
+una fecha</property>
             <signal name="clicked" handler="on_abre_calendario_clicked" swapped="no"/>
           </object>
           <packing>
@@ -3470,6 +3506,7 @@ Dessarrollo de Interfaces 2DAM</property>
                         <signal name="button-press-event" handler="on_BotonIzquierdo_Coche" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
                         <signal name="key-press-event" handler="on_treeview1_key_press_event" swapped="no"/>
+                        <signal name="button-release-event" handler="on_treeview1_button_release_event" swapped="no"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="col_bastidor_main">
                             <property name="title" translatable="yes">Nº BASTIDOR</property>
