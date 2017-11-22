@@ -1626,6 +1626,10 @@ class Concesionario:
         self.b.get_object("combo_marca").set_active(-1)
         self.b.get_object("txt_combo_coche_main").set_text("")
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
+        self.b.get_object("btn_add_venta_main").set_sensitive(False)
+        self.b.get_object("btn_add_revision_main").set_sensitive(False)
+        self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+        self.b.get_object("btn_del_coche_main").set_sensitive(False)
         self.listacoches('tabla_coches')
     
     
