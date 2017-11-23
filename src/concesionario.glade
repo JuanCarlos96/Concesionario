@@ -67,6 +67,8 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">17 caracteres, los 3 primeros 
+deben ser números</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Nº BASTIDOR</property>
           </object>
@@ -81,7 +83,7 @@ Dessarrollo de Interfaces 2DAM</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text" translatable="yes">17 caracteres, los 3 primeros
+            <property name="tooltip_text" translatable="yes">17 caracteres, los 3 primeros 
 deben ser números</property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
@@ -131,6 +133,8 @@ deben ser números</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Tipo de combustible que utiliza 
+Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MOTOR</property>
           </object>
@@ -145,6 +149,8 @@ deben ser números</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Tipo de combustible que utiliza 
+Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -224,6 +230,8 @@ deben ser números</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Familia del coche 
+Ej: Turismo, Compacto, Deportivo... </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">TIPO</property>
           </object>
@@ -238,6 +246,8 @@ deben ser números</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Familia del coche 
+Ej: Turismo, Compacto, Deportivo... </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -255,6 +265,8 @@ deben ser números</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Caballos del coche, en caso de 
+ser eléctrico introducir los kWh </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">CV</property>
           </object>
@@ -269,6 +281,8 @@ deben ser números</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Caballos del coche, en caso de 
+ser eléctrico introducir los kWh </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -1348,6 +1362,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Realiza una búsqueda por el campo 
+que haya seleccionado</property>
             <property name="model">comboCliente</property>
             <signal name="changed" handler="on_combo_cliente1_changed" swapped="no"/>
             <child>
@@ -1373,6 +1389,7 @@ datos introducidos</property>
             <property name="secondary_icon_activatable">False</property>
             <property name="primary_icon_sensitive">True</property>
             <property name="secondary_icon_sensitive">True</property>
+            <signal name="key-release-event" handler="on_txt_combo_cliente1_key_release_event" swapped="no"/>
           </object>
           <packing>
             <property name="x">240</property>
@@ -1478,6 +1495,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Realiza una búsqueda por el campo 
+que haya seleccionado</property>
             <property name="model">comboCliente</property>
             <signal name="changed" handler="on_combo_cliente2_changed" swapped="no"/>
             <child>
@@ -1504,6 +1523,7 @@ datos introducidos</property>
             <property name="secondary_icon_activatable">False</property>
             <property name="primary_icon_sensitive">True</property>
             <property name="secondary_icon_sensitive">True</property>
+            <signal name="key-release-event" handler="on_txt_combo_cliente2_key_release_event" swapped="no"/>
           </object>
           <packing>
             <property name="x">116</property>
@@ -1628,6 +1648,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Realiza una búsqueda por el campo 
+que haya seleccionado</property>
             <property name="model">comboCoche2</property>
             <signal name="changed" handler="on_combo_coche2_changed" swapped="no"/>
             <child>
@@ -1654,6 +1676,7 @@ datos introducidos</property>
             <property name="secondary_icon_activatable">False</property>
             <property name="primary_icon_sensitive">True</property>
             <property name="secondary_icon_sensitive">True</property>
+            <signal name="key-release-event" handler="on_txt_combo_coche_key_release_event" swapped="no"/>
           </object>
           <packing>
             <property name="x">116</property>
@@ -3323,6 +3346,8 @@ una fecha</property>
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Realiza una búsqueda de coches 
+a través del tipo de motor (combustible)</property>
                     <property name="model">comboMotor</property>
                     <signal name="changed" handler="on_combo_motor_changed" swapped="no"/>
                     <child>
@@ -3365,6 +3390,7 @@ una fecha</property>
                     <property name="secondary_icon_activatable">False</property>
                     <property name="primary_icon_sensitive">True</property>
                     <property name="secondary_icon_sensitive">True</property>
+                    <signal name="key-release-event" handler="on_txt_combo_coche_main_key_release_event" swapped="no"/>
                   </object>
                   <packing>
                     <property name="x">490</property>
@@ -3462,6 +3488,8 @@ una fecha</property>
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Realiza una búsqueda por el campo 
+que haya seleccionado</property>
                     <property name="model">buscatipocoche</property>
                     <signal name="changed" handler="on_combo_coche_changed" swapped="no"/>
                     <child>
@@ -3502,6 +3530,10 @@ una fecha</property>
                         <property name="height_request">352</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Pulse el botón derecho del ratón 
+para introducir un nuevo coche 
+o modificar/eliminar el coche 
+seleccionado</property>
                         <property name="model">tabla_coches</property>
                         <signal name="button-press-event" handler="on_BotonIzquierdo_Coche" swapped="no"/>
                         <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
@@ -3565,7 +3597,7 @@ una fecha</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="btnReiniciarBusqueda">
-                    <property name="label" translatable="yes">Reiniciar Búsqueda</property>
+                    <property name="label" translatable="yes">Reiniciar _Búsqueda</property>
                     <property name="width_request">120</property>
                     <property name="height_request">24</property>
                     <property name="visible">True</property>
@@ -3573,6 +3605,7 @@ una fecha</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Limpia los filtros de búsqueda
 y vuelve a listar todos los coches</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_btnReiniciarBusqueda_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -3586,6 +3619,8 @@ y vuelve a listar todos los coches</property>
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Realiza una búsqueda de coches 
+a través de la marca</property>
                     <property name="model">comboMarca</property>
                     <signal name="changed" handler="on_combo_marca_changed" swapped="no"/>
                     <child>
@@ -3881,6 +3916,9 @@ y vuelve a listar todos los coches</property>
                         <property name="height_request">300</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Pulse el botón derecho para 
+modificar o eliminar la revisión 
+seleccionada</property>
                         <property name="model">revisiones</property>
                         <signal name="button-press-event" handler="on_treeview2_button_press_event" swapped="no"/>
                         <signal name="button-release-event" handler="on_btn_revision" swapped="no"/>
@@ -4168,6 +4206,9 @@ y vuelve a listar todos los coches</property>
                         <property name="height_request">300</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Pulse el botón derecho para 
+modificar o eliminar la venta 
+seleccionada</property>
                         <property name="model">venta</property>
                         <property name="search_column">0</property>
                         <signal name="button-press-event" handler="on_treeview3_button_press_event" swapped="no"/>
@@ -4398,6 +4439,9 @@ y vuelve a listar todos los coches</property>
                         <property name="height_request">300</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Pulse el botón derecho para 
+modificar o eliminar el cliente 
+seleccionado</property>
                         <property name="model">dni</property>
                         <property name="search_column">0</property>
                         <signal name="button-press-event" handler="on_treeview4_button_press_event" swapped="no"/>

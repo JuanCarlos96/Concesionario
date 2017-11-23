@@ -110,7 +110,11 @@ class Concesionario:
         "on_treeview4_key_press_event" : self.on_treeview4_key_press_event,
         "on_btn_sel_imagen_clicked" : self.on_btn_sel_imagen_clicked,
         "on_btn_sel_imagen1_clicked" : self.on_btn_sel_imagen1_clicked,
-        "on_treeview1_button_release_event" : self.on_treeview1_button_release_event})
+        "on_treeview1_button_release_event" : self.on_treeview1_button_release_event,
+        "on_txt_combo_coche_main_key_release_event" : self.on_txt_combo_coche_main_key_release_event,
+        "on_txt_combo_cliente1_key_release_event" : self.on_txt_combo_cliente1_key_release_event,
+        "on_txt_combo_cliente2_key_release_event" : self.on_txt_combo_cliente2_key_release_event,
+        "on_txt_combo_coche_key_release_event" : self.on_txt_combo_coche_key_release_event})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -139,6 +143,7 @@ class Concesionario:
         self.info = self.b.get_object("info")
         self.mensajeborrar = self.b.get_object("mensajeborrar")
         
+        self.b.get_object("txt_combo_coche_main").set_editable(False)
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_buscar_coche").set_sensitive(False)
         self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
@@ -199,6 +204,7 @@ class Concesionario:
         
         self.b.get_object("combo_cliente1").set_active(-1)
         self.b.get_object("txt_combo_cliente1").set_text("")
+        self.b.get_object("txt_combo_cliente1").set_editable(False)
         self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
         self.b.get_object("buscar_cliente_add_venta").show()
@@ -209,6 +215,7 @@ class Concesionario:
     def buscar_cliente2(self,w):#BOTON DE BUSCAR DNI EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE CLIENTE PARA MODIFICAR UNA VENTA
         self.b.get_object("combo_cliente2").set_active(-1)
         self.b.get_object("txt_combo_cliente2").set_text("")
+        self.b.get_object("txt_combo_cliente2").set_editable(False)
         self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
         self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
         self.b.get_object("buscar_cliente_mod_venta").show()
@@ -219,6 +226,7 @@ class Concesionario:
     def buscar_bastidor(self,w):#BOTON DE BUSCAR BASTIDOR EN LA VENTANA DE MODIFICAR VENTA, ABRE LA VENTANA DE SELECCION DE COCHE PARA MODIFICAR UNA VENTA
         self.b.get_object("combo_coche2").set_active(-1)
         self.b.get_object("txt_combo_coche").set_text("")
+        self.b.get_object("txt_combo_coche").set_editable(False)
         self.b.get_object("btn_buscar_coche").set_sensitive(False)
         self.b.get_object("btn_seleccionar_coche").set_sensitive(False)
         self.b.get_object("buscar_coche_mod_venta").show()
@@ -1373,6 +1381,7 @@ class Concesionario:
     def combo_coche_changed(self,combo):
         index = combo.get_active()
         if index!=-1:
+            self.b.get_object("txt_combo_coche_main").set_editable(True)
             self.b.get_object("btn_buscar_coche_main").set_sensitive(True)
     
     
@@ -1406,6 +1415,7 @@ class Concesionario:
     def on_combo_cliente1_changed(self,combo):
         index = combo.get_active()
         if index!=-1:
+            self.b.get_object("txt_combo_cliente1").set_editable(True)
             self.b.get_object("btn_buscar_cliente1").set_sensitive(True)
     
     
@@ -1433,6 +1443,7 @@ class Concesionario:
     def on_combo_cliente2_changed(self,combo):
         index = combo.get_active()
         if index!=-1:
+            self.b.get_object("txt_combo_cliente2").set_editable(True)
             self.b.get_object("btn_buscar_cliente2").set_sensitive(True)
     
     
@@ -1460,6 +1471,7 @@ class Concesionario:
     def on_combo_coche2_changed(self,combo):
         index = combo.get_active()
         if index!=-1:
+            self.b.get_object("txt_combo_coche").set_editable(True)
             self.b.get_object("btn_buscar_coche").set_sensitive(True)
     
     
@@ -1624,6 +1636,7 @@ class Concesionario:
         self.b.get_object("combo_coche").set_active(-1)
         self.b.get_object("combo_motor").set_active(-1)
         self.b.get_object("combo_marca").set_active(-1)
+        self.b.get_object("txt_combo_coche_main").set_editable(False)
         self.b.get_object("txt_combo_coche_main").set_text("")
         self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
         self.b.get_object("btn_add_venta_main").set_sensitive(False)
@@ -1776,6 +1789,35 @@ class Concesionario:
     
     
     
+    def on_txt_combo_coche_main_key_release_event(self, w, event):
+        #print(event.keyval)
+        tecla = event.keyval
+        if tecla==65293:
+            self.busca_coche_tipo("txt_combo_coche_main")
+    
+    
+    
+    def on_txt_combo_cliente1_key_release_event(self, w, event):
+        tecla = event.keyval
+        if tecla==65293:
+            self.on_btn_buscar_cliente1_clicked("txt_combo_cliente1")
+    
+    
+
+    def on_txt_combo_cliente2_key_release_event(self, w, event):
+        tecla = event.keyval
+        if tecla==65293:
+            self.on_btn_buscar_cliente2_clicked("txt_combo_cliente2")
+    
+    
+    
+    def on_txt_combo_coche_key_release_event(self, w, event):
+        tecla = event.keyval
+        if tecla==65293:
+            self.on_btn_buscar_coche_clicked("txt_combo_coche")
+    
+    
+    
     def on_destroy(self, w, *signals):
         # return True --> no cierra
         # return False --> cierra
@@ -1799,56 +1841,63 @@ class Concesionario:
     
     
     def reiniciar_bbdd(self,w):
-        self.con.crear_esquema("reinicia")
-        self.listacoches('tabla_coches')
-        self.listarevisiones('revisiones')
-        self.listaventas('venta')
-        self.listadni('dni')
-        self.listacoches2('coches')
-        self.listaclientes('clientes')
-        #COMBOBOX
-        self.b.get_object("combo_coche").set_active(-1)
-        #CAJAS DE TEXTO
-        self.b.get_object("txt_combo_coche_main").set_text("")
-        #BOTONES
-        self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
-        self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
-        self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
-        self.b.get_object("btn_buscar_coche").set_sensitive(False)
-        self.b.get_object("btn_add_venta_main").set_sensitive(False)
-        self.b.get_object("btn_add_revision_main").set_sensitive(False)
-        self.b.get_object("btn_mod_coche_main").set_sensitive(False)
-        self.b.get_object("btn_del_coche_main").set_sensitive(False)
-        self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
-        self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
-        self.b.get_object("btn_mod_revision_main").set_sensitive(False)
-        self.b.get_object("btn_del_revision_main").set_sensitive(False)
-        self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
-        self.b.get_object("btn_del_clientes_main").set_sensitive(False)
-        self.b.get_object("btn_mod_venta_main").set_sensitive(False)
-        self.b.get_object("btn_del_venta_main").set_sensitive(False)
-        #ETIQUETAS DE LA PESTAÑA REVISIONES
-        self.b.get_object("lbl_numero_revision_main").set_text("")
-        self.b.get_object("lbl_fecha_revision_main").set_text("")
-        self.b.get_object("lbl_bastidor_revision_main").set_text("")
-        self.b.get_object("lbl_marca_revision_main").set_text("")
-        self.b.get_object("lbl_modelo_revision_main").set_text("")
-        self.b.get_object("lbl_frenos_revision_main").set_text("")
-        self.b.get_object("lbl_filtro_revision_main").set_text("")
-        self.b.get_object("lbl_aceite_revision_main").set_text("")
-        #ETIQUETAS DE LA PESTAÑA CLIENTES
-        self.b.get_object("lbl_dni_clientes_main").set_text("")
-        self.b.get_object("lbl_nombre_clientes_main").set_text("")
-        self.b.get_object("lbl_apellidos_clientes_main").set_text("")
-        self.b.get_object("lbl_telefono_clientes_main").set_text("")
-        self.b.get_object("lbl_direccion_clientes_main").set_text("")
-        #ETIQUETAS DE LA PESTAÑA VENTAS
-        self.b.get_object("lbl_fecha_venta_main").set_text("")
-        self.b.get_object("lbl_nombre_ventas_main").set_text("")
-        self.b.get_object("lbl_apellidos_ventas_main").set_text("")
-        self.b.get_object("lbl_dni_ventas_main").set_text("")
-        self.b.get_object("lbl_coche_ventas_main").set_text("")
-        self.b.get_object("lbl_precio_ventas_main").set_text("")
+        self.mensajeborrar.format_secondary_text("¿Desea reiniciar la base de datos?")
+        respuesta = self.mensajeborrar.run()
+        #print(respuesta)
+        self.mensajeborrar.hide()
+
+        if respuesta==-5:
+            self.con.crear_esquema("reinicia")
+            self.listacoches('tabla_coches')
+            self.listarevisiones('revisiones')
+            self.listaventas('venta')
+            self.listadni('dni')
+            self.listacoches2('coches')
+            self.listaclientes('clientes')
+            #COMBOBOX
+            self.b.get_object("combo_coche").set_active(-1)
+            #CAJAS DE TEXTO
+            self.b.get_object("txt_combo_coche_main").set_editable(False)
+            self.b.get_object("txt_combo_coche_main").set_text("")
+            #BOTONES
+            self.b.get_object("btn_buscar_cliente1").set_sensitive(False)
+            self.b.get_object("btn_buscar_cliente2").set_sensitive(False)
+            self.b.get_object("btn_buscar_coche_main").set_sensitive(False)
+            self.b.get_object("btn_buscar_coche").set_sensitive(False)
+            self.b.get_object("btn_add_venta_main").set_sensitive(False)
+            self.b.get_object("btn_add_revision_main").set_sensitive(False)
+            self.b.get_object("btn_mod_coche_main").set_sensitive(False)
+            self.b.get_object("btn_del_coche_main").set_sensitive(False)
+            self.b.get_object("btn_seleccionar_cliente1").set_sensitive(False)
+            self.b.get_object("btn_seleccionar_cliente2").set_sensitive(False)
+            self.b.get_object("btn_mod_revision_main").set_sensitive(False)
+            self.b.get_object("btn_del_revision_main").set_sensitive(False)
+            self.b.get_object("btn_mod_clientes_main").set_sensitive(False)
+            self.b.get_object("btn_del_clientes_main").set_sensitive(False)
+            self.b.get_object("btn_mod_venta_main").set_sensitive(False)
+            self.b.get_object("btn_del_venta_main").set_sensitive(False)
+            #ETIQUETAS DE LA PESTAÑA REVISIONES
+            self.b.get_object("lbl_numero_revision_main").set_text("")
+            self.b.get_object("lbl_fecha_revision_main").set_text("")
+            self.b.get_object("lbl_bastidor_revision_main").set_text("")
+            self.b.get_object("lbl_marca_revision_main").set_text("")
+            self.b.get_object("lbl_modelo_revision_main").set_text("")
+            self.b.get_object("lbl_frenos_revision_main").set_text("")
+            self.b.get_object("lbl_filtro_revision_main").set_text("")
+            self.b.get_object("lbl_aceite_revision_main").set_text("")
+            #ETIQUETAS DE LA PESTAÑA CLIENTES
+            self.b.get_object("lbl_dni_clientes_main").set_text("")
+            self.b.get_object("lbl_nombre_clientes_main").set_text("")
+            self.b.get_object("lbl_apellidos_clientes_main").set_text("")
+            self.b.get_object("lbl_telefono_clientes_main").set_text("")
+            self.b.get_object("lbl_direccion_clientes_main").set_text("")
+            #ETIQUETAS DE LA PESTAÑA VENTAS
+            self.b.get_object("lbl_fecha_venta_main").set_text("")
+            self.b.get_object("lbl_nombre_ventas_main").set_text("")
+            self.b.get_object("lbl_apellidos_ventas_main").set_text("")
+            self.b.get_object("lbl_dni_ventas_main").set_text("")
+            self.b.get_object("lbl_coche_ventas_main").set_text("")
+            self.b.get_object("lbl_precio_ventas_main").set_text("")
     
     
     
@@ -2147,6 +2196,7 @@ class Concesionario:
         self.b.get_object("btn_del_clientes_main").set_sensitive(False)
         self.b.get_object("btn_mod_venta_main").set_sensitive(False)
         self.b.get_object("btn_del_venta_main").set_sensitive(False)
+        self.b.get_object("txt_combo_coche_main").set_editable(False)
         #ETIQUETAS DE LA PESTAÑA REVISIONES
         self.b.get_object("lbl_numero_revision_main").set_text("")
         self.b.get_object("lbl_fecha_revision_main").set_text("")
