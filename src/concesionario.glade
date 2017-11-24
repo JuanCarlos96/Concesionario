@@ -20,7 +20,7 @@
             <property name="can_focus">False</property>
             <property name="xalign">0</property>
             <property name="yalign">0</property>
-            <property name="label" translatable="yes">Concesionario 1.0
+            <property name="label" translatable="yes">Concesionario 1.1.4
 Juan Carlos Expósito Romero
 Dessarrollo de Interfaces 2DAM</property>
           </object>
@@ -102,6 +102,7 @@ deben ser números</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Modelo del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MODELO</property>
           </object>
@@ -116,6 +117,7 @@ deben ser números</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Modelo del coche </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -168,6 +170,7 @@ Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Color del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">COLOR</property>
           </object>
@@ -182,6 +185,7 @@ Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Color del coche </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -199,6 +203,7 @@ Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Marca del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MARCA</property>
           </object>
@@ -213,6 +218,7 @@ Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Marca del coche </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -300,6 +306,7 @@ ser eléctrico introducir los kWh </property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Precio del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">PRECIO</property>
           </object>
@@ -314,6 +321,7 @@ ser eléctrico introducir los kWh </property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Precio del coche </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -645,6 +653,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleccionar si se ha hecho la 
+revisión de frenos</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -660,6 +670,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleccionar si se ha hecho el 
+cambio de aceite</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -675,6 +687,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleccionar si se ha hecho el 
+cambio de filtro</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -799,6 +813,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Nombre del cliente </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">NOMBRE</property>
                       </object>
@@ -813,6 +828,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Nombre del cliente </property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
@@ -831,6 +847,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">DNI del cliente </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">DNI</property>
                       </object>
@@ -845,6 +862,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">DNI del cliente </property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
@@ -863,6 +881,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Apellidos del cliente </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">APELLIDOS</property>
                       </object>
@@ -877,6 +896,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Apellidos del cliente </property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
@@ -895,6 +915,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Teléfono del cliente </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">TELÉFONO</property>
                       </object>
@@ -909,6 +930,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Teléfono del cliente </property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
@@ -927,6 +949,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Dirección del domicilio del cliente </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">DIRECCIÓN</property>
                       </object>
@@ -941,6 +964,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Dirección del domicilio del cliente </property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
@@ -993,6 +1017,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Marca del coche </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">MARCA</property>
                       </object>
@@ -1007,6 +1032,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Bastidor del coche </property>
                         <property name="editable">False</property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
@@ -1026,6 +1052,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Modelo del coche </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">MODELO</property>
                       </object>
@@ -1040,6 +1067,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Modelo del coche </property>
                         <property name="editable">False</property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
@@ -1059,6 +1087,7 @@ datos introducidos</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Bastidor del coche </property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">BASTIDOR</property>
                       </object>
@@ -1073,6 +1102,7 @@ datos introducidos</property>
                         <property name="height_request">24</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Marca del coche </property>
                         <property name="editable">False</property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
@@ -1264,6 +1294,7 @@ datos introducidos</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Carga la fecha seleccionada en el calendario </property>
                 <signal name="clicked" handler="on_seleccionar_fecha_clicked" swapped="no"/>
               </object>
             </child>
@@ -1384,6 +1415,8 @@ que haya seleccionado</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">La búsqueda se realizará por la
+palabra que se haya introducido aquí </property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
@@ -1444,6 +1477,8 @@ que haya seleccionado</property>
                 <property name="height_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Doble click o Intro para cargar 
+el cliente seleccionado</property>
                 <property name="model">clientes</property>
                 <signal name="row-activated" handler="on_treeview5_row_activated" swapped="no"/>
                 <signal name="button-release-event" handler="on_SeleccionCliente" swapped="no"/>
@@ -1517,6 +1552,8 @@ que haya seleccionado</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">La búsqueda se realizará por la
+palabra que se haya introducido aquí </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -1578,6 +1615,8 @@ que haya seleccionado</property>
                 <property name="height_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Doble click o Intro para cargar 
+el cliente seleccionado</property>
                 <property name="model">clientes</property>
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
@@ -1670,6 +1709,8 @@ que haya seleccionado</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">La búsqueda se realizará por la
+palabra que se haya introducido aquí </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -1731,6 +1772,8 @@ que haya seleccionado</property>
                 <property name="height_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Doble click o Intro para cargar 
+el coche seleccionado</property>
                 <property name="model">coches</property>
                 <property name="headers_clickable">False</property>
                 <property name="search_column">0</property>
@@ -1860,6 +1903,16 @@ que haya seleccionado</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-help</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-help</property>
   </object>
   <object class="GtkMessageDialog" id="info">
     <property name="can_focus">False</property>
@@ -2038,6 +2091,7 @@ de la venta</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Nombre del cliente </property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">NOMBRE</property>
               </object>
@@ -2052,6 +2106,7 @@ de la venta</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Nombre del cliente </property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="primary_icon_activatable">False</property>
@@ -2070,6 +2125,7 @@ de la venta</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">DNI del cliente </property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">DNI</property>
               </object>
@@ -2084,6 +2140,7 @@ de la venta</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">DNI del cliente </property>
                 <property name="editable">False</property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
@@ -2103,6 +2160,7 @@ de la venta</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Apellidos del cliente </property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">APELLIDOS</property>
               </object>
@@ -2117,6 +2175,7 @@ de la venta</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Apellidos del cliente </property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="primary_icon_activatable">False</property>
@@ -2135,6 +2194,7 @@ de la venta</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Teléfono del cliente </property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">TELÉFONO</property>
               </object>
@@ -2149,6 +2209,7 @@ de la venta</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Teléfono del cliente </property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="primary_icon_activatable">False</property>
@@ -2167,6 +2228,7 @@ de la venta</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Dirección del domicilio del cliente </property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">DIRECCIÓN</property>
               </object>
@@ -2181,6 +2243,7 @@ de la venta</property>
                 <property name="height_request">24</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Dirección del domicilio del cliente </property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="primary_icon_activatable">False</property>
@@ -2268,6 +2331,7 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Bastidor del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Nº BASTIDOR</property>
           </object>
@@ -2282,6 +2346,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Bastidor del coche </property>
             <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
@@ -2301,6 +2366,7 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Modelo del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MODELO</property>
           </object>
@@ -2315,6 +2381,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Modelo del coche </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2333,6 +2400,8 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Tipo de combustible que utiliza 
+Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MOTOR</property>
           </object>
@@ -2347,6 +2416,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Tipo de combustible que utiliza 
+Ej: Gasolina, Diesel, Híbrido...</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2365,6 +2436,7 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Color del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">COLOR</property>
           </object>
@@ -2379,6 +2451,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Color del coche </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2397,6 +2470,7 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Marca del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">MARCA</property>
           </object>
@@ -2411,6 +2485,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Marca del coche </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2429,6 +2504,8 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Familia del coche 
+Ej: Turismo, Compacto, Deportivo... </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">TIPO</property>
           </object>
@@ -2443,6 +2520,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Familia del coche 
+Ej: Turismo, Compacto, Deportivo... </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2461,6 +2540,8 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Caballos del coche, en caso de 
+ser eléctrico introducir los kWh </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">CV</property>
           </object>
@@ -2475,6 +2556,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Caballos del coche, en caso de 
+ser eléctrico introducir los kWh </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -2493,6 +2576,7 @@ datos introducidos</property>
             <property name="height_request">20</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Precio del coche </property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">PRECIO</property>
           </object>
@@ -2507,6 +2591,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Precio del coche </property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -3228,7 +3313,7 @@ una fecha</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="Reiniciar _BBDD">
+                      <object class="GtkImageMenuItem" id="reiniciar">
                         <property name="label">Reiniciar _BBDD</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -3246,7 +3331,7 @@ una fecha</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="_Salir">
+                      <object class="GtkImageMenuItem" id="quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -3271,7 +3356,7 @@ una fecha</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="Acerca _de">
+                      <object class="GtkImageMenuItem" id="about">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -3279,6 +3364,17 @@ una fecha</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_Acerca_de_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="manual">
+                        <property name="label" translatable="yes">_Manual de usuario</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Abrir el manual de usuario </property>
+                        <property name="use_underline">True</property>
+                        <property name="image">image6</property>
+                        <property name="use_stock">False</property>
                       </object>
                     </child>
                   </object>
