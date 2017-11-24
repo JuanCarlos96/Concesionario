@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #vim: set encoding=utf-8
 from basededatos import *
-import sys
+import sys,os
 import time
 try:
     import pygtk
@@ -114,7 +114,8 @@ class Concesionario:
         "on_txt_combo_coche_main_key_release_event" : self.on_txt_combo_coche_main_key_release_event,
         "on_txt_combo_cliente1_key_release_event" : self.on_txt_combo_cliente1_key_release_event,
         "on_txt_combo_cliente2_key_release_event" : self.on_txt_combo_cliente2_key_release_event,
-        "on_txt_combo_coche_key_release_event" : self.on_txt_combo_coche_key_release_event})
+        "on_txt_combo_coche_key_release_event" : self.on_txt_combo_coche_key_release_event,
+        "on_manual_activate" : self.on_manual_activate})
         
         self.inicializalistado('treeview1')
         self.listacoches('tabla_coches')
@@ -1815,6 +1816,15 @@ class Concesionario:
         tecla = event.keyval
         if tecla==65293:
             self.on_btn_buscar_coche_clicked("txt_combo_coche")
+    
+    
+    
+    def on_manual_activate(self,w):
+        manual="MANUAL.pdf" #ha de estar en la misma carpeta del proyecto
+        if (sys.platform=="linux"):
+            subprocess.call(["xdg-open", manual])
+        else: #si win32 o win64
+            os.startfile(manual)
     
     
     

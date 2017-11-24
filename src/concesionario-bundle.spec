@@ -17,7 +17,8 @@ a = Analysis(['__init__.py','concesionario.py'],
 			 
 pyz = PYZ(a.pure, a.zipped_data,cipher=block_cipher)
 
-#Se incluyen ficheros externos 			 
+#Se incluyen ficheros externos
+a.datas += [('MANUAL.pdf', 'MANUAL.pdf', 'DATA')] 			 
 a.datas += [('concesionario.glade', 'concesionario.glade', 'DATA')]
 a.datas += [('concesionario.db', 'concesionario.db', 'DATA')]
 a.datas += [('cliente.ico', 'cliente.ico', 'DATA')]

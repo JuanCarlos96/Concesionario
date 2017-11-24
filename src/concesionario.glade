@@ -2924,6 +2924,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleccionar si se ha realizado 
+la revisión de frenos</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2939,6 +2941,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleccionar si se ha cambiado 
+el aceite</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2954,6 +2958,8 @@ en el equipo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Seleecionar si se ha cambiado 
+el filtro</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -3039,6 +3045,7 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Fecha de la venta </property>
             <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
@@ -3072,6 +3079,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">DNI del cliente que ha realizado 
+la venta</property>
             <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
@@ -3105,6 +3114,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Bastidor del coche que se ha 
+vendido</property>
             <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
@@ -3138,6 +3149,8 @@ datos introducidos</property>
             <property name="height_request">24</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Precio del coche que se ha 
+vendido</property>
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_activatable">False</property>
@@ -3375,6 +3388,7 @@ una fecha</property>
                         <property name="use_underline">True</property>
                         <property name="image">image6</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_manual_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>
