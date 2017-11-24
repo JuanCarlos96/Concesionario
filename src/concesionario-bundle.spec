@@ -4,7 +4,7 @@ block_cipher = None
 
 #Esto analizará los ficheros que se le indican para ver las dependencias y coger los DLL y PYD necesarios
 a = Analysis(['__init__.py','concesionario.py'],
-             pathex=['C:\\Users\\almc\\Documents\\NetBeansProjects\\Concesionario_v2\\src'], #Directorio de trabajo (CAMBIAR)
+             pathex=['D:\Juan Carlos\Documents\NetBeansProjects\Concesionario\src'], #Directorio de trabajo (CAMBIAR)
              binaries=None, #Inicializa todo lo que va dentro del EXE (Librerías, etc..)
              datas=None, #Inicializa
              hiddenimports=[],
@@ -40,7 +40,7 @@ exe = EXE(pyz,
           debug=False,
           strip=None,
           upx=True,
-          console=True, #Se puede poner a True/False
+          console=False, #Se puede poner a True/False
 		  icon=['coche.ico']
 		  )
 		  
